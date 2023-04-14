@@ -1,0 +1,17 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+tidySpatialExperiment.Rproj
+README_cache/*
+vignettes/introduction_cache*
+tidySpatialExperiment.Rproj
+Meta
+doc
+dev/*csv
+dev/*rds
+dev/*rda
+dev/*pdf
+dev/dplyr-master/*
+tidySpatialExperiment.Rproj
+tidySpatialExperiment.Rproj
