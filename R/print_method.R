@@ -129,7 +129,7 @@ NULL
 
 #' @rdname print
 #' @importFrom cli cat_line
-#' @importFrom SpatialExperiment counts
+#' @importFrom SingleCellExperiment counts
 #' @importFrom vctrs new_data_frame
 #' @export
 print.SpatialExperiment <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {

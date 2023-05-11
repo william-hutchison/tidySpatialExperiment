@@ -130,22 +130,23 @@ bind_rows.default <- function(..., .id=NULL, add.cell.ids=NULL) {
 #' @importFrom rlang dots_values
 #' @importFrom rlang flatten_if
 #' @importFrom rlang is_spliced
-#' @importFrom SpatialExperiment cbind
+#' @importFrom SingleCellExperiment cbind
 #'
 #' @export
 #'
-bind_rows.SpatialExperiment <- function(..., .id=NULL, add.cell.ids=NULL) {
-    tts <- flatten_if(dots_values(...), is_spliced)
-
-    new_obj <- SpatialExperiment::cbind(tts[[1]], tts[[2]])
-
-    # If duplicated cell names
-    if(new_obj %>% colnames %>% duplicated %>% which %>% length %>% gt(0))
-        warning("tidySpatialExperiment says: you have duplicated cell names, they will be made unique.")
-    colnames(new_obj) <- make.unique(colnames(new_obj), sep="_")
-
-    new_obj
+bind_rows.SingleCellExperiment <- function(..., .id=NULL, add.cell.ids=NULL) {
+  tts <- flatten_if(dots_values(...), is_spliced)
+  
+  new_obj <- SingleCellExperiment::cbind(tts[[1]], tts[[2]])
+  
+  # If duplicated cell names
+  if(new_obj %>% colnames %>% duplicated %>% which %>% length %>% gt(0))
+    warning("tidySpatialExperiment says: you have duplicated cell names, they will be made unique.")
+  colnames(new_obj) <- make.unique(colnames(new_obj), sep="_")
+  
+  new_obj
 }
+
 
 
 # Internal of bind_cols

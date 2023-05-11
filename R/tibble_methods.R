@@ -76,6 +76,7 @@ as_tibble.SpatialExperiment <- function(x, ...,
     colData(x) %>%
         as.data.frame() %>%
         tibble::as_tibble(rownames=c_(x)$name) %>%
+      right_join(x %>% spatialCoords() %>% tibble::as_tibble(rownames = ".cell"), by = ".cell") %>%
 
 
         # Attach reduced dimensions
