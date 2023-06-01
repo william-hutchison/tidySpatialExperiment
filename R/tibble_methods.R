@@ -73,11 +73,23 @@ NULL
 as_tibble.SpatialExperiment <- function(x, ...,
     .name_repair=c("check_unique", "unique", "universal", "minimal"),
     rownames=pkgconfig::get_config("tibble::rownames", NULL)) {
-    colData(x) %>%
-        as.data.frame() %>%
-        tibble::as_tibble(rownames=c_(x)$name) %>%
-      right_join(x %>% spatialCoords() %>% tibble::as_tibble(rownames = ".cell"), by = ".cell") %>%
-
+    
+    # Extract cell metadata
+    x_col_data <- 
+      x %>%
+      colData()
+    
+    # Add cell label column to cell metadata from SpatialExperiment column names
+    x_col_data[c_(x)$name] <- 
+      colnames(x)
+    
+    # Convert to tibble
+    x_col_data %>% 
+      tibble::as_tibble() %>%
+      dplyr::relocate(c_(x)$name) %>%
+      
+      # Add spatial coordinate information to cell metadata
+      left_join(x %>% spatialCoords() %>% tibble::as_tibble(rownames = c_(x)$name), by = c_(x)$name, multiple = "first") %>%
 
         # Attach reduced dimensions
         when(
