@@ -1228,9 +1228,7 @@ sample_n.SpatialExperiment <- function(tbl, size, replace=FALSE,
     # If repeated cells
     if(count_cells$n %>% max() %>% gt(1)){
         message("tidySpatialExperiment says: When sampling with replacement a data frame is returned for independent data analysis.")
-        tbl %>%
-            as_tibble() %>%
-            right_join(new_meta %>% select(!!c_(tbl)$symbol),  by = c_(tbl)$name)
+        new_meta
     }  else{
         new_obj = tbl[,  new_meta %>% pull(!!c_(tbl)$symbol)]
         new_obj
