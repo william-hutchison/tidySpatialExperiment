@@ -579,7 +579,7 @@ NULL
 #' @importFrom dplyr mutate
 #' @importFrom rlang enquos
 #' @importFrom SummarizedExperiment colData
-#' @importFrom SummarizedExperiment colData<-
+#' @importFrom SummarizedExperiment colData
 #'
 #' @export
 mutate.SpatialExperiment <- function(.data, ...) {
@@ -1160,7 +1160,6 @@ select.SpatialExperiment <- function(.data, ...) {
         )
 }
 
-
 #' Sample n rows from a table
 #'
 #' @importFrom dplyr sample_n
@@ -1220,14 +1219,13 @@ sample_n.SpatialExperiment <- function(tbl, size, replace=FALSE,
     weight=NULL, .env=NULL, ...) {
     lifecycle::signal_superseded("1.0.0", "sample_n()", "slice_sample()")
 
-    new_meta = colData(tbl) %>%
-        as.data.frame() %>%
-        as_tibble(rownames = c_(tbl)$name) %>%
+    new_meta = tbl %>%
+        as_tibble() %>%
         dplyr::sample_n( size, replace = replace, weight = weight, .env = .env, ...)
 
     count_cells = new_meta %>% select(!!c_(tbl)$symbol) %>% count(!!c_(tbl)$symbol)
 
-    # If repeted cells
+    # If repeated cells
     if(count_cells$n %>% max() %>% gt(1)){
         message("tidySpatialExperiment says: When sampling with replacement a data frame is returned for independent data analysis.")
         tbl %>%
@@ -1238,9 +1236,6 @@ sample_n.SpatialExperiment <- function(tbl, size, replace=FALSE,
         new_obj
     }
 }
-
-
-
 
 
 #' @importFrom dplyr sample_frac
