@@ -101,21 +101,10 @@ test_that("rename", {
 test_that("left_join", {
     spe %>%
         left_join(spe %>%
-              distinct(sample_id) %>%
               mutate(new_column = 1:2)) %>%
         ncol() %>%
         expect_equal(8)
 })
-
-debug(as_tibble)
-undebug(as_tibble)
-debugonce(inner_join)
-
-spe %>%
-    inner_join(spe %>%
-         distinct(sample_id) %>%
-         mutate(new_column = 1:2) %>%
-         slice(1), by = "sample_id")
 
 test_that("inner_join", {
     pbmc_small %>%
@@ -167,26 +156,31 @@ test_that("select", {
 })
 
 test_that("sample_n", {
+  
+  set.seed(1)
+  
     spe %>%
         sample_n(1) %>%
         ncol() %>%
         expect_equal(1)
     
     spe %>%
-        sample_n(40, replace = TRUE) %>%
+        sample_n(200, replace = TRUE) %>%
         nrow() %>%
-        expect_equal(40)
+        expect_equal(200)
 })
 
-
-
 test_that("sample_frac", {
-    pbmc_small %>%
-        sample_frac(0.1) %>%
-        ncol() %>%
-        expect_equal(8)
-
-    expect_equal(   pbmc_small %>% sample_frac(10, replace = TRUE) %>% ncol,   31  )
+  set.seed(1)
+  spe %>%
+    sample_frac(0.01) %>%
+    ncol() %>%
+    expect_equal(1)
+  
+  spe %>%
+    sample_frac(2, replace = TRUE) %>%
+    nrow() %>%
+    expect_equal(392)
 })
 
 test_that("count", {
