@@ -3,44 +3,34 @@ context("dplyr test")
 library(magrittr)
 
 test_that("arrange", {
-    tt_pca_aranged <-
-        pbmc_small %>%
-        arrange(groups) %>%
-        scater::logNormCounts() %>%
-        scater::runPCA()
-
-    tt_pca <-
-        pbmc_small %>%
-        scater::logNormCounts() %>%
-        scater::runPCA()
-
-    expect_equal(
-        reducedDims(tt_pca_aranged)$PCA[sort(colnames(tt_pca_aranged)), 1:3] %>% abs() %>% head(),
-        reducedDims(tt_pca_aranged)$PCA[sort(colnames(tt_pca_aranged)), 1:3] %>% abs() %>% head(),
-        tollerance = 1e-3
-    )
+    spe_arranged <-
+        spe %>%
+        arrange(array_row) %>% 
+        colData()
+      
+    spe_arranged[1, 2] %>% 
+        expect_equal(0)
+    
+    spe_arranged[99, 2] %>% 
+        expect_equal(73)
 })
 
 test_that("bind_rows", {
-    tt_bind <- bind_rows(pbmc_small, pbmc_small)
-
-    tt_bind %>%
-        select(cell) %>%
-        tidySpatialExperiment:::to_tib() %>%
-        dplyr::count(cell) %>%
-        dplyr::count(n) %>%
-        nrow() %>%
-        expect_equal(1)
+    spe %>%
+        bind_rows(spe) %>%
+        ncol() %>%
+        expect_equal(198)
 })
 
 test_that("bind_cols", {
-    tt_bind <- pbmc_small %>% select(groups)
-
-    pbmc_small %>%
-        bind_cols(tt_bind) %>%
-        select(groups...7) %>%
-        ncol() %>%
-        expect_equal(1)
+    spe %>%
+        bind_cols(
+            spe %>%
+                select(array_row)
+            ) %>%
+        select(array_row...5) %>%
+        nrow() %>%
+        expect_equal(99)
 })
 
 test_that("distinct", {
@@ -156,8 +146,7 @@ test_that("select", {
 })
 
 test_that("sample_n", {
-  
-  set.seed(1)
+    set.seed(1)
   
     spe %>%
         sample_n(1) %>%
@@ -171,16 +160,17 @@ test_that("sample_n", {
 })
 
 test_that("sample_frac", {
-  set.seed(1)
-  spe %>%
-    sample_frac(0.01) %>%
-    ncol() %>%
-    expect_equal(1)
-  
-  spe %>%
-    sample_frac(2, replace = TRUE) %>%
-    nrow() %>%
-    expect_equal(392)
+    set.seed(1)
+    
+    spe %>%
+        sample_frac(0.01) %>%
+        ncol() %>%
+        expect_equal(1)
+    
+    spe %>%
+        sample_frac(2, replace = TRUE) %>%
+        nrow() %>%
+        expect_equal(392)
 })
 
 test_that("count", {
@@ -196,3 +186,4 @@ test_that("add count", {
     nrow() %>%
     expect_equal(230)
 })
+
