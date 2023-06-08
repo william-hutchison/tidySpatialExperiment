@@ -279,13 +279,19 @@ as_meta_data <- function(.data, SpatialExperiment_object) {
       .data %>%
       select_if(!colnames(.) %in% col_to_exclude) %>%
       data.frame()
-
-    # Set row names in a robust way. the argument row.names of the data.frame function does not work for 1-row data frames
-    rownames(.data_df) = .data_df |> pull(!!c_(SpatialExperiment_object)$symbol)
-    .data_df = .data_df |> select(-!!c_(SpatialExperiment_object)$symbol)
-
-    .data_df %>% DataFrame()
-
+    
+    # Select row names and change dataframe class, allowing for duplicate values
+    row_names <- 
+      .data_df |> 
+      pull(!!c_(SpatialExperiment_object)$symbol)
+    
+    .data_df <-
+      .data_df |>
+      DataFrame()
+    
+    # Set new rownames and remove column of origin
+    rownames(.data_df) <- row_names
+    .data_df <- .data_df[, !names(.data_df) == c_(SpatialExperiment_object)$symbol]
 }
 
 #' @importFrom purrr map_chr
