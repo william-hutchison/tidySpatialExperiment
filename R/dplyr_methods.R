@@ -1250,9 +1250,8 @@ sample_frac.SpatialExperiment <- function(tbl, size=1, replace=FALSE,
     weight=NULL, .env=NULL, ...) {
     lifecycle::signal_superseded("1.0.0", "sample_frac()", "slice_sample()")
 
-    new_meta = colData(tbl) %>%
-        as.data.frame() %>%
-        as_tibble(rownames = c_(tbl)$name) %>%
+    new_meta = tbl %>%
+        as_tibble() %>%
         dplyr::sample_frac( size, replace = replace, weight = weight, .env = .env, ...)
 
     count_cells = new_meta %>% select(!!c_(tbl)$symbol) %>% count(!!c_(tbl)$symbol)
