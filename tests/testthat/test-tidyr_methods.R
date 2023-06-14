@@ -14,7 +14,6 @@ test_that("nest_unnest", {
         scater::logNormCounts() %>%
         scater::runPCA()
 
-
     expect_equal(
         reducedDims(x)$PCA %>%
             as.data.frame() %>%
@@ -31,38 +30,29 @@ test_that("nest_unnest", {
     )
 })
 
-test_that("unite separate", {
-    un <- tt %>% unite("new_col", c(groups, col2), sep = ":")
-
-    un %>%
-        select(new_col) %>%
-        slice(1) %>%
-        pull(new_col) %>%
-        expect_equal("g2:other_col")
-
-    se <-
-        un %>%
-        separate(
-            col = new_col,
-            into = c("orig.ident", "groups"),
-            sep = ":"
-        )
-
-    se %>%
-        select(orig.ident) %>%
+test_that("unite", {
+    spe %>%
+        unite("A", array_row:array_col) %>%
+        colData() %>%
         ncol() %>%
-        expect_equal(1)
+        expect_equal(5)
 })
 
 test_that("extract", {
-    tt %>%
-        extract(groups,
-                into = "g",
-                regex = "g([0-9])",
-                convert = TRUE) %>%
-        pull(g) %>%
-        class() %>%
-        expect_equal("integer")
+    spe %>% 
+        extract(col = array_row, into = "A", regex = "([[:digit:]]3)") %>%
+        pull("A") %>%
+        as.numeric() %>%
+        sum(na.rm = TRUE) %>%
+        expect_equal(404)
+})
+
+test_that("separate", {
+    spe %>%
+        separate(col = sample_id, into = c("A", "B"), sep = "[[:alnum:]]n") %>%
+        colData() %>%
+        ncol() %>%
+        expect_equal(8)
 })
 
 test_that("pivot_longer", {
