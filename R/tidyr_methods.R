@@ -170,6 +170,11 @@ unnest_single_cell_experiment  <-  function(data, cols, ..., keep_empty=FALSE, p
 #' nest
 #'
 #' @importFrom tidyr nest
+#' @importFrom tibble rowid_to_column
+#' @importFrom dplyr pull
+#' @importFrom dplyr mutate
+#' @importFrom purrr map
+#' @importFrom rlang sym
 #'
 #' @param .data A tbl. (See tidyr)
 #' @param ... Name-variable pairs of the form new_col=c(col1, col2, col3) (See tidyr)
@@ -207,27 +212,20 @@ nest.SpatialExperiment <- function(.data, ..., .names_sep = NULL) {
     }
 
     my_data__ = .data
-
+    
     my_data__ %>%
-
-        # This is needed otherwise nest goes into loop and fails
-        to_tib() %>%
-        tidyr::nest(...) %>%
-        mutate(
-            !!as.symbol(col_name_data) := map(
-                !!as.symbol(col_name_data),
-                ~ my_data__ %>%
-
-                    # Subset cells
-                  filter(!!c_(my_data__)$symbol %in% pull(.x, !!c_(my_data__)$symbol)) %>%
-
-                    # Subset columns
-                    select(colnames(.x))
-            )
-        ) %>%
-
-        # Coerce to tidySpatialExperiment_nested for unnesting
-        add_class("tidySpatialExperiment_nested")
+      as_tibble() %>%
+      
+      # Add index column to allow tracking of nested cells
+      rowid_to_column("index") %>%
+      tidyr::nest(...) |>
+      
+      # Use index to subset cells from original SpatialExperiment object
+      mutate(!!sym(col_name_data) := map(!!sym(col_name_data), ~ .x %>% pull(index))) %>%
+      mutate(!!sym(col_name_data) := map(!!sym(col_name_data), ~ my_data__[, .x])) %>% 
+  
+      # Coerce to tidySpatialExperiment_nested for unnesting
+      add_class("tidySpatialExperiment_nested")
 }
 
 #' Extract a character column into multiple columns using regular
