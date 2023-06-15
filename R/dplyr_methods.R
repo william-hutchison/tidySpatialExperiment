@@ -786,29 +786,17 @@ left_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x"
 
   # Deprecation of special column names
   if(is_sample_feature_deprecated_used( x, when(by, !is.null(.) ~ by, ~ colnames(y)))){
-    x= ping_old_special_column_into_metadata(x)
+    x = ping_old_special_column_into_metadata(x)
   }
-
-    x %>%
+    
+    # Join metadata and assign to the returned SpatialExperiment object's colData
+    colData(x) <-
+        x %>%
         as_tibble() %>%
-        dplyr::left_join(y, by=by, copy=copy, suffix=suffix, ...) %>%
-        when(
-
-            # If duplicated cells returns tibble
-            dplyr::count(., !!c_(x)$symbol) %>%
-                filter(n > 1) %>%
-                nrow() %>%
-                gt(0) ~ {
-                message(duplicated_cell_names)
-                (.)
-            },
-
-            # Otherwise return updated tidySpatialExperiment
-            ~ {
-                colData(x) <- (.) %>% as_meta_data(x)
-                x
-            }
-        )
+        dplyr::left_join(as_tibble(y), by=by, copy=copy, suffix=suffix, ...) %>%
+        as_meta_data(x)
+    
+    x
 }
 
 #' Inner join datasets
@@ -841,32 +829,29 @@ NULL
 #' @export
 inner_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x", ".y"), ...) {
 
-  # Deprecation of special column names
-  if(is_sample_feature_deprecated_used( x, when(by, !is.null(.) ~ by, ~ colnames(y)))){
-    x= ping_old_special_column_into_metadata(x)
-  }
-
-    x %>%
-        as_tibble() %>%
-        dplyr::inner_join(y, by=by, copy=copy, suffix=suffix, ...) %>%
-        when(
-
-            # If duplicated cells returns tibble
-            count(., !!c_(x)$symbol) %>%
-                filter(n > 1) %>%
-                nrow() %>%
-                gt(0) ~ {
-                    message(duplicated_cell_names)
-                    (.)
-            },
-
-            # Otherwise return updated tidySpatialExperiment
-            ~ {
-                new_obj <- x[, pull(., c_(x)$name)]
-                colData(new_obj) <- (.) %>% as_meta_data(new_obj)
-                new_obj
-            }
-        )
+    # Deprecation of special column names
+    if(is_sample_feature_deprecated_used( x, when(by, !is.null(.) ~ by, ~ colnames(y)))){
+      x = ping_old_special_column_into_metadata(x)
+    }
+  
+    # Join metadata and assign to the smaller object's colData
+    if (ncol(x) < ncol(y)) {
+        colData(x) <-
+            x %>%
+            as_tibble() %>%
+            dplyr::inner_join(as_tibble(y), by=by, copy=copy, suffix=suffix, ...) %>%
+            as_meta_data(x)
+        x
+        
+    } else {
+        colData(y) <-
+            y %>%
+            as_tibble() %>%
+            dplyr::inner_join(as_tibble(x), by=by, copy=copy, suffix=suffix, ...) %>%
+            as_meta_data(y)
+        y
+    }
+    
 }
 
 #' Right join datasets
@@ -903,32 +888,19 @@ NULL
 right_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x", ".y"),
     ...) {
 
-  # Deprecation of special column names
-  if(is_sample_feature_deprecated_used( x, when(by, !is.null(.) ~ by, ~ colnames(y)))){
-    x= ping_old_special_column_into_metadata(x)
-  }
-
-    x %>%
+    # Deprecation of special column names
+    if(is_sample_feature_deprecated_used(x, when(by, !is.null(.) ~ by, ~ colnames(y)))){
+       x = ping_old_special_column_into_metadata(x)
+    }
+  
+    # Join metadata and assign to the returned SpatialExperiment object's colData
+    colData(y) <-
+        y %>%
         as_tibble() %>%
-        dplyr::right_join(y, by=by, copy=copy, suffix=suffix, ...) %>%
-        when(
-
-            # If duplicated cells returns tibble
-            count(., !!c_(x)$symbol) %>%
-                filter(n > 1) %>%
-                nrow() %>%
-                gt(0) ~ {
-                    message(duplicated_cell_names)
-                    (.)
-            },
-
-            # Otherwise return updated tidySpatialExperiment
-            ~ {
-                new_obj <- x[, pull(., c_(x)$name)]
-                colData(new_obj) <- (.) %>% as_meta_data(new_obj)
-                new_obj
-            }
-        )
+        dplyr::left_join(as_tibble(x), by=by, copy=copy, suffix=suffix, ...) %>%
+        as_meta_data(y)
+    
+    y
 }
 
 
@@ -965,32 +937,19 @@ NULL
 full_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x", ".y"),
     ...) {
 
-  # Deprecation of special column names
-  if(is_sample_feature_deprecated_used( x, when(by, !is.null(.) ~ by, ~ colnames(y)))){
-    x= ping_old_special_column_into_metadata(x)
-  }
+    # Deprecation of special column names
+    if(is_sample_feature_deprecated_used( x, when(by, !is.null(.) ~ by, ~ colnames(y)))){
+       x = ping_old_special_column_into_metadata(x)
+    }
 
-    x %>%
+    # Join metadata and assign to the returned SpatialExperiment object's colData
+    colData(x) <-
+        x %>%
         as_tibble() %>%
-        dplyr::full_join(y, by=by, copy=copy, suffix=suffix, ...) %>%
-        when(
-
-            # If duplicated cells returns tibble
-            count(., !!c_(x)$symbol) %>%
-                filter(n > 1) %>%
-                nrow() %>%
-                gt(0) ~ {
-                    message(duplicated_cell_names)
-                    (.)
-            },
-
-            # Otherwise return updated tidySpatialExperiment
-            ~ {
-                new_obj <- x[, pull(., c_(x)$name)]
-                colData(new_obj) <- (.) %>% as_meta_data(x)
-                new_obj
-            }
-        )
+        dplyr::full_join(as_tibble(y), by=by, copy=copy, suffix=suffix, ...) %>%
+        as_meta_data(x)
+    
+    x
 }
 
 #' Subset rows using their positions
@@ -1424,3 +1383,4 @@ pull.SpatialExperiment <- function(.data, var=-1, name=NULL, ...) {
         as_tibble() %>%
         dplyr::pull(var=!!var, name=!!name, ...)
 }
+
