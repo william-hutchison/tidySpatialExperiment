@@ -619,7 +619,7 @@ mutate.SpatialExperiment <- function(.data, ...) {
         )
     }
 
-    # Extract colData for mutation and save to SpatialExperiment object
+    # Extract colData for mutation and save to SpatialExperiment
     colData(.data) <-
         .data %>%
         colData() %>%
@@ -758,6 +758,7 @@ rowwise.SpatialExperiment <- function(data, ...) {
 #'
 #' @importFrom dplyr count
 #' @importFrom dplyr left_join
+#' @impotrFrom tibble as_tibble
 #'
 #' @param x tbls to join. (See dplyr)
 #' @param y tbls to join. (See dplyr)
@@ -788,16 +789,21 @@ NULL
 left_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x", ".y"),
     ...) {
 
-  # Deprecation of special column names
-  if(is_sample_feature_deprecated_used( x, when(by, !is.null(.) ~ by, ~ colnames(y)))){
-    x = ping_old_special_column_into_metadata(x)
-  }
+    # Deprecation of special column names
+    if(is_sample_feature_deprecated_used( x, when(by, !is.null(.) ~ by, ~ colnames(y)))){
+        x = ping_old_special_column_into_metadata(x)
+    }
     
-    # Join metadata and assign to the returned SpatialExperiment object's colData
+    # Join colData and assign to the returned SpatialExperiment object's colData
     colData(x) <-
         x %>%
-        as_tibble() %>%
-        dplyr::left_join(as_tibble(y), by=by, copy=copy, suffix=suffix, ...) %>%
+        colData() %>%
+        tibble::as_tibble(rownames = c_(x)$name) %>%
+        dplyr::left_join(
+            y %>%
+                colData() %>%
+                tibble::as_tibble(rownames = c_(y)$name),
+            by=by, copy=copy, suffix=suffix, ...) %>%
         as_meta_data(x)
     
     x
@@ -838,21 +844,33 @@ inner_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x
       x = ping_old_special_column_into_metadata(x)
     }
   
-    # Join metadata and assign to the smaller object's colData
+    # Join colData and attach to the smaller SpatialExperimemt object's colData
     if (ncol(x) < ncol(y)) {
         colData(x) <-
             x %>%
-            as_tibble() %>%
-            dplyr::inner_join(as_tibble(y), by=by, copy=copy, suffix=suffix, ...) %>%
+            colData() %>%
+            tibble::as_tibble(rownames = c_(x)$name) %>%
+            dplyr::left_join(
+                y %>%
+                    colData() %>%
+                    tibble::as_tibble(rownames = c_(y)$name),
+                by=by, copy=copy, suffix=suffix, ...) %>%
             as_meta_data(x)
+        
         x
         
     } else {
         colData(y) <-
             y %>%
-            as_tibble() %>%
-            dplyr::inner_join(as_tibble(x), by=by, copy=copy, suffix=suffix, ...) %>%
-            as_meta_data(y)
+            colData() %>%
+            tibble::as_tibble(rownames = c_(y)$name) %>%
+            dplyr::left_join(
+                x %>%
+                    colData() %>%
+                    tibble::as_tibble(rownames = c_(x)$name),
+                by = by, copy = copy, suffix = suffix, ...) %>%
+          as_meta_data(y)
+        
         y
     }
     
@@ -897,16 +915,20 @@ right_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x
        x = ping_old_special_column_into_metadata(x)
     }
   
-    # Join metadata and assign to the returned SpatialExperiment object's colData
+    # Join colData and assign to the returned SpatialExperiment object's colData
     colData(y) <-
         y %>%
-        as_tibble() %>%
-        dplyr::left_join(as_tibble(x), by=by, copy=copy, suffix=suffix, ...) %>%
-        as_meta_data(y)
+        colData() %>%
+        tibble::as_tibble(rownames = c_(y)$name) %>%
+        dplyr::left_join(
+            x %>%
+                colData() %>%
+                tibble::as_tibble(rownames = c_(x)$name),
+            by = by, copy = copy, suffix = suffix, ...) %>%
+      as_meta_data(y)
     
     y
 }
-
 
 #' Full join datasets
 #'
@@ -1320,17 +1342,15 @@ add_count.SpatialExperiment <- function(x, ..., wt = NULL, sort = FALSE, name = 
     x= ping_old_special_column_into_metadata(x)
   }
 
-  colData(x) =
-    x %>%
-    as_tibble %>%
-    dplyr::add_count(..., wt = !!enquo(wt), sort = sort, name = name)  %>%
-    as_meta_data(x)
+  colData(x) <- 
+      x %>%
+      colData() %>%
+      tibble::as_tibble(rownames = c_(x)$name) %>% 
+      dplyr::add_count(..., wt = !!enquo(wt), sort = sort, name = name)  %>%
+      as_meta_data(x)
 
   x
-
 }
-
-
 
 #' Extract a single column
 #'
