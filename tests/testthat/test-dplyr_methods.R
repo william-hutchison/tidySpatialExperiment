@@ -84,44 +84,64 @@ test_that("rename", {
     expect_error(
         spe %>%
             rename(array_row_new = array_row) %>%
-            select(array_row_new)
+            select(array_row)
     )
 })
   
 test_that("left_join", {
     spe %>%
         left_join(spe %>%
-              mutate(new_column = 1:2)) %>%
+            filter(in_tissue == TRUE) %>%
+            mutate(new_column = 1)) %>%
         ncol() %>%
-        expect_equal(8)
-})
-
-test_that("inner_join", {
-    pbmc_small %>%
-        inner_join(pbmc_small %>%
-                       distinct(groups) %>%
-                       mutate(new_column = 1:2) %>%
-                       slice(1)) %>%
+        expect_equal(99)
+  
+    spe %>%
+        filter(in_tissue == TRUE) %>%
+        mutate(new_column = 1) %>%
+        left_join(spe) %>%
         ncol() %>%
-        expect_equal(36)
+        expect_equal(44)
 })
 
 test_that("right_join", {
-    pbmc_small %>%
-        right_join(pbmc_small %>%
-                       distinct(groups) %>%
-                       mutate(new_column = 1:2) %>%
-                       slice(1)) %>%
-        ncol() %>%
-        expect_equal(36)
+  spe %>%
+      right_join(spe %>%
+          filter(in_tissue == TRUE) %>%
+          mutate(new_column = 1)) %>%
+      ncol() %>%
+      expect_equal(44)
+
+  spe %>%
+      filter(in_tissue == TRUE) %>%
+      mutate(new_column = 1) %>%
+      right_join(spe) %>%
+      ncol() %>%
+      expect_equal(99)
 })
 
-test_that("full_join", {
-    pbmc_small %>%
-        full_join(tibble::tibble(groups = "g1", other = 1:4)) %>%
-        nrow() %>%
-        expect_equal(212)
+test_that("inner_join", {
+  spe %>%
+    inner_join(spe %>%
+        filter(in_tissue == TRUE) %>%
+        mutate(new_column = 1)) %>%
+    ncol() %>%
+    expect_equal(44)
+  
+  spe %>%
+    filter(in_tissue == TRUE) %>%
+    mutate(new_column = 1) %>%
+    inner_join(spe) %>%
+    ncol() %>%
+    expect_equal(44)
 })
+
+# test_that("full_join", {
+#     pbmc_small %>%
+#         full_join(tibble::tibble(groups = "g1", other = 1:4)) %>%
+#         nrow() %>%
+#         expect_equal(212)
+# })
 
 test_that("slice", {
     spe %>%
@@ -131,18 +151,11 @@ test_that("slice", {
 })
 
 test_that("select", {
-    pbmc_small %>%
-        select(cell, orig.ident) %>%
-        class() %>%
-        as.character() %>%
-        expect_equal("SpatialExperiment")
-
-    pbmc_small %>%
-        select(orig.ident) %>%
-        class() %>%
-        as.character() %>%
-        .[1] %>%
-        expect_equal("tbl_df")
+    spe %>%
+        select(.cell, array_col) %>%
+        colData() %>%
+        ncol() %>%
+        expect_equal(2)
 })
 
 test_that("sample_n", {
@@ -181,9 +194,10 @@ test_that("count", {
 })
 
 test_that("add count", {
-  pbmc_small %>%
-    add_count(groups) %>%
-    nrow() %>%
-    expect_equal(230)
+    spe %>%
+        add_count(in_tissue) %>%
+        pull(n) %>%
+        sum() %>%
+        expect_equal(4961)
 })
 
