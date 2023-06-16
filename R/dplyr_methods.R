@@ -619,9 +619,11 @@ mutate.SpatialExperiment <- function(.data, ...) {
         )
     }
 
+    # Extract colData for mutation and save to SpatialExperiment object
     colData(.data) <-
         .data %>%
-        as_tibble() %>%
+        colData() %>%
+        as_tibble(rownames = c_(.data)$name) %>%
         dplyr::mutate(...) %>%
         as_meta_data(.data)
 
