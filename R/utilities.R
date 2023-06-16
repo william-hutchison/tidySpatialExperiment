@@ -263,35 +263,37 @@ as_meta_data <- function(.data, SpatialExperiment_object) {
 
     col_to_exclude <-
 
-      # special_datasets_to_tibble(SpatialExperiment_object) |>
-      # colnames()
-      get_special_columns(SpatialExperiment_object) |>
-
-
-      # I need this in case we have multiple reduced dimension data frames with overlapping names of the columns.
-      # For example multiple PCA versions
-      vctrs::vec_as_names(repair = "unique") |>
+        # special_datasets_to_tibble(SpatialExperiment_object) |>
+        # colnames()
+        get_special_columns(SpatialExperiment_object) |>
+  
+  
+        # I need this in case we have multiple reduced dimension data frames with overlapping names of the columns.
+        # For example multiple PCA versions
+        vctrs::vec_as_names(repair = "unique") |>
 
     # To avoid name change by the bind_cols of as_tibble
     trick_to_avoid_renaming_of_already_unique_columns_by_dplyr()
 
     .data_df =
-      .data %>%
-      select_if(!colnames(.) %in% col_to_exclude) %>%
-      data.frame()
+        .data %>%
+        select_if(!colnames(.) %in% col_to_exclude) %>%
+        data.frame()
     
-    # Select row names and change dataframe class, allowing for duplicate values
+    # Select row names and change to dataframe class, allowing for duplicate values
     row_names <- 
-      .data_df |> 
-      pull(!!c_(SpatialExperiment_object)$symbol)
+        .data_df |> 
+        pull(!!c_(SpatialExperiment_object)$symbol)
     
     .data_df <-
-      .data_df |>
-      DataFrame()
+        .data_df |>
+        DataFrame()
     
     # Set new rownames and remove column of origin
     rownames(.data_df) <- row_names
-    .data_df <- .data_df[, !names(.data_df) == c_(SpatialExperiment_object)$symbol]
+    .data_df <- .data_df[, !names(.data_df) == c_(SpatialExperiment_object)$symbol, drop = FALSE]
+    
+    .data_df
 }
 
 #' @importFrom purrr map_chr
