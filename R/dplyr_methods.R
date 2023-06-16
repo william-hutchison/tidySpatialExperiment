@@ -304,28 +304,30 @@ NULL
 #' @export
 filter.SpatialExperiment <- function(.data, ..., .preserve=FALSE) {
 
-  # Deprecation of special column names
-  if(is_sample_feature_deprecated_used(
-    .data,
-    (enquos(..., .ignore_empty = "all") %>% map(~ quo_name(.x)) %>% unlist)
-  )){
-    .data= ping_old_special_column_into_metadata(.data)
-  }
-
-  new_meta <- .data %>%
+    # Deprecation of special column names
+    if(is_sample_feature_deprecated_used(
+        .data,
+        (enquos(..., .ignore_empty = "all") %>% map(~ quo_name(.x)) %>% unlist)
+    )){
+        .data= ping_old_special_column_into_metadata(.data)
+    }
+  
+    new_meta <- .data %>%
         as_tibble() %>%
-        dplyr::filter(..., .preserve=.preserve) # %>% as_meta_data(.data)
-
+        rowid_to_column("index") %>%
+      
+        dplyr::filter(..., .preserve=.preserve) %>% 
+        as_meta_data(.data)
+  
     # Try to solve missing colnames
     if(colnames(.data) %>% is.null()){
-      message("tidySpatialExperiment says: the input object does not have cell names (colnames(...)). \n Therefore, the cell column in the filtered tibble abstraction will still include an incremental integer vector.")
-      new_meta = new_meta %>% mutate(!!c_(.data)$symbol := as.integer(!!c_(.data)$symbol))
-
+        message("tidySpatialExperiment says: the input object does not have cell names (colnames(...)). \n Therefore, the cell column in the filtered tibble abstraction will still include an incremental integer vector.")
+        new_meta = new_meta %>% mutate(!!c_(.data)$symbol := as.integer(!!c_(.data)$symbol))
+  
     }
-
-
-    .data[, pull(new_meta, !!c_(.data)$symbol)]
-
+    
+    # Use index to subset cells from original SpatialExperiment object
+    .data[, new_meta[["index"]]]
 }
 
 
