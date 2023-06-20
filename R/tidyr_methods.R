@@ -41,11 +41,11 @@
 #' @return A tidySpatialExperiment objector a tibble depending on input
 #'
 #' @examples
-#'
-#' library(dplyr)
-#' pbmc_small %>%
-#'
-#'     nest(data=-groups) %>%
+#' `%>%` <- magrittr::`%>%`
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'     nest(data = -sample_id) %>%
 #'     unnest(data)
 #'
 #' @rdname unnest-methods
@@ -114,17 +114,15 @@ unnest.tidySpatialExperiment_nested <- function(data, cols, ..., keep_empty=FALS
 #' @return A tidySpatialExperiment objector a tibble depending on input
 #'
 #' @examples
-#'
-#' library(dplyr)
-#' pbmc_small %>%
-#'
-#'     nest(data=-groups) %>%
+#' `%>%` <- magrittr::`%>%`
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'     nest(data = -sample_id) %>%
 #'     unnest_single_cell_experiment(data)
 #'
 #' @rdname unnest-methods
 #' @name unnest_single_cell_experiment
-#'
-#'
 #'
 #' @export
 unnest_single_cell_experiment  <-  function(data, cols, ..., keep_empty=FALSE, ptype=NULL,
@@ -171,11 +169,12 @@ unnest_single_cell_experiment  <-  function(data, cols, ..., keep_empty=FALSE, p
 #'
 #' @examples
 #'
-#' library(dplyr)
-#' pbmc_small %>%
+#' `%>%` <- magrittr::`%>%`
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'     nest(data = -sample_id)
 #'
-#'     nest(data=-groups) %>%
-#'     unnest(data)
 #' @rdname nest-methods
 #' @name nest
 #'
@@ -245,10 +244,12 @@ nest.SpatialExperiment <- function(.data, ..., .names_sep = NULL) {
 #' @seealso [separate()] to split up by a separator.
 #' @export
 #' @examples
-#'
-#' pbmc_small %>%
-#'
-#'     extract(groups, into="g", regex="g([0-9])", convert=TRUE)
+#' `%>%` <- magrittr::`%>%`
+#' example(read10xVisium)
+#' 
+#' spe %>% 
+#'     extract(col = array_row, into = "A", regex = "([[:digit:]]3)")
+#'     
 #' @return A tidySpatialExperiment objector a tibble depending on input
 #'
 #' @importFrom tidyr extract
@@ -398,11 +399,11 @@ extract.SpatialExperiment <- function(data, col, into, regex="([[:alnum:]]+)", r
 #' @export
 #' @examples
 #' # See vignette("pivot") for examples and explanation
-#'
-#' library(dplyr)
-#' pbmc_small %>%
-#'
-#'     pivot_longer(c(orig.ident, groups), names_to="name", values_to="value")
+#' `%>%` <- magrittr::`%>%`
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'     pivot_longer(c(array_row, array_col), names_to = "dimension", values_to = "location")
 NULL
 
 #' @export
@@ -473,10 +474,11 @@ pivot_longer.SpatialExperiment <- function(data,
 #'
 #' @export
 #' @examples
+#' `%>%` <- magrittr::`%>%`
+#' example(read10xVisium)
 #'
-#' pbmc_small %>%
-#'
-#'     unite("new_col", c(orig.ident, groups))
+#' spe %>%
+#'     unite("A", array_row:array_col)
 NULL
 
 #' @importFrom SummarizedExperiment colData
@@ -567,11 +569,12 @@ unite.SpatialExperiment <- function(data, col, ..., sep="_", remove=TRUE, na.rm=
 #'
 #' @export
 #' @examples
-#'
-#' un <- pbmc_small %>%
-#'
-#'     unite("new_col", c(orig.ident, groups))
-#' un %>% separate(col=new_col, into=c("orig.ident", "groups"))
+#' `%>%` <- magrittr::`%>%`
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'     separate(col = sample_id, into = c("A", "B"), sep = "[[:alnum:]]n")
+#'     
 NULL
 
 #' @importFrom SummarizedExperiment colData

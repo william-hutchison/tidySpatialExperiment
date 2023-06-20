@@ -31,10 +31,11 @@ A tidySpatialExperiment objector a tibble depending on input
 Convenience function to paste together multiple columns into one.
 }
 \examples{
+`\%>\%` <- magrittr::`\%>\%`
+example(read10xVisium)
 
-pbmc_small \%>\%
-
-    unite("new_col", c(orig.ident, groups))
+spe \%>\%
+    unite("A", array_row:array_col)
 }
 \seealso{
 \code{\link[=separate]{separate()}}, the complement.

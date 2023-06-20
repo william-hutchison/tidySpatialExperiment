@@ -91,18 +91,18 @@ unnest
 unnest_single_cell_experiment
 }
 \examples{
+`\%>\%` <- magrittr::`\%>\%`
+example(read10xVisium)
 
-library(dplyr)
-pbmc_small \%>\%
-
-    nest(data=-groups) \%>\%
+spe \%>\%
+    nest(data = -sample_id) \%>\%
     unnest(data)
 
+`\%>\%` <- magrittr::`\%>\%`
+example(read10xVisium)
 
-library(dplyr)
-pbmc_small \%>\%
-
-    nest(data=-groups) \%>\%
+spe \%>\%
+    nest(data = -sample_id) \%>\%
     unnest_single_cell_experiment(data)
 
 }

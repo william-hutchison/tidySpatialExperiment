@@ -43,11 +43,11 @@ multiple data frames are used to produce different layers, as
 is often the case in complex graphics.
 }
 \examples{
-
+\dontrun{
 library(ggplot2)
+`\%>\%` <- magrittr::`\%>\%`
+example(read10xVisium)
 
-tidySpatialExperiment::pbmc_small \%>\%
-
-    tidySpatialExperiment::ggplot(aes(groups, nCount_RNA)) +
-    geom_boxplot()
+spe \%>\%
+}
 }

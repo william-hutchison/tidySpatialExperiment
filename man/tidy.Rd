@@ -17,5 +17,6 @@ tidy for SpatialExperiment
 }
 \examples{
 
-tidySpatialExperiment::pbmc_small
+NULL
+
 }

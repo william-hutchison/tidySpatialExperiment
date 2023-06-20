@@ -496,93 +496,122 @@ to renaming a set of variables with a function.
 
 \examples{
 `\%>\%` <- magrittr::`\%>\%`
-pbmc_small \%>\%
+example(read10xVisium)
 
-    arrange(nFeature_RNA)
-
-`\%>\%` <- magrittr::`\%>\%`
-pbmc_small \%>\%
-
-    distinct(groups)
-
+spe \%>\%
+  arrange(array_row)
 
 `\%>\%` <- magrittr::`\%>\%`
-pbmc_small \%>\%
+example(read10xVisium)
 
-    filter(groups == "g1")
+spe \%>\%
+   distinct(sample_id)
+
+
+`\%>\%` <- magrittr::`\%>\%`
+example(read10xVisium)
+
+spe \%>\%
+    filter(in_tissue == TRUE)
 
 # Learn more in ?dplyr_tidy_eval
 
 `\%>\%` <- magrittr::`\%>\%`
-pbmc_small \%>\%
+example(read10xVisium)
 
-    group_by(groups)
-
-`\%>\%` <- magrittr::`\%>\%`
-pbmc_small \%>\%
-
-    summarise(mean(nCount_RNA))
+spe \%>\%
+  group_by(sample_id)
 
 `\%>\%` <- magrittr::`\%>\%`
-pbmc_small \%>\%
+example(read10xVisium)
 
-    mutate(nFeature_RNA=1)
-
-`\%>\%` <- magrittr::`\%>\%`
-pbmc_small \%>\%
-
-    rename(s_score=nFeature_RNA)
+spe \%>\%
+    summarise(mean(array_row))
 
 `\%>\%` <- magrittr::`\%>\%`
+example(read10xVisium)
+
+spe \%>\%
+    mutate(array_col = 1)
 
 `\%>\%` <- magrittr::`\%>\%`
+example(read10xVisium)
 
-tt <- pbmc_small
-tt \%>\% left_join(tt \%>\% distinct(groups) \%>\% mutate(new_column=1:2))
-`\%>\%` <- magrittr::`\%>\%`
-
-tt <- pbmc_small
-tt \%>\% inner_join(tt \%>\% distinct(groups) \%>\% mutate(new_column=1:2) \%>\% slice(1))
+spe \%>\%
+    rename(in_liver = in_tissue)
 
 `\%>\%` <- magrittr::`\%>\%`
+example(read10xVisium)
 
-tt <- pbmc_small
-tt \%>\% right_join(tt \%>\% distinct(groups) \%>\% mutate(new_column=1:2) \%>\% slice(1))
-
-`\%>\%` <- magrittr::`\%>\%`
-
-tt <- pbmc_small
-tt \%>\% full_join(tibble::tibble(groups="g1", other=1:4))
-
+spe \%>\%
+    rowwise()
 
 `\%>\%` <- magrittr::`\%>\%`
-pbmc_small \%>\%
+example(read10xVisium)
 
-    slice(1)
+spe \%>\%
+    left_join(
+        spe \%>\%
+            filter(in_tissue == TRUE) \%>\%
+            mutate(new_column = 1)
+        )
+`\%>\%` <- magrittr::`\%>\%`
+example(read10xVisium)
+
+spe \%>\%
+    inner_join(
+        spe \%>\%
+            filter(in_tissue == TRUE) \%>\%
+            mutate(new_column = 1)
+        )
 
 `\%>\%` <- magrittr::`\%>\%`
-pbmc_small \%>\%
+example(read10xVisium)
 
-    select(cell, orig.ident)
+spe \%>\%
+    right_join(
+        spe \%>\%
+            filter(in_tissue == TRUE) \%>\%
+            mutate(new_column = 1)
+        )
 
 `\%>\%` <- magrittr::`\%>\%`
-pbmc_small \%>\%
+NULL
 
-    sample_n(50)
-pbmc_small \%>\%
+`\%>\%` <- magrittr::`\%>\%`
+example(read10xVisium)
 
+spe \%>\%
+  slice(1)
+
+
+`\%>\%` <- magrittr::`\%>\%`
+example(read10xVisium)
+
+spe \%>\%
+    select(in_tissue)
+`\%>\%` <- magrittr::`\%>\%`
+example(read10xVisium)
+
+spe \%>\%
+    sample_n(10)
+
+spe \%>\%
     sample_frac(0.1)
-
-
+    
 `\%>\%` <- magrittr::`\%>\%`
-pbmc_small \%>\%
+example(read10xVisium)
 
-    count(groups)
+spe \%>\%
+    count()
 
+spe \%>\%
+    add_count()
 `\%>\%` <- magrittr::`\%>\%`
-pbmc_small \%>\%
+example(read10xVisium)
 
-    pull(groups)
+spe \%>\%
+    pull(in_tissue)
 }
 \seealso{
 \code{\link[=filter_all]{filter_all()}}, \code{\link[=filter_if]{filter_if()}} and \code{\link[=filter_at]{filter_at()}}.

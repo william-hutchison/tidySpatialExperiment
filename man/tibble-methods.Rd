@@ -88,11 +88,16 @@ prefer the more expressive maturing \code{as_tibble_row()} and
 }
 
 \examples{
-pbmc_small \%>\%
+`\%>\%` <- magrittr::`\%>\%`
+example(read10xVisium)
 
+spe \%>\%
     as_tibble()
-pbmc_small \%>\% tidy \%>\% glimpse()
+`\%>\%` <- magrittr::`\%>\%`
+example(read10xVisium)
 
+spe \%>\% 
+    glimpse()
 
 }
 \seealso{

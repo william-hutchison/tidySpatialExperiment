@@ -44,10 +44,7 @@ setClass("tidySpatialExperiment", contains = "SpatialExperiment")
 #'
 #' @examples
 #'
-#' data("pbmc_small")
-#' pbmc_small %>%
-#' join_features(features = c("HLA-DRA", "LYZ"))
-#'
+#' NULL
 #'
 #' @export
 #'
@@ -107,7 +104,8 @@ setMethod("join_features", "SpatialExperiment",  function(.data,
 #'
 #' @examples
 #'
-#' tidySpatialExperiment::pbmc_small
+#' NULL
+#'
 #' @export
 tidy <- function(object) {
   UseMethod("tidy", object)
@@ -152,9 +150,11 @@ tidy.SpatialExperiment <- function(object) {
 #' @return A SummarizedExperiment object
 #' 
 #' @examples 
-#' data("pbmc_small")
-#' pbmc_small_pseudo_bulk <- pbmc_small |>
-#'   aggregate_cells(c(groups, ident), assays = "counts")
+#' `%>%` <- magrittr::`%>%`
+#' example(read10xVisium)
+#'
+#' spe %>%
+#'     aggregate_cells(sample_id, assays = "counts")
 #'
 #' @export
 aggregate_cells <- function(.data, .sample = NULL, slot = "data", assays = NULL, aggregation_function = rowSums) {

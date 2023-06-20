@@ -18,9 +18,10 @@ nest
 }
 \examples{
 
-library(dplyr)
-pbmc_small \%>\%
+`\%>\%` <- magrittr::`\%>\%`
+example(read10xVisium)
 
-    nest(data=-groups) \%>\%
-    unnest(data)
+spe \%>\%
+    nest(data = -sample_id)
+
 }

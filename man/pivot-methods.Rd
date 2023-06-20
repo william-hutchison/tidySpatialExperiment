@@ -115,9 +115,9 @@ under active development.
 }
 \examples{
 # See vignette("pivot") for examples and explanation
+`\%>\%` <- magrittr::`\%>\%`
+example(read10xVisium)
 
-library(dplyr)
-pbmc_small \%>\%
-
-    pivot_longer(c(orig.ident, groups), names_to="name", values_to="value")
+spe \%>\%
+    pivot_longer(c(array_row, array_col), names_to = "dimension", values_to = "location")
 }

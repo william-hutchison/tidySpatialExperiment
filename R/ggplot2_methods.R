@@ -43,13 +43,15 @@
 #'
 #' @export
 #' @examples
-#'
+#' \dontrun{
 #' library(ggplot2)
-#'
-#' tidySpatialExperiment::pbmc_small %>%
-#'
-#'     tidySpatialExperiment::ggplot(aes(groups, nCount_RNA)) +
-#'     geom_boxplot()
+#' `%>%` <- magrittr::`%>%`
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#`    ggplot(aes(x = .cell, y = array_row)) +
+#`    geom_point()
+#' }
 NULL
 
 #' @export

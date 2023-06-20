@@ -51,10 +51,12 @@ each group into a new column. If the groups don't match, or the input
 is NA, the output will be NA.
 }
 \examples{
+`\%>\%` <- magrittr::`\%>\%`
+example(read10xVisium)
 
-pbmc_small \%>\%
-
-    extract(groups, into="g", regex="g([0-9])", convert=TRUE)
+spe \%>\% 
+    extract(col = array_row, into = "A", regex = "([[:digit:]]3)")
+    
 }
 \seealso{
 \code{\link[=separate]{separate()}} to split up by a separator.

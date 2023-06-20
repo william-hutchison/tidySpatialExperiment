@@ -44,9 +44,12 @@ appears in any of the inputs.
 }
 \examples{
 `\%>\%` <- magrittr::`\%>\%`
-tt <- pbmc_small
-bind_rows(tt, tt)
+example(read10xVisium)
 
-tt_bind <- tt \%>\% select(nCount_RNA, nFeature_RNA)
-tt \%>\% bind_cols(tt_bind)
+spe \%>\%
+   bind_rows(spe)
+
+spe \%>\%
+   bind_cols(1:99)
+   
 }

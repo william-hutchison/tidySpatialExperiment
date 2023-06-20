@@ -56,8 +56,10 @@
 #'
 #' @export
 #' @examples
-#' pbmc_small %>%
-#'
+#' `%>%` <- magrittr::`%>%`
+#' example(read10xVisium)
+#' 
+#' spe %>%
 #'     as_tibble()
 NULL
 
@@ -136,8 +138,11 @@ as_tibble.SpatialExperiment <- function(x, ...,
 #'
 #' @export
 #' @examples
-#' pbmc_small %>% tidy %>% glimpse()
-#'
+#' `%>%` <- magrittr::`%>%`
+#' example(read10xVisium)
+#' 
+#' spe %>% 
+#'     glimpse()
 #'
 NULL
 

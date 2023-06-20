@@ -48,9 +48,10 @@
 #'
 #' @examples
 #' `%>%` <- magrittr::`%>%`
-#' pbmc_small %>%
-#'
-#'     arrange(nFeature_RNA)
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'   arrange(array_row)
 NULL
 
 #' @importFrom tibble as_tibble
@@ -104,11 +105,14 @@ arrange.SpatialExperiment <- function(.data, ..., .by_group=FALSE) {
 #'   the first input, either a data frame, `tbl_df`, or `grouped_df`.
 #' @examples
 #' `%>%` <- magrittr::`%>%`
-#' tt <- pbmc_small
-#' bind_rows(tt, tt)
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'    bind_rows(spe)
 #'
-#' tt_bind <- tt %>% select(nCount_RNA, nFeature_RNA)
-#' tt %>% bind_cols(tt_bind)
+#' spe %>%
+#'    bind_cols(1:99)
+#'    
 #' @name bind
 NULL
 
@@ -139,7 +143,6 @@ bind_rows.SingleCellExperiment <- function(..., .id=NULL, add.cell.ids=NULL) {
     tts <- flatten_if(dots_values(...), is_spliced)
     SingleCellExperiment::cbind(tts[[1]], tts[[2]], deparse.level = 0)
 }
-
 
 
 # Internal of bind_cols
@@ -193,9 +196,10 @@ bind_cols.SpatialExperiment <- bind_cols_
 #' @examples
 #'
 #' `%>%` <- magrittr::`%>%`
-#' pbmc_small %>%
-#'
-#'     distinct(groups)
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'    distinct(sample_id)
 #'
 #' @rdname dplyr-methods
 #' @name distinct
@@ -280,9 +284,10 @@ distinct.SpatialExperiment <- function(.data, ..., .keep_all=FALSE) {
 #' @examples
 #'
 #' `%>%` <- magrittr::`%>%`
-#' pbmc_small %>%
-#'
-#'     filter(groups == "g1")
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'     filter(in_tissue == TRUE)
 #'
 #' # Learn more in ?dplyr_tidy_eval
 #'
@@ -360,9 +365,10 @@ filter.SpatialExperiment <- function(.data, ..., .preserve=FALSE) {
 #'
 #' @examples
 #' `%>%` <- magrittr::`%>%`
-#' pbmc_small %>%
-#'
-#'     group_by(groups)
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'   group_by(sample_id)
 #'
 #' @rdname dplyr-methods
 #' @name group_by
@@ -453,9 +459,10 @@ group_by.SpatialExperiment <- function(.data, ..., .add=FALSE, .drop=group_by_dr
 #' The following methods are currently available in loaded packages:
 #' @examples
 #' `%>%` <- magrittr::`%>%`
-#' pbmc_small %>%
-#'
-#'     summarise(mean(nCount_RNA))
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'     summarise(mean(array_row))
 #'
 #' @rdname dplyr-methods
 #' @name summarise
@@ -560,10 +567,11 @@ summarise.SpatialExperiment <- function(.data, ...) {
 #'
 #' @examples
 #' `%>%` <- magrittr::`%>%`
-#' pbmc_small %>%
-#'
-#'     mutate(nFeature_RNA=1)
-#'
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'     mutate(array_col = 1)
+#' 
 #' @rdname dplyr-methods
 #' @name mutate
 #'
@@ -656,9 +664,10 @@ mutate.SpatialExperiment <- function(.data, ...) {
 #' @export
 #' @examples
 #' `%>%` <- magrittr::`%>%`
-#' pbmc_small %>%
-#'
-#'     rename(s_score=nFeature_RNA)
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'     rename(in_liver = in_tissue)
 #'
 #' @rdname dplyr-methods
 #' @name rename
@@ -730,6 +739,10 @@ rename.SpatialExperiment <- function(.data, ...) {
 #'
 #' @examples
 #' `%>%` <- magrittr::`%>%`
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'     rowwise()
 #'
 #' @rdname dplyr-methods
 #' @name rowwise
@@ -751,7 +764,7 @@ rowwise.SpatialExperiment <- function(data, ...) {
 #'
 #' @importFrom dplyr count
 #' @importFrom dplyr left_join
-#' @impotrFrom tibble as_tibble
+#' @importFrom tibble as_tibble
 #'
 #' @param x tbls to join. (See dplyr)
 #' @param y tbls to join. (See dplyr)
@@ -772,9 +785,14 @@ rowwise.SpatialExperiment <- function(data, ...) {
 #'
 #' @examples
 #' `%>%` <- magrittr::`%>%`
-#'
-#' tt <- pbmc_small
-#' tt %>% left_join(tt %>% distinct(groups) %>% mutate(new_column=1:2))
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'     left_join(
+#'         spe %>%
+#'             filter(in_tissue == TRUE) %>%
+#'             mutate(new_column = 1)
+#'         )
 NULL
 
 #' @importFrom SummarizedExperiment colData
@@ -818,10 +836,15 @@ left_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x"
 #'
 #' @examples
 #' `%>%` <- magrittr::`%>%`
-#'
-#' tt <- pbmc_small
-#' tt %>% inner_join(tt %>% distinct(groups) %>% mutate(new_column=1:2) %>% slice(1))
-#'
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'     inner_join(
+#'         spe %>%
+#'             filter(in_tissue == TRUE) %>%
+#'             mutate(new_column = 1)
+#'         )
+#' 
 #' @rdname dplyr-methods
 #' @name inner_join
 #'
@@ -888,9 +911,14 @@ inner_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x
 #'
 #' @examples
 #' `%>%` <- magrittr::`%>%`
-#'
-#' tt <- pbmc_small
-#' tt %>% right_join(tt %>% distinct(groups) %>% mutate(new_column=1:2) %>% slice(1))
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'     right_join(
+#'         spe %>%
+#'             filter(in_tissue == TRUE) %>%
+#'             mutate(new_column = 1)
+#'         )
 #'
 #' @rdname dplyr-methods
 #' @name right_join
@@ -942,9 +970,7 @@ right_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x
 #'
 #' @examples
 #' `%>%` <- magrittr::`%>%`
-#'
-#' tt <- pbmc_small
-#' tt %>% full_join(tibble::tibble(groups="g1", other=1:4))
+#' NULL
 #'
 #' @rdname dplyr-methods
 #' @name full_join
@@ -1035,13 +1061,14 @@ full_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x"
 #' @rdname dplyr-methods
 #' @name slice
 #'
-#' @export
 #' @examples
-#'
 #' `%>%` <- magrittr::`%>%`
-#' pbmc_small %>%
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'   slice(1)
 #'
-#'     slice(1)
+#' @export
 NULL
 
 #' @importFrom SummarizedExperiment colData
@@ -1094,9 +1121,10 @@ slice.SpatialExperiment <- function(.data, ..., .preserve=FALSE) {
 #' @examples
 #'
 #' `%>%` <- magrittr::`%>%`
-#' pbmc_small %>%
-#'
-#'     select(cell, orig.ident)
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'     select(in_tissue)
 #' @family single table verbs
 #'
 #' @rdname dplyr-methods
@@ -1175,14 +1203,15 @@ select.SpatialExperiment <- function(.data, ...) {
 #' @param .env DEPRECATED.
 #' @param ... ignored
 #' @examples
-#'
 #' `%>%` <- magrittr::`%>%`
-#' pbmc_small %>%
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'     sample_n(10)
 #'
-#'     sample_n(50)
-#' pbmc_small %>%
-#'
+#'spe %>%
 #'     sample_frac(0.1)
+#'     
 #' @return A tidySpatialExperiment object
 #'
 #' @rdname dplyr-methods
@@ -1288,12 +1317,14 @@ sample_frac.SpatialExperiment <- function(tbl, size=1, replace=FALSE,
 #' @name count
 #'
 #' @examples
-#'
-#'
 #' `%>%` <- magrittr::`%>%`
-#' pbmc_small %>%
-#'
-#'     count(groups)
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'     count()
+#' 
+#' spe %>%
+#'     add_count()
 NULL
 
 #' @export
@@ -1376,11 +1407,11 @@ add_count.SpatialExperiment <- function(x, ..., wt = NULL, sort = FALSE, name = 
 #' @importFrom ellipsis check_dots_used
 #'
 #' @examples
-#'
 #' `%>%` <- magrittr::`%>%`
-#' pbmc_small %>%
-#'
-#'     pull(groups)
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'     pull(in_tissue)
 NULL
 
 #' @export
