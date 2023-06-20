@@ -1,7 +1,5 @@
 context("dplyr test")
 
-library(magrittr)
-
 test_that("arrange", {
     spe_arranged <-
         spe %>%
@@ -40,9 +38,9 @@ test_that("distinct", {
         expect_equal(2)
   
     spe %>%
-      distinct(.cell, in_tissue) %>%
-      nrow() %>%
-      expect_equal(50)
+        distinct(.cell, in_tissue) %>%
+        nrow() %>%
+        expect_equal(50)
 })
 
 test_that("filter", {

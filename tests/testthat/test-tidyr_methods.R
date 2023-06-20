@@ -1,33 +1,18 @@
 context("tidyr test")
 
-tt <-   pbmc_small %>%   mutate(col2 = "other_col")
+test_that("nest", {
+    spe %>%
+        nest(data = -sample_id) %>%
+        nrow() %>%
+        expect_equal(2)
+})
 
-test_that("nest_unnest", {
-    col_names <- tt %>% colData %>% colnames() %>% c("cell")
-
-    x <- tt %>%
-        nest(data = -groups) %>%
+test_that("unnest", {
+    spe %>%
+        nest(data = -sample_id) %>%
         unnest(data) %>%
-        scater::logNormCounts() %>%
-        scater::runPCA()
-    y <- tt %>%
-        scater::logNormCounts() %>%
-        scater::runPCA()
-
-    expect_equal(
-        reducedDims(x)$PCA %>%
-            as.data.frame() %>%
-            as_tibble(rownames = "cell") %>%
-            arrange(cell) %>%
-            pull(PC1) %>%
-            abs(),
-        reducedDims(x)$PCA %>%
-            as.data.frame() %>%
-            as_tibble(rownames = "cell") %>%
-            arrange(cell) %>%
-            pull(PC1) %>%
-            abs()
-    )
+        ncol() %>%
+        expect_equal(99)
 })
 
 test_that("unite", {
@@ -56,11 +41,10 @@ test_that("separate", {
 })
 
 test_that("pivot_longer", {
-    tt %>%
-        pivot_longer(c(orig.ident, groups),
-                     names_to = "name",
-                     values_to = "value") %>%
+    spe %>%
+        pivot_longer(c(array_row, array_col), names_to = "dimension", values_to = "location") %>%
         class() %>%
         .[1] %>%
         expect_equal("tbl_df")
 })
+
