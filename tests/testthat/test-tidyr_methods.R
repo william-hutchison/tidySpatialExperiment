@@ -1,5 +1,7 @@
 context("tidyr test")
 
+example(read10xVisium)
+
 test_that("nest", {
     spe %>%
         nest(data = -sample_id) %>%

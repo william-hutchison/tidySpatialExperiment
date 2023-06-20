@@ -1,5 +1,7 @@
 context("dplyr test")
 
+example(read10xVisium)
+
 test_that("arrange", {
     spe_arranged <-
         spe %>%

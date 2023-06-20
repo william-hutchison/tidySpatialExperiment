@@ -1,5 +1,7 @@
 context('methods test')
 
+example(read10xVisium)
+
 # test_that("join_features",{
 # 
 #   pbmc_small %>%
