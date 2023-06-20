@@ -7,7 +7,7 @@ Authors@R: c(
     person("Stefano", "Mangiola", email = "mangiolastefano@gmail.com", role = "aut")
   )
 Description: tidySpatialExperiment is an adapter that abstracts the 'SpatialExperiment' container 
-    in the form of a tibble and allows the data manipulation, plotting and nesting using 'tidyverse'.
+    in the form of a tibble and allows data manipulation, plotting and nesting using 'tidyverse'.
 License: GPL-3
 Depends:
     R (>= 4.1.0),
@@ -35,7 +35,8 @@ Imports:
     stringr,
     cli,
     fansi,
-    Matrix
+    Matrix,
+    pkgconfig
 Suggests:
     BiocStyle,
     testthat,

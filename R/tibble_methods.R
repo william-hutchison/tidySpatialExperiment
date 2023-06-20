@@ -17,7 +17,7 @@
 #' * Default: Other inputs are first coerced with [base::as.data.frame()].
 #'
 #' @importFrom tibble as_tibble
-#'
+#' @pkgconfig get_config
 #' @section Row names:
 #' The default behavior is to silently remove row names.
 #'
