@@ -131,41 +131,28 @@ unnest_single_cell_experiment  <-  function(data, cols, ..., keep_empty=FALSE, p
                                             names_sep=NULL, names_repair="check_unique", .drop, .id, .sep, .preserve) {
     # Need this otherwise crashes map
     .data_ <- data
-
     cols <- enquo(cols)
-
-    .data_ %>%
-        when(
-
-            # If my only column to unnest is tidySpatialExperiment
-            pull(., !!cols) %>%
-                .[[1]] %>%
-                is("SpatialExperiment") %>%
-                any() ~
-
-                # Do my trick to unnest
-                mutate(., !!cols := imap(
-                    !!cols, ~ .x %>%
-                        bind_cols_(
-
-                            # Attach back the columns used for nesting
-                            .data_ %>% select(-!!cols) %>% slice(rep(.y, nrow(as_tibble(.x))))
-
-                        )
-                )) %>%
-                pull(!!cols) %>%
-                reduce(bind_rows),
-
-            # Else do normal stuff
-            ~ (.) %>%
-                drop_class("tidySpatialExperiment_nested") %>%
-                tidyr::unnest(!!cols, ..., keep_empty=keep_empty, ptype=ptype, names_sep=names_sep, names_repair=names_repair) %>%
-                add_class("tidySpatialExperiment_nested")
-        )
+    
+    # Bind nested SpatialExperiment objects
+    if(
+        .data_ %>% 
+            pull(!!cols) %>%
+            .[[1]] %>%
+            is("SpatialExperiment") %>%
+            any()
+    ) {
+        .data_ %>%
+            pull(!!cols) %>%
+            reduce(bind_rows)
+      
+    # Otherwise perform a normal unnest
+    } else {
+        .data_ %>%
+            drop_class("tidySpatialExperiment_nested") %>%
+            tidyr::unnest(!!cols, ..., keep_empty=keep_empty, ptype=ptype, names_sep=names_sep, names_repair=names_repair) %>%
+            add_class("tidySpatialExperiment_nested")
+    }
 }
-
-
-
 
 #' nest
 #'
