@@ -9,7 +9,7 @@ tidySpatialExperiment - part of tidytranscriptomics
 
 [![Lifecycle:experimental](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R build
-status](https://github.com/william-hutchison/tidySpatialExperiment/actions/workflows/check-bioc.yml/badge.svg)](https://github.com/william-hutchison/tidySpatialExperiment/actions)\]
+status](https://github.com/william-hutchison/tidySpatialExperiment/actions/workflows/check-bioc.yml/badge.svg)](https://github.com/william-hutchison/tidySpatialExperiment/actions)
 <!-- badges: end -->
 
 You can find more packages from the tidytranscriptomics ecosystem here:
