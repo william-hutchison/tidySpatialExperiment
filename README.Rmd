@@ -5,16 +5,7 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
-)
-```
-
-**Brings SpatialExperimet to the tidyverse** 
+**Brings SpatialExperimet to the Tidyverse** 
 
 <!-- badges: start -->
 [![Lifecycle:experimental](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental) [![R build status](https://github.com/william-hutchison/tidySpatialExperiment/actions/workflows/check-bioc.yml/badge.svg)](https://github.com/william-hutchison/tidySpatialExperiment/actions)
@@ -49,23 +40,143 @@ Package | Functions available
 Utility | Description
 ------------ | -------------
 `as_tibble` | Convert cell-wise information to a `tbl_df`
-`aggregate_cells` | Aggregate cell gene-transcription abundance as pseudobulk
+`aggregate_cells` | Aggregate cell gene-transcription abundance as pseudobulk tissue
 
 ## Installation
 
 You can install the development version of tidySpatialExperiment from GitHub with:
 
-``` r
-# install.packages("devtools")
+```
+install.packages("devtools")
 devtools::install_github("william-hutchison/tidySpatialExperiment")
 ```
 
 # Examples
+## Load data
 
-This is a basic example which shows you how to solve a common problem:
+Here, we load and view an example SpatialExperiment object. The output we see is of the SpatialExperiment tibble abstraction.
 
-```{r example}
-# Load example data from SpatialExperiment
-# library(tidySpatialExperiment)
-# example(read10xVisium)
+```{r, message=FALSE, results=FALSE}
+# Load example SpatialExperiment object
+library(tidySpatialExperiment)
+example(read10xVisium)
 ```
+
+```{r}
+# View the SpatialExperiment object as a tibble
+spe
+```
+
+However, our object is still a SpatialExperiment object. Therefore, we have access to the SpatialExperiment functions. 
+
+```{r}
+spe |>
+  colData() |>
+  head()
+
+spe |> 
+  spatialCoords() |>
+  head()
+
+spe |>
+  imgData()
+```
+
+## Manipulate with dplyr
+Most functions from dplyr are available for use with the SpatialExperiment tibble abstraction. For example, filter can be used to select cells by a variable of interest. 
+
+```{r}
+spe |>
+  filter(array_col < 5)
+
+```
+
+And mutate can be used to add new variables, or modify the value of an existing variable.
+```{r}
+spe |>
+  mutate(in_region = c(in_tissue & array_row < 10))
+```
+
+## Tidy with tidyr
+```{r}
+# Nest the SpatialExperiment object by sample_id
+spe_nested <-
+  spe |> 
+  nest(data = -sample_id)
+
+# View the nested SpatialExperiment object
+spe_nested
+
+# Unnest the nested SpatialExperiment objects
+spe_nested |>
+  unnest(data)
+```
+
+## Plot with ggplot2
+```{r}
+spe |>
+  filter(sample_id == "section1") |>
+  mutate(count_sum = purrr::map_int(.cell, ~
+    spe[, .x] |> 
+      counts() |> 
+      sum()
+    )) |>
+  ggplot(ggplot2::aes(x = reorder(.cell, count_sum), y = count_sum)) +
+  ggplot2::geom_point() +
+  ggplot2::coord_flip()
+```
+
+# Important considerations
+tidySpatialExperiment is still in development and contains some rough edges. Below are examples of behaviour which is currently unclear. I will be adding warning messages / making changes to address these problems in the coming days. 
+
+## Read only columns
+Removing the .cell column will return a tibble. This is consistent with the behaviour in other tidytranscriptomics packages.
+```{r}
+spe |>
+  select(-.cell) |>
+  head()
+```
+
+The sample_id column cannot be removed with tidyverse functions, and can only be modified if the changes are accepted by SpatialExperiment's colData() function.
+```{r, error=TRUE}
+# sample_id is not removed, despite the user's request
+spe |>
+  select(-sample_id)
+
+# This change maintains separation of sample_ids and is permitted
+spe |> 
+  mutate(sample_id = stringr::str_c(sample_id, "_modified")) |>
+  head()
+
+# This change does not maintain separation of sample_ids and produces an error
+spe |>
+  mutate(sample_id = "new_sample")
+```
+
+The pxl_col_in_fullres and px_row_in_fullres columns cannot be removed or modified with tidyverse functions. This is consistent with the behaviour of dimension reduction data in other tidytranscriptomics packages.
+
+```{r, error=TRUE}
+# Attempting to remove pxl_col_in_fullres produces an error
+spe |>
+  select(-pxl_col_in_fullres)
+
+# Attempting to modify pxl_col_in_fullres produces an error
+spe |> 
+  mutate(pxl_col_in_fullres)
+```
+
+## Unnesting
+tidySpatialExperiment's unnest works through cbind. cbind seems to assume the objects it is joining cannot be from the same sample. Therefore, cbind appends indices to the sample_id values if there are any duplicates across the objects to keep them separate. Because of this, nesting and unnesting on anything other than the sample_id will cause the sample_id value to have indices appended. This behaviour is desirable if the samples truly are different, but not if they are the same. 
+
+```{r}
+# Using cbind
+cbind(spe[, colData(spe)$in_tissue], spe[, !colData(spe)$in_tissue])
+
+# Using unnest
+spe |>
+  nest(data = -in_tissue) |>
+  unnest(data)
+```
+
+
+
