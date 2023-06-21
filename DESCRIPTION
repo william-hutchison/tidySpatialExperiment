@@ -55,8 +55,6 @@ Suggests:
     EnsDb.Hsapiens.v86
 VignetteBuilder: 
     knitr
-RdMacros:
-    lifecycle
 Biarch: true
 biocViews: AssayDomain, Infrastructure, RNASeq, DifferentialExpression, GeneExpression, Normalization, Clustering, QualityControl, Sequencing
 Encoding: UTF-8

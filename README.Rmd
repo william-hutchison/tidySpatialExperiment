@@ -17,10 +17,11 @@ knitr::opts_chunk$set(
 **Brings SpatialExperimet to the tidyverse** 
 
 <!-- badges: start -->
-lifecycle::badge('experimental')
+[![Lifecycle:experimental](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental) [![R build status](https://github.com/william-hutchison/tidySpatialExperiment/actions/workflows/check-bioc.yml/badge.svg)](https://github.com/william-hutchison/tidySpatialExperiment/actions)]
 <!-- badges: end -->
 
 You can find more packages from the tidytranscriptomics ecosystem here:
+
 - [tidySingleCellExperiment](https://github.com/stemangiola/tidySingleCellExperiment) for tidy manipulation of SingleCellExperiment objects
 - [tidySummarizedExperiment](https://github.com/stemangiola/tidySummarizedExperiment) for tidy manipulation of SummarizedExperiment objects
 - [tidyseurat](https://stemangiola.github.io/tidyseurat/) for tidy manipulation of Seurat objects
@@ -30,7 +31,8 @@ You can find more packages from the tidytranscriptomics ecosystem here:
 - [tidyHeatmap](https://stemangiola.github.io/tidyHeatmap/) for heatmaps produced with tidy principles
 
 # Introduction
-tidySpatialExperiment provides a bridge between SpatialExperiment [@righelli2022spatialexperiment] and the tidyverse [@wickham2019welcome]. It creates an invisible layer that allows you to interact with a SpatialExperiment object as if it were a tibble, enabling the use of *dplyr*, *tidyr*, *ggplot2* and *plotly* functions. But, your data maintains its status as a SpatialExperiment object.
+
+tidySpatialExperiment provides a bridge between the [SpatialExperiment](https://github.com/drighelli/SpatialExperiment) [@righelli2022spatialexperiment] and [Tidyverse](https://www.tidyverse.org) [@wickham2019welcome] packages. It creates an invisible layer that allows you to interact with a SpatialExperiment object as if it were a tibble, enabling the use of *dplyr*, *tidyr*, *ggplot2* and *plotly* functions. But, underneath, your data remains a SpatialExperiment object.
 
 tidySpatialExperiment also provides an additional two utility functions.
 
@@ -38,7 +40,7 @@ tidySpatialExperiment also provides an additional two utility functions.
 
 Package | Functions available
 ------------ | -------------
-`tidySpatialExperiment` | All
+`SpatialExperiment` | All
 `dplyr` | `arrange`,`bind_rows`, `bind_cols`, `distinct`, `filter`, `group_by`, `summarise`,  `select`, `mutate`, `rename`, `left_join`, `right_join`, `inner_join`, `slice`, `sample_n`, `sample_frac`, `count`, `add_count`
 `tidyr` | `nest`, `unnest`, `unite`, `separate`, `extract`, `pivot_longer`
 `ggplot2` | `ggplot`
@@ -51,7 +53,7 @@ Utility | Description
 
 ## Installation
 
-You can install the development version of tidySpatialExperiment from [GitHub](https://github.com/) with:
+You can install the development version of tidySpatialExperiment from GitHub with:
 
 ``` r
 # install.packages("devtools")
@@ -65,5 +67,5 @@ This is a basic example which shows you how to solve a common problem:
 ```{r example}
 # Load example data from SpatialExperiment
 # library(tidySpatialExperiment)
-# example(read10xVisium, echo = TRUE)
+# example(read10xVisium)
 ```
