@@ -43,7 +43,7 @@
 #'
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' library(ggplot2)
 #' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)

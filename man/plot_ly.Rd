@@ -139,7 +139,7 @@ help inform default axis/scale titles
 (e.g., \code{plot_ly(x=mtcars$wt)} vs \code{plot_ly(x=~mtcars$wt)})
 }
 \examples{
-\dontrun{
+\donttest{
 # plot_ly() tries to create a sensible plot based on the information you
 # give it. If you don't provide a trace type, plot_ly() will infer one.
 plot_ly(economics, x=~pop)
