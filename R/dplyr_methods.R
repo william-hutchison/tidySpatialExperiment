@@ -1136,20 +1136,20 @@ NULL
 #' @importFrom SummarizedExperiment colData
 #' @export
 select.SpatialExperiment <- function(.data, ...) {
-
-  # Deprecation of special column names
-  if(is_sample_feature_deprecated_used(
-    .data,
-    (enquos(..., .ignore_empty = "all") %>% map(~ quo_name(.x)) %>% unlist)
-  )){
-    .data= ping_old_special_column_into_metadata(.data)
-  }
-
+  
+    # Deprecation of special column names
+    if(is_sample_feature_deprecated_used(
+        .data,
+        (enquos(..., .ignore_empty = "all") %>% map(~ quo_name(.x)) %>% unlist)
+    )){
+        .data= ping_old_special_column_into_metadata(.data)
+    }
+  
     .data %>%
-        as_tibble() %>%
+        colData() %>%
+        tibble::as_tibble(rownames = c_(.data)$name) %>%
         select_helper(...) %>%
         when(
-
             # If key columns are missing
             (get_needed_columns(.data) %in% colnames(.)) %>%
                 all() %>%
@@ -1157,7 +1157,7 @@ select.SpatialExperiment <- function(.data, ...) {
                 message("tidySpatialExperiment says: Key columns are missing. A data frame is returned for independent data analysis.")
                 (.)
             },
-
+      
             # If valid SpatialExperiment meta data
             ~ {
                 colData(.data) <- (.) %>% as_meta_data(.data)
@@ -1165,6 +1165,7 @@ select.SpatialExperiment <- function(.data, ...) {
             }
         )
 }
+
 
 #' Sample n rows from a table
 #'
