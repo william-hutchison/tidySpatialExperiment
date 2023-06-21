@@ -1,0 +1,104 @@
+---
+title: "Overview of tidySpatialExperiment"
+author:
+- name: William Hutchison
+  affiliation: WEHI - Walter and Eliza Hall Institute of Medical Research
+  email: hutchison.w@wehi.edu.au
+- name: Stefano Mangiola
+  affiliation: WEHI - Walter and Eliza Hall Institute of Medical Research
+package: tidySpatialExperiment
+output:
+  BiocStyle::html_document
+abstract: |
+  A bried overview of tidySpatialExperiment
+vignette: |
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Installation
+You can install the development version of tidySpatialExperiment from GitHub with:
+
+```
+install.packages("devtools")
+devtools::install_github("william-hutchison/tidySpatialExperiment")
+```
+
+# Load data
+Here, we load and view an example SpatialExperiment object. The output we see is of the SpatialExperiment tibble abstraction.
+
+```{r, message=FALSE, results=FALSE}
+# Load example SpatialExperiment object
+library(tidySpatialExperiment)
+example(read10xVisium)
+```
+
+```{r}
+# View the SpatialExperiment object as a tibble
+spe
+```
+
+However, our object is still a SpatialExperiment object. Therefore, we have access to the SpatialExperiment functions. 
+
+```{r}
+spe |>
+  colData() |>
+  head()
+
+spe |> 
+  spatialCoords() |>
+  head()
+
+spe |>
+  imgData()
+```
+
+# Manipulate with dplyr
+Most functions from dplyr are available for use with the SpatialExperiment tibble abstraction. For example, filter can be used to select cells by a variable of interest. 
+
+```{r}
+spe |>
+  filter(array_col < 5)
+
+```
+
+And mutate can be used to add new variables, or modify the value of an existing variable.
+```{r}
+spe |>
+  mutate(in_region = c(in_tissue & array_row < 10))
+```
+
+# Tidy with tidyr
+```{r}
+# Nest the SpatialExperiment object by sample_id
+spe_nested <-
+  spe |> 
+  nest(data = -sample_id)
+
+# View the nested SpatialExperiment object
+spe_nested
+
+# Unnest the nested SpatialExperiment objects
+spe_nested |>
+  unnest(data)
+```
+
+# Plot with ggplot2
+```{r}
+spe |>
+  filter(sample_id == "section1") |>
+  mutate(count_sum = purrr::map_int(.cell, ~
+    spe[, .x] |> 
+      counts() |> 
+      sum()
+    )) |>
+  ggplot(ggplot2::aes(x = reorder(.cell, count_sum), y = count_sum)) +
+  ggplot2::geom_point() +
+  ggplot2::coord_flip()
+```
+
+# Session info
+```{r sessionInfo, echo=FALSE}
+sessionInfo()
+```
