@@ -122,8 +122,12 @@ tbl_format_header.tidySpatialExperiment <- function(x, setup, ...){
 #' @return Nothing
 #'
 #' @examples
-#' library(dplyr)
-#' pbmc_small  %>% print()
+#' `%>%` <- magrittr::`%>%`
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'     print()
+#'     
 #' @name print
 NULL
 

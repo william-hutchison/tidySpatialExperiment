@@ -43,7 +43,7 @@ multiple data frames are used to produce different layers, as
 is often the case in complex graphics.
 }
 \examples{
-\donttest{
+\dontrun{
 library(ggplot2)
 `\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)

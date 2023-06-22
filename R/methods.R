@@ -93,42 +93,6 @@ setMethod("join_features", "SpatialExperiment",  function(.data,
 
 })
 
-
-#' tidy for SpatialExperiment
-#'
-#' @param object A SpatialExperiment object
-#'
-#' @return A tidySpatialExperiment object
-#'
-#' @name tidy
-#'
-#' @examples
-#'
-#' NULL
-#'
-#' @export
-tidy <- function(object) {
-  UseMethod("tidy", object)
-}
-
-#' @importFrom methods as
-#' @importFrom lifecycle deprecate_warn
-#'
-#' @param object A SpatialExperiment object
-#'
-#' @export
-tidy.SpatialExperiment <- function(object) {
-
-  # DEPRECATE
-  deprecate_warn(
-    when = "1.1.1",
-    what = "tidy()",
-    details = "tidySpatialExperiment says: tidy() is not needed anymore."
-  )
-
-  object
-}
-
 #' Aggregate cells
 #'
 #' @description Combine cells into groups based on shared variables and aggregate feature counts.
