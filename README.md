@@ -3,7 +3,7 @@ tidySpatialExperiment - part of tidytranscriptomics
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-**Brings SpatialExperimet to the Tidyverse**
+**Brings SpatialExperiment to the Tidyverse**
 
 <!-- badges: start -->
 
@@ -18,15 +18,15 @@ You can find more packages from the tidytranscriptomics ecosystem here:
   for tidy manipulation of SingleCellExperiment objects
 - [tidySummarizedExperiment](https://github.com/stemangiola/tidySummarizedExperiment)
   for tidy manipulation of SummarizedExperiment objects
-- [tidyseurat](https://stemangiola.github.io/tidyseurat/) for tidy
+- [tidyseurat](https://github.com/stemangiola/tidyseurat) for tidy
   manipulation of Seurat objects
-- [tidybulk](https://stemangiola.github.io/tidybulk/) for tidy bulk
+- [tidybulk](https://github.com/stemangiola/tidybulk) for tidy bulk
   RNA-seq data analysis
 - [nanny](https://github.com/stemangiola/nanny) for tidy high-level data
   analysis and manipulation
 - [tidygate](https://github.com/stemangiola/tidygate) for adding custom
   gate information to your tibble
-- [tidyHeatmap](https://stemangiola.github.io/tidyHeatmap/) for heatmaps
+- [tidyHeatmap](https://github.com/stemangiola/tidyHeatmap) for heatmaps
   produced with tidy principles
 
 # Introduction
@@ -37,10 +37,10 @@ tidySpatialExperiment provides a bridge between the
 [Tidyverse](https://www.tidyverse.org) \[@wickham2019welcome\] packages.
 It creates an invisible layer that allows you to interact with a
 SpatialExperiment object as if it were a tibble, enabling the use of
-*dplyr*, *tidyr*, *ggplot2* and *plotly* functions. But, underneath,
-your data remains a SpatialExperiment object.
+dplyr, tidyr, ggplot2 and plotly functions. But, underneath, your data
+remains a SpatialExperiment object.
 
-tidySpatialExperiment also provides an additional two utility functions.
+tidySpatialExperiment also provides two additional utility functions.
 
 ## Functions and utilities
 
@@ -146,9 +146,9 @@ spe |>
 
 ## Manipulate with dplyr
 
-Most functions from dplyr are available for use with the
-SpatialExperiment tibble abstraction. For example, filter can be used to
-select cells by a variable of interest.
+Most functions from *dplyr* are available for use with the
+SpatialExperiment tibble abstraction. For example, `filter` can be used
+to select cells by a variable of interest.
 
 ``` r
 spe |>
@@ -167,7 +167,7 @@ spe |>
     ## 6 AAAGAATGACCTTAGA-1 FALSE            64         2 section2                1349
     ## # ℹ 1 more variable: pxl_row_in_fullres <int>
 
-And mutate can be used to add new variables, or modify the value of an
+And `mutate` can be used to add new variables, or modify the value of an
 existing variable.
 
 ``` r
@@ -253,11 +253,11 @@ spe |>
 # Important considerations
 
 tidySpatialExperiment is still in development and contains some rough
-edges. Below are examples of behaviour which is currently unclear. I
-will be adding warning messages / making changes to address these
-problems in the coming days.
+edges. Below are examples of behaviour that is currently unclear. I will
+be adding warning messages / making changes to address these problems in
+the coming days.
 
-## Read only columns
+## Read-only columns
 
 Removing the .cell column will return a tibble. This is consistent with
 the behaviour in other tidytranscriptomics packages.
@@ -282,7 +282,7 @@ spe |>
 
 The sample_id column cannot be removed with tidyverse functions, and can
 only be modified if the changes are accepted by SpatialExperiment’s
-colData() function.
+`colData` function.
 
 ``` r
 # sample_id is not removed, despite the user's request
