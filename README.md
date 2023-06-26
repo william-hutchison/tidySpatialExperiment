@@ -36,9 +36,9 @@ tidySpatialExperiment provides a bridge between the
 \[@righelli2022spatialexperiment\] and
 [Tidyverse](https://www.tidyverse.org) \[@wickham2019welcome\] packages.
 It creates an invisible layer that allows you to interact with a
-SpatialExperiment object as if it were a tibble, enabling the use of
-dplyr, tidyr, ggplot2 and plotly functions. But, underneath, your data
-remains a SpatialExperiment object.
+SpatialExperiment object as if it were a tibble: allowing the use of
+*dplyr*, *tidyr*, *ggplot2* and *plotly* functions. But, underneath,
+your data remains a SpatialExperiment object.
 
 tidySpatialExperiment also provides two additional utility functions.
 
@@ -70,7 +70,7 @@ GitHub with:
 ## Load data
 
 Here, we load and view an example SpatialExperiment object. The output
-we see is of the SpatialExperiment tibble abstraction.
+we see is of the SpatialExperiment-tibble abstraction.
 
 ``` r
 # Load example SpatialExperiment object
@@ -101,7 +101,7 @@ spe
     ## # ℹ 1 more variable: pxl_row_in_fullres <int>
 
 However, our object is still a SpatialExperiment object. Therefore, we
-have access to the SpatialExperiment functions.
+have access to all SpatialExperiment functions.
 
 ``` r
 spe |>
@@ -147,7 +147,7 @@ spe |>
 ## Manipulate with dplyr
 
 Most functions from *dplyr* are available for use with the
-SpatialExperiment tibble abstraction. For example, `filter` can be used
+SpatialExperiment-tibble abstraction. For example, `filter` can be used
 to select cells by a variable of interest.
 
 ``` r
@@ -194,6 +194,9 @@ spe |>
 
 ## Tidy with tidyr
 
+Most functions from *tidyr* are also available. Here, `nest` is used to
+group the data by sample_id, and `unnest` is used to ungroup the data.
+
 ``` r
 # Nest the SpatialExperiment object by sample_id
 spe_nested <-
@@ -235,14 +238,24 @@ spe_nested |>
 
 ## Plot with ggplot2
 
+The `ggplot` function can be used to create a plot from a
+SpatialExperiment object. This example also demonstrates how tidy
+operations can be combined to build up more complex analysis. It should
+be noted that helper functions such `aes` are not included and should be
+imported from *ggplot2*.
+
 ``` r
 spe |>
   filter(sample_id == "section1") |>
+  
+  # Add a column with the sum of feature counts per cell
   mutate(count_sum = purrr::map_int(.cell, ~
     spe[, .x] |> 
       counts() |> 
       sum()
     )) |>
+  
+  # Plot with tidySpatialExperiment and ggplot2
   ggplot(ggplot2::aes(x = reorder(.cell, count_sum), y = count_sum)) +
   ggplot2::geom_point() +
   ggplot2::coord_flip()
@@ -250,12 +263,38 @@ spe |>
 
 ![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
+## Plot with plotly
+
+The `plot_ly` function can also be used to create a plot from a
+SpatialExperiment object.
+
+``` r
+spe |>
+  filter(sample_id == "section1") |>
+  plot_ly(
+    x = ~ array_row, 
+    y = ~ array_col, 
+    color = ~ in_tissue, 
+    type = "scatter"
+  )
+```
+
+    ## No scatter mode specifed:
+    ##   Setting the mode to markers
+    ##   Read more about this attribute -> https://plotly.com/r/reference/#scatter-mode
+
+    ## Warning in RColorBrewer::brewer.pal(N, "Set2"): minimal value for n is 3, returning requested palette with 3 different levels
+
+    ## Warning in RColorBrewer::brewer.pal(N, "Set2"): minimal value for n is 3, returning requested palette with 3 different levels
+
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
 # Important considerations
 
 tidySpatialExperiment is still in development and contains some rough
 edges. Below are examples of behaviour that is currently unclear. I will
 be adding warning messages / making changes to address these problems in
-the coming days.
+the coming weeks.
 
 ## Read-only columns
 

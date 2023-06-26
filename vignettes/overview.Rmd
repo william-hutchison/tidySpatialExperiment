@@ -25,8 +25,10 @@ install.packages("devtools")
 devtools::install_github("william-hutchison/tidySpatialExperiment")
 ```
 
-# Load data
-Here, we load and view an example SpatialExperiment object. The output we see is of the SpatialExperiment tibble abstraction.
+# Examples
+## Load data
+
+Here, we load and view an example SpatialExperiment object. The output we see is of the SpatialExperiment-tibble abstraction.
 
 ```{r, message=FALSE, results=FALSE}
 # Load example SpatialExperiment object
@@ -39,7 +41,7 @@ example(read10xVisium)
 spe
 ```
 
-However, our object is still a SpatialExperiment object. Therefore, we have access to the SpatialExperiment functions. 
+However, our object is still a SpatialExperiment object. Therefore, we have access to all SpatialExperiment functions. 
 
 ```{r}
 spe |>
@@ -54,8 +56,8 @@ spe |>
   imgData()
 ```
 
-# Manipulate with dplyr
-Most functions from dplyr are available for use with the SpatialExperiment tibble abstraction. For example, filter can be used to select cells by a variable of interest. 
+## Manipulate with dplyr
+Most functions from *dplyr* are available for use with the SpatialExperiment-tibble abstraction. For example, `filter` can be used to select cells by a variable of interest. 
 
 ```{r}
 spe |>
@@ -63,13 +65,16 @@ spe |>
 
 ```
 
-And mutate can be used to add new variables, or modify the value of an existing variable.
+And `mutate` can be used to add new variables, or modify the value of an existing variable.
 ```{r}
 spe |>
   mutate(in_region = c(in_tissue & array_row < 10))
 ```
 
-# Tidy with tidyr
+## Tidy with tidyr
+
+Most functions from *tidyr* are also available. Here, `nest` is used to group the data by sample_id, and `unnest` is used to ungroup the data.
+
 ```{r}
 # Nest the SpatialExperiment object by sample_id
 spe_nested <-
@@ -84,21 +89,43 @@ spe_nested |>
   unnest(data)
 ```
 
-# Plot with ggplot2
+## Plot with ggplot2
+
+The `ggplot` function can be used to create a plot from a SpatialExperiment object. This example also demonstrates how tidy operations can be combined to build up more complex analysis. It should be noted that helper functions such `aes` are not included and should be imported from *ggplot2*. 
+
 ```{r}
 spe |>
   filter(sample_id == "section1") |>
+  
+  # Add a column with the sum of feature counts per cell
   mutate(count_sum = purrr::map_int(.cell, ~
     spe[, .x] |> 
       counts() |> 
       sum()
     )) |>
+  
+  # Plot with tidySpatialExperiment and ggplot2
   ggplot(ggplot2::aes(x = reorder(.cell, count_sum), y = count_sum)) +
   ggplot2::geom_point() +
   ggplot2::coord_flip()
+```
+
+## Plot with plotly
+The `plot_ly` function can also be used to create a plot from a SpatialExperiment object.
+
+```{r}
+spe |>
+  filter(sample_id == "section1") |>
+  plot_ly(
+    x = ~ array_row, 
+    y = ~ array_col, 
+    color = ~ in_tissue, 
+    type = "scatter"
+  )
 ```
 
 # Session info
 ```{r sessionInfo, echo=FALSE}
 sessionInfo()
 ```
+

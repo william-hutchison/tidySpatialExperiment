@@ -23,7 +23,7 @@ You can find more packages from the tidytranscriptomics ecosystem here:
 
 # Introduction
 
-tidySpatialExperiment provides a bridge between the [SpatialExperiment](https://github.com/drighelli/SpatialExperiment) [@righelli2022spatialexperiment] and [Tidyverse](https://www.tidyverse.org) [@wickham2019welcome] packages. It creates an invisible layer that allows you to interact with a SpatialExperiment object as if it were a tibble, enabling the use of dplyr, tidyr, ggplot2 and plotly functions. But, underneath, your data remains a SpatialExperiment object.
+tidySpatialExperiment provides a bridge between the [SpatialExperiment](https://github.com/drighelli/SpatialExperiment) [@righelli2022spatialexperiment] and [Tidyverse](https://www.tidyverse.org) [@wickham2019welcome] packages. It creates an invisible layer that allows you to interact with a SpatialExperiment object as if it were a tibble: allowing the use of *dplyr*, *tidyr*, *ggplot2* and *plotly* functions. But, underneath, your data remains a SpatialExperiment object.
 
 tidySpatialExperiment also provides two additional utility functions.
 
@@ -54,7 +54,7 @@ devtools::install_github("william-hutchison/tidySpatialExperiment")
 # Examples
 ## Load data
 
-Here, we load and view an example SpatialExperiment object. The output we see is of the SpatialExperiment tibble abstraction.
+Here, we load and view an example SpatialExperiment object. The output we see is of the SpatialExperiment-tibble abstraction.
 
 ```{r, message=FALSE, results=FALSE}
 # Load example SpatialExperiment object
@@ -67,7 +67,7 @@ example(read10xVisium)
 spe
 ```
 
-However, our object is still a SpatialExperiment object. Therefore, we have access to the SpatialExperiment functions. 
+However, our object is still a SpatialExperiment object. Therefore, we have access to all SpatialExperiment functions. 
 
 ```{r}
 spe |>
@@ -83,7 +83,7 @@ spe |>
 ```
 
 ## Manipulate with dplyr
-Most functions from *dplyr* are available for use with the SpatialExperiment tibble abstraction. For example, `filter` can be used to select cells by a variable of interest. 
+Most functions from *dplyr* are available for use with the SpatialExperiment-tibble abstraction. For example, `filter` can be used to select cells by a variable of interest. 
 
 ```{r}
 spe |>
@@ -98,6 +98,9 @@ spe |>
 ```
 
 ## Tidy with tidyr
+
+Most functions from *tidyr* are also available. Here, `nest` is used to group the data by sample_id, and `unnest` is used to ungroup the data.
+
 ```{r}
 # Nest the SpatialExperiment object by sample_id
 spe_nested <-
@@ -113,23 +116,46 @@ spe_nested |>
 ```
 
 ## Plot with ggplot2
+
+The `ggplot` function can be used to create a plot from a SpatialExperiment object. This example also demonstrates how tidy operations can be combined to build up more complex analysis. It should be noted that helper functions such `aes` are not included and should be imported from *ggplot2*. 
+
 ```{r}
 spe |>
   filter(sample_id == "section1") |>
+  
+  # Add a column with the sum of feature counts per cell
   mutate(count_sum = purrr::map_int(.cell, ~
     spe[, .x] |> 
       counts() |> 
       sum()
     )) |>
+  
+  # Plot with tidySpatialExperiment and ggplot2
   ggplot(ggplot2::aes(x = reorder(.cell, count_sum), y = count_sum)) +
   ggplot2::geom_point() +
   ggplot2::coord_flip()
 ```
 
+## Plot with plotly
+The `plot_ly` function can also be used to create a plot from a SpatialExperiment object.
+
+```{r, fig.keep="first"}
+spe |>
+  filter(sample_id == "section1") |>
+  plot_ly(
+    x = ~ array_row, 
+    y = ~ array_col, 
+    color = ~ in_tissue, 
+    type = "scatter"
+  )
+```
+
 # Important considerations
-tidySpatialExperiment is still in development and contains some rough edges. Below are examples of behaviour that is currently unclear. I will be adding warning messages / making changes to address these problems in the coming days. 
+
+tidySpatialExperiment is still in development and contains some rough edges. Below are examples of behaviour that is currently unclear. I will be adding warning messages / making changes to address these problems in the coming weeks. 
 
 ## Read-only columns
+
 Removing the .cell column will return a tibble. This is consistent with the behaviour in other tidytranscriptomics packages.
 ```{r}
 spe |>
@@ -166,6 +192,7 @@ spe |>
 ```
 
 ## Unnesting
+
 tidySpatialExperiment's unnest works through cbind. cbind seems to assume the objects it is joining cannot be from the same sample. Therefore, cbind appends indices to the sample_id values if there are any duplicates across the objects to keep them separate. Because of this, nesting and unnesting on anything other than the sample_id will cause the sample_id value to have indices appended. This behaviour is desirable if the samples truly are different, but not if they are the same. 
 
 ```{r}
