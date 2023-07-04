@@ -1,7 +1,7 @@
 Type: Package
 Package: tidySpatialExperiment
 Title: Brings SpatialExperiment to the Tidyverse 
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: c(
     person("William", "Hutchison", email = "hutchison.w@wehi.edu.au", role = c("aut", "cre")),
     person("Stefano", "Mangiola", email = "mangiolastefano@gmail.com", role = "aut")
