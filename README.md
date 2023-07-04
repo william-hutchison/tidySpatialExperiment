@@ -296,10 +296,6 @@ spe |>
     ##   Setting the mode to markers
     ##   Read more about this attribute -> https://plotly.com/r/reference/#scatter-mode
 
-    ## Warning in RColorBrewer::brewer.pal(N, "Set2"): minimal value for n is 3, returning requested palette with 3 different levels
-
-    ## Warning in RColorBrewer::brewer.pal(N, "Set2"): minimal value for n is 3, returning requested palette with 3 different levels
-
 ![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 # Important considerations
@@ -416,64 +412,3 @@ spe |>
     ## ℹ In argument: `pxl_col_in_fullres`.
     ## Caused by error:
     ## ! object 'pxl_col_in_fullres' not found
-
-## Unnesting
-
-tidySpatialExperiment’s unnest works through cbind. cbind seems to
-assume the objects it is joining cannot be from the same sample.
-Therefore, cbind appends indices to the sample_id values if there are
-any duplicates across the objects to keep them separate. Because of
-this, nesting and unnesting on anything other than the sample_id will
-cause the sample_id value to have indices appended. This behaviour is
-desirable if the samples truly are different, but not if they are the
-same.
-
-``` r
-# Using cbind
-cbind(spe[, colData(spe)$in_tissue], spe[, !colData(spe)$in_tissue])
-```
-
-    ## 'sample_id's are duplicated across 'SpatialExperiment' objects to cbind; appending sample indices.
-
-    ## # A SpatialExperiment-tibble abstraction: 99 × 7
-    ## # [90mFeatures=50 | Cells=99 | Assays=counts[0m
-    ##    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres
-    ##    <chr>              <lgl>         <int>     <int> <chr>                  <int>
-    ##  1 AAACAAGTATCTCCCA-1 TRUE             50       102 section1…               8230
-    ##  2 AAACAATCTACTAGCA-1 TRUE              3        43 section1…               4170
-    ##  3 AAACACCAATAACTGC-1 TRUE             59        19 section1…               2519
-    ##  4 AAACAGAGCGACTCCT-1 TRUE             14        94 section1…               7679
-    ##  5 AAACCGGGTAGGTACC-1 TRUE             42        28 section1…               3138
-    ##  6 AAACCGTTCGTCCAGG-1 TRUE             52        42 section1…               4101
-    ##  7 AAACCTCATGAAGTTG-1 TRUE             37        19 section1…               2519
-    ##  8 AAACGAAGAACATACC-1 TRUE              6        64 section1…               5615
-    ##  9 AAACGAGACGGTTGAT-1 TRUE             35        79 section1…               6647
-    ## 10 AAACGGTTGCGAACTG-1 TRUE             67        59 section1…               5271
-    ## # ℹ 89 more rows
-    ## # ℹ 1 more variable: pxl_row_in_fullres <int>
-
-``` r
-# Using unnest
-spe |>
-  nest(data = -in_tissue) |>
-  unnest(data)
-```
-
-    ## 'sample_id's are duplicated across 'SpatialExperiment' objects to cbind; appending sample indices.
-
-    ## # A SpatialExperiment-tibble abstraction: 99 × 7
-    ## # [90mFeatures=50 | Cells=99 | Assays=counts[0m
-    ##    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres
-    ##    <chr>              <lgl>         <int>     <int> <chr>                  <int>
-    ##  1 AAACAACGAATAGTTC-1 FALSE             0        16 section1…               2312
-    ##  2 AAACAGCTTTCAGAAG-1 FALSE            43         9 section1…               1831
-    ##  3 AAACAGGGTCTATATT-1 FALSE            47        13 section1…               2106
-    ##  4 AAACAGTGTTCCTGGG-1 FALSE            73        43 section1…               4170
-    ##  5 AAACATGGTGAGAGGA-1 FALSE            62         0 section1…               1212
-    ##  6 AAACATTTCCCGGATT-1 FALSE            61        97 section1…               7886
-    ##  7 AAACCACTACACAGAT-1 FALSE             3       117 section1…               9261
-    ##  8 AAACCCGAACGAAATC-1 FALSE            45       115 section1…               9124
-    ##  9 AAACCGGAAATGTTAA-1 FALSE            54       124 section1…               9743
-    ## 10 AAACCTAAGCAGCCGG-1 FALSE            65        83 section1…               6922
-    ## # ℹ 89 more rows
-    ## # ℹ 1 more variable: pxl_row_in_fullres <int>
