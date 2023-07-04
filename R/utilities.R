@@ -528,5 +528,35 @@ subset = function(.data, .column)	{
     distinct()
 }
 
+#' Bind columns without checking for duplicate sample_ids
+#' 
+#' @keywords internal
+#' @noRd
+#' 
+#' @importFrom BiocGenerics rbind cbind
+setMethod("cbind", "SpatialExperiment", function(..., deparse.level=1) {
+  
+  old <- S4Vectors:::disableValidity()
+  if (!isTRUE(old)) {
+    S4Vectors:::disableValidity(TRUE)
+    on.exit(S4Vectors:::disableValidity(old))
+  }
+  args <- list(...)
+  
+  # bind SPEs
+  out <- do.call(
+    callNextMethod, 
+    c(args, list(deparse.level=1)))
+  
+  # merge 'imgData' from multiple samples
+  if (!is.null(imgData(args[[1]]))) { 
+    newimgdata <- do.call(rbind, lapply(args, imgData))
+    int_metadata(out)[names(int_metadata(out)) == "imgData"] <- NULL
+    int_metadata(out)$imgData <- newimgdata
+  } 
+  
+  return(out)
+})
+
 feature__ = get_special_column_name_symbol(".feature")
 sample__ = get_special_column_name_symbol(".sample")
