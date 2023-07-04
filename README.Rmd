@@ -128,7 +128,7 @@ The `ggplot` function can be used to create a plot from a SpatialExperiment obje
 
 ```{r}
 spe |>
-  filter(sample_id == "section1") |>
+  filter(sample_id == "section1" & in_tissue) |>
   
   # Add a column with the sum of feature counts per cell
   mutate(count_sum = purrr::map_int(.cell, ~
@@ -146,7 +146,7 @@ spe |>
 ## Plot with plotly
 The `plot_ly` function can also be used to create a plot from a SpatialExperiment object.
 
-```{r, fig.keep="first", warning=FALSE}
+```{r, fig.keep="first", message=FALSE, warning=FALSE}
 spe |>
   filter(sample_id == "section1") |>
   plot_ly(
