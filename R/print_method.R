@@ -23,15 +23,12 @@
 #' @rdname tbl_format_header-methods
 #' @name tbl_format_header
 #'
-#' @export
-#'
 NULL
 
 #' @importFrom rlang names2
 #' @importFrom pillar align
 #' @importFrom pillar get_extent
 #' @importFrom pillar style_subtle
-#' @export
 #' @inheritParams tbl_format_header
 tbl_format_header.tidySpatialExperiment <- function(x, setup, ...){
 

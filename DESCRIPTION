@@ -16,6 +16,7 @@ Depends:
     SpatialExperiment
 Imports:
     SummarizedExperiment,
+    BiocGenerics,
     dplyr,
     tibble,
     tidyr,
