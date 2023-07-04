@@ -17,7 +17,35 @@ vignette: |
   %\VignetteEncoding{UTF-8}
 ---
 
-# Installation
+# Introduction
+
+tidySpatialExperiment provides a bridge between the [SpatialExperiment](https://github.com/drighelli/SpatialExperiment) [@righelli2022spatialexperiment] and [Tidyverse](https://www.tidyverse.org) [@wickham2019welcome] packages. It creates an invisible layer that allows you to interact with a SpatialExperiment object as if it were a tibble: allowing the use of *dplyr*, *tidyr*, *ggplot2* and *plotly* functions. But, underneath, your data remains a SpatialExperiment object.
+
+tidySpatialExperiment also provides two additional utility functions.
+
+## Functions and utilities
+
+Package | Functions available
+------------ | -------------
+`SpatialExperiment` | All
+`dplyr` | `arrange`,`bind_rows`, `bind_cols`, `distinct`, `filter`, `group_by`, `summarise`,  `select`, `mutate`, `rename`, `left_join`, `right_join`, `inner_join`, `slice`, `sample_n`, `sample_frac`, `count`, `add_count`
+`tidyr` | `nest`, `unnest`, `unite`, `separate`, `extract`, `pivot_longer`
+`ggplot2` | `ggplot`
+`plotly` | `plot_ly`
+
+Utility | Description
+------------ | -------------
+`as_tibble` | Convert cell-wise information to a `tbl_df`
+`aggregate_cells` | Aggregate cell gene-transcription abundance as pseudobulk tissue
+
+## SpatialExperiment-tibble abstraction
+
+A SpatialExperiment object represents cells as columns and features as rows, as is the Bioconductor convention. Additional information about the cells is accessed through the `reducedDims`, `colData` and `spatialCoords` functions. 
+
+tidySpatialExperiment provides a SpatialExperiment-tibble abstraction, representing cells (observations) as rows and features (variables) as columns, as is the Tidyverse convention. In addition, `colData` and `spatialCoords` are appended as columns to the same abstraction, allowing easy interaction with this additional data. 
+
+## Installation
+
 You can install the development version of tidySpatialExperiment from GitHub with:
 
 ```
@@ -37,7 +65,7 @@ example(read10xVisium)
 ```
 
 ```{r}
-# View the SpatialExperiment object as a tibble
+# View the SpatialExperiment-tibble abstraction
 spe
 ```
 
@@ -113,7 +141,7 @@ spe |>
 ## Plot with plotly
 The `plot_ly` function can also be used to create a plot from a SpatialExperiment object.
 
-```{r}
+```{r, fig.keep="first"}
 spe |>
   filter(sample_id == "section1") |>
   plot_ly(

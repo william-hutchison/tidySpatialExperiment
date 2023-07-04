@@ -57,6 +57,19 @@ tidySpatialExperiment also provides two additional utility functions.
 | `as_tibble`       | Convert cell-wise information to a `tbl_df`                      |
 | `aggregate_cells` | Aggregate cell gene-transcription abundance as pseudobulk tissue |
 
+## SpatialExperiment-tibble abstraction
+
+A SpatialExperiment object represents cells as columns and features as
+rows, as is the Bioconductor convention. Additional information about
+the cells is accessed through the `reducedDims`, `colData` and
+`spatialCoords` functions.
+
+tidySpatialExperiment provides a SpatialExperiment-tibble abstraction,
+representing cells (observations) as rows and features (variables) as
+columns, as is the Tidyverse convention. In addition, `colData` and
+`spatialCoords` are appended as columns to the same abstraction,
+allowing easy interaction with this additional data.
+
 ## Installation
 
 You can install the development version of tidySpatialExperiment from
@@ -79,7 +92,7 @@ example(read10xVisium)
 ```
 
 ``` r
-# View the SpatialExperiment object as a tibble
+# View the SpatialExperiment-tibble abstraction
 spe
 ```
 
