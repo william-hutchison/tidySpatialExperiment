@@ -68,30 +68,39 @@ setMethod("join_features", "SpatialExperiment",  function(.data,
         .feature= NULL
 
         # Shape is long
-        if (shape == "long")
-          .data %>%
-            left_join(
-                get_abundance_sc_long(
-                    .data = .data,
-                    features = features,
-                    all = all,
-                    exclude_zeros = exclude_zeros
-                ),
-                by = c_(.data)$name
-            ) %>%
-            select(!!c_(.data)$symbol, .feature, contains(".abundance"), everything())
+        if (shape == "long") {
+            colData(.data) <-
+                .data %>%
+                colData() %>%
+                tibble::as_tibble(rownames = c_(.data)$name) %>%
+              
+                # Join feature abundance with colData 
+                dplyr::left_join(
+                    get_abundance_sc_long(
+                        .data = .data,
+                        features = features,
+                        all = all,
+                        exclude_zeros = exclude_zeros
+                    ),
+                    by = c_(.data)$name
+                ) %>%
+                select(!!c_(.data)$symbol, .feature, contains(".abundance"), everything()) %>%
+                as_meta_data(.data)
+            
+            .data
+        }
 
         # Shape if wide
-        else
-          .data  %>% left_join(get_abundance_sc_wide(
+        else {
+            .data  %>% left_join(get_abundance_sc_wide(
                 .data = .data,
                 features = features,
                 all = all, ...
             ),
             by = c_(.data)$name)
-
-
+        }
 })
+
 
 #' Aggregate cells
 #'
