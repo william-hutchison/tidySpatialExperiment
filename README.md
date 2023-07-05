@@ -40,7 +40,7 @@ SpatialExperiment object as if it were a tibble: allowing the use of
 *dplyr*, *tidyr*, *ggplot2* and *plotly* functions. But, underneath,
 your data remains a SpatialExperiment object.
 
-tidySpatialExperiment also provides two additional utility functions.
+tidySpatialExperiment also provides three additional utility functions.
 
 ## Functions and utilities
 
@@ -52,10 +52,11 @@ tidySpatialExperiment also provides two additional utility functions.
 | `ggplot2`           | `ggplot`                                                                                                                                                                                                           |
 | `plotly`            | `plot_ly`                                                                                                                                                                                                          |
 
-| Utility           | Description                                                      |
-|-------------------|------------------------------------------------------------------|
-| `as_tibble`       | Convert cell-wise information to a `tbl_df`                      |
-| `aggregate_cells` | Aggregate cell gene-transcription abundance as pseudobulk tissue |
+| Utility           | Description                                                               |
+|-------------------|---------------------------------------------------------------------------|
+| `as_tibble`       | Convert cell-wise information to a `tbl_df`                               |
+| `join_features`   | Combine cell-wise and feature-wise information into a `tbl_df`            |
+| `aggregate_cells` | Aggregate cell feature abundance into a pseudobulk `SummarizedExperiment` |
 
 ## SpatialExperiment-tibble abstraction
 
