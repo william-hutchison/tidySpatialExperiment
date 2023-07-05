@@ -43,6 +43,7 @@ This function extracts information for specified features and returns the inform
 `\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
 
-spe \%>\% 
+spe \%>\%
+    join_features(features = "ENSMUSG00000025900")
 
 }

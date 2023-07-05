@@ -50,11 +50,10 @@ setClass("tidySpatialExperiment", contains = "SpatialExperiment")
 #' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
 #'
-#' spe %>% 
-#`     join_features(features = c("ENSMUSG00000051951", "ENSMUSG00000025900"))
+#' spe %>%
+#'     join_features(features = "ENSMUSG00000025900")
 #'
 #' @export
-#'
 NULL
 
 #' join_features
@@ -71,7 +70,7 @@ setMethod("join_features", "SpatialExperiment",  function(.data,
                                                shape = "long", ...)
 {
         # Print message about changing data type
-        message("tidySingleCellExperiment says: A data frame is returned for independent data analysis.")
+        #message("tidySingleCellExperiment says: A data frame is returned for independent data analysis.")
   
         # CRAN Note
         .cell = NULL
