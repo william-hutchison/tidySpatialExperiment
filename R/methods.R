@@ -63,18 +63,22 @@ setMethod("join_features", "SpatialExperiment",  function(.data,
                                                exclude_zeros = FALSE,
                                                shape = "long", ...)
 {
+        # Print message about changing data type
+        message("tidySingleCellExperiment says: A data frame is returned for independent data analysis.")
+  
         # CRAN Note
         .cell = NULL
-        .feature= NULL
+        .feature = NULL
 
         # Shape is long
         if (shape == "long") {
-            colData(.data) <-
-                .data %>%
+          
+            # Join feature abundance with colData by index
+            .data %>%
                 colData() %>%
                 tibble::as_tibble(rownames = c_(.data)$name) %>%
-              
-                # Join feature abundance with colData 
+                tibble::rowid_to_column("index") %>%
+                dplyr::mutate(index = as.character(index)) %>%
                 dplyr::left_join(
                     get_abundance_sc_long(
                         .data = .data,
@@ -82,15 +86,12 @@ setMethod("join_features", "SpatialExperiment",  function(.data,
                         all = all,
                         exclude_zeros = exclude_zeros
                     ),
-                    by = c_(.data)$name
+                    by = "index"
                 ) %>%
-                select(!!c_(.data)$symbol, .feature, contains(".abundance"), everything()) %>%
-                as_meta_data(.data)
-            
-            .data
+                dplyr::mutate("index" = NULL)
         }
 
-        # Shape if wide
+        # Shape is wide
         else {
             .data  %>% left_join(get_abundance_sc_wide(
                 .data = .data,
