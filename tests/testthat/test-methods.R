@@ -2,14 +2,14 @@ context('methods test')
 
 example(read10xVisium)
 
-# test_that("join_features",{
-# 
-#   pbmc_small %>%
-#     join_features("CD3D") %>%
-#     slice(1) %>%
-#     tidySpatialExperiment::pull(.abundance_counts) %>%
-#     expect_equal(4, tolerance=0.1)
-# })
+test_that("join_features long",{
+
+  spe %>%
+    join_features(c("ENSMUSG00000051951", "ENSMUSG00000025900"), shape = "long") %>%
+    tidySpatialExperiment::pull(.abundance_counts) %>%
+    sum() %>%
+    expect_equal(8)
+})
 
 test_that("aggregate_cells", {
   
