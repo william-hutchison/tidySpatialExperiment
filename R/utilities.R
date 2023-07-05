@@ -240,41 +240,6 @@ get_abundance_sc_long <- function(.data, features=NULL, all=FALSE, exclude_zeros
           )
       }) %>%
       Reduce(function(...) full_join(..., by=c(".feature", c_(.data)$name)), .)
-    
-    # assays(.data) %>%
-    #     as.list() %>%
-    # 
-    #     # Take active assay
-    #     map2(
-    #         assay_names,
-    # 
-    #         ~ .x %>%
-    #             when(
-    #                 variable_genes %>% is.null() %>% `!`() ~ .x[variable_genes, , drop=FALSE],
-    #                 features %>% is.null() %>% `!`() ~ .x[toupper(rownames(.x)) %in% toupper(features), , drop=FALSE],
-    #                 all ~ .x,
-    #                 ~ stop("It is not convenient to extract all genes, you should have either variable features or feature list to extract")
-    #             ) %>%
-    # 
-    #             # Replace 0 with NA
-    #             when(exclude_zeros ~ (.) %>% {
-    #                 x <- (.)
-    #                 x[x == 0] <- NA
-    #                 x
-    #             }, ~ (.)) %>%
-    #             as.matrix() %>%
-    #             data.frame(check.names = FALSE) %>%
-    #             as_tibble(rownames=".feature") %>%
-    #             tidyr::pivot_longer(
-    #                 cols=- .feature,
-    #                 names_to=c_(.data)$name,
-    #                 values_to=".abundance" %>% paste(.y, sep="_"),
-    #                 values_drop_na=TRUE
-    #             )
-    #         # %>%
-    #         # mutate_if(is.character, as.factor) %>%
-    #     ) %>%
-    #     Reduce(function(...) full_join(..., by=c(".feature", c_(.data)$name)), .)
 }
 
 #' @importFrom dplyr select_if

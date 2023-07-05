@@ -27,6 +27,10 @@ setClass("tidySpatialExperiment", contains = "SpatialExperiment")
 #' @importFrom rlang enquo
 #' @importFrom magrittr "%>%"
 #' @importFrom ttservice join_features
+#' @importFrom tibble as_tibble
+#' @importFrom tibble rowid_to_column
+#' @importFrom dplyr mutate
+#' @importFrom dplyr left_join
 #'
 #' @name join_features
 #' @rdname join_features
@@ -43,8 +47,11 @@ setClass("tidySpatialExperiment", contains = "SpatialExperiment")
 #' @return An object containing the information.for the specified features
 #'
 #' @examples
+#' `%>%` <- magrittr::`%>%`
+#' example(read10xVisium)
 #'
-#' NULL
+#' spe %>% 
+#`     join_features(features = c("ENSMUSG00000051951", "ENSMUSG00000025900"))
 #'
 #' @export
 #'
