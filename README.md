@@ -96,7 +96,8 @@ example(read10xVisium)
 spe
 ```
 
-    ## # A data frame: 99 × 7
+    ## # A SpatialExperiment-tibble abstraction: 99 × 7
+    ## # [90mFeatures=50 | Cells=99 | Assays=counts[0m
     ##    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres
     ##    <chr>              <lgl>         <int>     <int> <chr>                  <int>
     ##  1 AAACAACGAATAGTTC-1 FALSE             0        16 section1                2312
@@ -167,7 +168,8 @@ spe |>
   filter(array_col < 5)
 ```
 
-    ## # A data frame: 6 × 7
+    ## # A SpatialExperiment-tibble abstraction: 6 × 7
+    ## # [90mFeatures=50 | Cells=6 | Assays=counts[0m
     ##   .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres
     ##   <chr>              <lgl>         <int>     <int> <chr>                  <int>
     ## 1 AAACATGGTGAGAGGA-1 FALSE            62         0 section1                1212
@@ -186,7 +188,8 @@ spe |>
   mutate(in_region = c(in_tissue & array_row < 10))
 ```
 
-    ## # A data frame: 99 × 8
+    ## # A SpatialExperiment-tibble abstraction: 99 × 8
+    ## # [90mFeatures=50 | Cells=99 | Assays=counts[0m
     ##    .cell    in_tissue array_row array_col sample_id in_region pxl_col_in_fullres
     ##    <chr>    <lgl>         <int>     <int> <chr>     <lgl>                  <int>
     ##  1 AAACAAC… FALSE             0        16 section1  FALSE                   2312
@@ -229,7 +232,8 @@ spe_nested |>
   unnest(data)
 ```
 
-    ## # A data frame: 99 × 7
+    ## # A SpatialExperiment-tibble abstraction: 99 × 7
+    ## # [90mFeatures=50 | Cells=99 | Assays=counts[0m
     ##    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres
     ##    <chr>              <lgl>         <int>     <int> <chr>                  <int>
     ##  1 AAACAACGAATAGTTC-1 FALSE             0        16 section1                2312
@@ -330,7 +334,8 @@ spe |>
   select(-sample_id)
 ```
 
-    ## # A data frame: 99 × 7
+    ## # A SpatialExperiment-tibble abstraction: 99 × 7
+    ## # [90mFeatures=50 | Cells=99 | Assays=counts[0m
     ##    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres
     ##    <chr>              <lgl>         <int>     <int> <chr>                  <int>
     ##  1 AAACAACGAATAGTTC-1 FALSE             0        16 section1                2312
@@ -353,7 +358,8 @@ spe |>
   head()
 ```
 
-    ## # A data frame: 99 × 7
+    ## # A SpatialExperiment-tibble abstraction: 99 × 7
+    ## # [90mFeatures=6 | Cells=99 | Assays=counts[0m
     ##    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres
     ##    <chr>              <lgl>         <int>     <int> <chr>                  <int>
     ##  1 AAACAACGAATAGTTC-1 FALSE             0        16 section1…               2312
