@@ -17,10 +17,7 @@ vignette: |
   %\VignetteEncoding{UTF-8}
 ---
 
-# Introduction
-Placeholder
-
-# Comparison
+# Run comparisons
 
 ```{r, message=FALSE, results=FALSE}
 
@@ -116,7 +113,9 @@ time_elapsed[8] <-
   })[["elapsed"]]
 ```
 
-## Plot
+# Results
+
+## Summarise findings
 
 ```{r}
 # Create tibble 
@@ -128,7 +127,11 @@ tidy_base_profile <-
     variable_count, 
     line_count
   )
+```
 
+## Plot tidyomics and base R / Bioconductor individually
+
+```{r}
 # Create plot
 plot_list <-
   list(
@@ -163,10 +166,10 @@ plot_list <-
 plot_grid(plotlist = plot_list, ncol = 3)
 ```
 
-## Alternative plot
+## Plot tidyomics and base R / Bioconductor differences
 
 ```{r}
-# Alternative plot
+# Create plot
 plot_list <-
   list(
     tidy_base_profile |>
