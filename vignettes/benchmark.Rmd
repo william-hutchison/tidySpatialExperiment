@@ -1,0 +1,216 @@
+---
+title: "Benchmarking efficiency gains and losses"
+author:
+- name: William Hutchison
+  affiliation: WEHI - Walter and Eliza Hall Institute of Medical Research
+  email: hutchison.w@wehi.edu.au
+- name: Stefano Mangiola
+  affiliation: WEHI - Walter and Eliza Hall Institute of Medical Research
+package: tidySpatialExperiment
+output:
+  BiocStyle::html_document
+abstract: |
+  Placeholder
+vignette: |
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+Placeholder
+
+# Comparison
+
+```{r, message=FALSE, results=FALSE}
+
+# Load libraries
+library(tidySpatialExperiment)
+library(tibble)
+library(ggplot2)
+library(cowplot)
+
+# Load data
+example(read10xVisium)
+
+# Construct benchmark vectors
+operation <- c("Select cells within pixel coordinates", "Select cells within pixel coordinates", "Split cells by variable", "Split cells by variable",  "Plot feature count per cell", "Plot feature count per cell", "Aggregate cells by variable", "Aggregate cells by variable")
+method <- c("tidySpatialExperiment", "SpatialExperiment and base R", "tidySpatialExperiment", "SpatialExperiment and base R", "tidySpatialExperiment", "SpatialExperiment and base R", "tidySpatialExperiment", "SpatialExperiment and base R")
+variable_count <- c(0, 1, 0, 1, 0, 1, 0, 3)
+line_count <- c(2, 2, 2, 2, 3, 2, 2, 4)
+time_elapsed <- c()
+```
+## Select cells based on location
+
+```{r}
+# tidySpatialExperiemt
+time_elapsed[1] <- 
+  system.time({
+    spe |> 
+      filter(pxl_col_in_fullres < 4000)
+  })[["elapsed"]]
+
+# SpatialExperiment and base R
+time_elapsed[2] <- 
+  system.time({
+    spe_coords <- spatialCoords(spe)
+    spe[, spe_coords[, "pxl_col_in_fullres"] < 4000]
+  })[["elapsed"]]
+```
+
+## Group cells by variable
+
+```{r}
+# tidySpatialExperiemt
+time_elapsed[3] <- 
+  system.time({
+    spe |>
+      nest(data = -sample_id)
+  })[["elapsed"]]
+
+# SpatialExperiment and base R
+time_elapsed[4] <- 
+  system.time({
+    spe_col_data <- colData(spe)
+    split(spe, spe_col_data$sample_id)
+  })[["elapsed"]]
+```
+
+## Plot feature counts per cell
+
+```{r}
+# tidySpatialExperiemt
+time_elapsed[5] <- 
+  system.time({
+    spe |>
+      join_features("ENSMUSG00000051951", shape = "long") |>
+      ggplot(aes(x = .cell, y = .abundance_counts)) +
+      ggplot2::geom_point()
+  })[["elapsed"]]
+
+# SpatialExperiment and base R
+time_elapsed[6] <- 
+  system.time({
+    spe_counts <- counts(spe)
+    plot(spe_counts["ENSMUSG00000051951", ])
+  })[["elapsed"]]
+```
+
+## Aggregate cells by variable
+
+```{r}
+# tidySpatialExperiemt
+time_elapsed[7] <- 
+  system.time({
+    spe |> 
+      aggregate_cells(sample_id)
+  })[["elapsed"]]
+
+# SpatialExperiment and base R
+time_elapsed[8] <- 
+  system.time({
+    spe_col_data <- colData(spe)
+    spe_split <- split(spe, spe_col_data$sample_id)
+    spe_split_counts <- lapply(spe_split, counts)
+    lapply(spe_split_counts, rowSums)
+  })[["elapsed"]]
+```
+
+## Plot
+
+```{r}
+# Create tibble 
+tidy_base_profile <- 
+  tibble(
+    operation, 
+    method,
+    time_elapsed, 
+    variable_count, 
+    line_count
+  )
+
+# Create plot
+plot_list <-
+  list(
+    tidy_base_profile |>
+      ggplot(aes(x = operation, y = line_count, group = method, colour = method)) +
+      geom_point() +
+      geom_line() + 
+      scale_y_continuous(limits = c(2, 4), breaks = c(2, 3, 4)) +
+      labs(title = "Number of lines", x = "Operation", y = "Count", colour = "Method") +
+      theme_bw() +
+      theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1), legend.position = "bottom"),
+    
+    tidy_base_profile |>
+      ggplot(aes(x = operation, y = variable_count, group = method, colour = method)) +
+      geom_point() +
+      geom_line() + 
+      scale_y_continuous(limits = c(0, 3), breaks = c(0, 1, 2, 3)) +
+      labs(title = "Number of variables", x = "Operation", y = "Count", colour = "Method") +
+      theme_bw() +
+      theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1), legend.position = "bottom"),
+    
+    tidy_base_profile |>
+      ggplot(aes(x = operation, y = time_elapsed, group = method, colour = method)) +
+      geom_point() +
+      geom_line() + 
+      scale_y_continuous(limits = c(0, 3), breaks = c(0, 1, 2, 3)) +
+      labs(title = "Time elapsed", x = "Operation", y = "Seconds", colour = "Method") +
+      theme_bw() +
+      theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1), legend.position = "bottom")
+  )
+
+plot_grid(plotlist = plot_list, ncol = 3)
+```
+
+## Alternative plot
+
+```{r}
+# Alternative plot
+plot_list <-
+  list(
+    tidy_base_profile |>
+      group_by(operation) |>
+      summarise(variable_count_difference = variable_count[method == "SpatialExperiment and base R"] - variable_count[method == "tidySpatialExperiment"]) |>
+      ggplot(aes(x = operation, y = variable_count_difference, group = 1)) +
+      geom_line() +
+      geom_point() +
+      geom_hline(yintercept = 0, linetype = "dotted") +
+      scale_y_continuous(limits = c(-3, 3), breaks = c(-3, 0, 3)) +
+      labs(title = "Variable count", x = "Operation", y = "Difference in variable count") +
+      theme_bw() +
+      theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1), legend.position = "bottom") +
+      annotate(geom = "rect", xmin = -Inf, xmax = Inf, ymin = 0, ymax = Inf, fill = "blue", alpha = 0.2) +
+      annotate(geom = "rect", xmin = -Inf, xmax = Inf, ymin = 0, ymax = -Inf, fill = "red", alpha = 0.2),
+  
+  tidy_base_profile |>
+    group_by(operation) |>
+    summarise(line_count_difference = line_count[method == "SpatialExperiment and base R"] - line_count[method == "tidySpatialExperiment"]) |>
+    ggplot(aes(x = operation, y = line_count_difference, group = 1)) +
+    geom_line() +
+    geom_point() +
+    geom_hline(yintercept = 0, linetype = "dotted") +
+    scale_y_continuous(limits = c(-3, 3), breaks = c(-3, 0, 3)) +
+    labs(title = "Line count", x = "Operation", y = "Difference in line count") +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1), legend.position = "bottom") +
+    annotate(geom = "rect", xmin = -Inf, xmax = Inf, ymin = 0, ymax = Inf, fill = "blue", alpha = 0.2) +
+    annotate(geom = "rect", xmin = -Inf, xmax = Inf, ymin = 0, ymax = -Inf, fill = "red", alpha = 0.2),
+  
+  tidy_base_profile |>
+    group_by(operation) |>
+    summarise(time_elapsed_difference = time_elapsed[method == "SpatialExperiment and base R"] - time_elapsed[method == "tidySpatialExperiment"]) |>
+    ggplot(aes(x = operation, y = time_elapsed_difference, group = 1)) +
+    geom_line() +
+    geom_point() +
+    geom_hline(yintercept = 0, linetype = "dotted") +
+    scale_y_continuous(limits = c(-1, 1), breaks = c(-1, 0, 1)) +
+    labs(title = "Time elapsed", x = "Operation", y = "Difference in time elapsed") +
+    theme_bw() +
+    theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1), legend.position = "bottom") +
+    annotate(geom = "rect", xmin = -Inf, xmax = Inf, ymin = 0, ymax = Inf, fill = "blue", alpha = 0.2) +
+    annotate(geom = "rect", xmin = -Inf, xmax = Inf, ymin = 0, ymax = -Inf, fill = "red", alpha = 0.2)
+  )
+
+plot_grid(plotlist = plot_list, ncol = 3)
+```
