@@ -57,8 +57,7 @@ tidy_group <-
 
 base_group <- 
   function() { 
-    spe_col_data <- colData(spe)
-    split(spe, spe_col_data$sample_id)
+    split(spe, spe$sample_id)
 }
 
 # Plot feature counts per cell
@@ -85,8 +84,7 @@ tidy_aggregate <-
 
 base_aggregate <- 
   function() {
-    spe_col_data <- colData(spe)
-    spe_split <- split(spe, spe_col_data$sample_id)
+    spe_split <- split(spe, spe$sample_id)
     spe_split_counts <- lapply(spe_split, counts)
     lapply(spe_split_counts, rowSums)
 }
@@ -119,10 +117,10 @@ time_elapsed <-
   pull(mean)
 
 variable_count <- 
-  c(0, 1, 0, 1, 0, 1, 0, 3)
+  c(0, 1, 0, 0, 0, 1, 0, 2)
 
 line_count <- 
-  c(2, 2, 2, 2, 3, 2, 2, 4)
+  c(2, 2, 2, 1, 3, 2, 2, 3)
 
 # Create tibble 
 tidy_base_benchmark <- 
