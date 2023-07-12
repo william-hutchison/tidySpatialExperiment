@@ -1,5 +1,5 @@
 ---
-title: "Benchmarking efficiency gains and losses"
+title: "Benchmarking the efficiency gains and losses of tidySpatialExperiment"
 author:
 - name: William Hutchison
   affiliation: WEHI - Walter and Eliza Hall Institute of Medical Research
@@ -17,109 +17,115 @@ vignette: |
   %\VignetteEncoding{UTF-8}
 ---
 
-# Run comparisons
+# Set up
 
-```{r, message=FALSE, results=FALSE}
-
+```{r, message = FALSE, results = FALSE}
 # Load libraries
 library(tidySpatialExperiment)
 library(tibble)
+library(dplyr)
 library(ggplot2)
 library(cowplot)
+library(microbenchmark)
 
 # Load data
 example(read10xVisium)
-
-# Construct benchmark vectors
-operation <- c("Select cells within pixel coordinates", "Select cells within pixel coordinates", "Split cells by variable", "Split cells by variable",  "Plot feature count per cell", "Plot feature count per cell", "Aggregate cells by variable", "Aggregate cells by variable")
-method <- c("tidySpatialExperiment", "SpatialExperiment and base R", "tidySpatialExperiment", "SpatialExperiment and base R", "tidySpatialExperiment", "SpatialExperiment and base R", "tidySpatialExperiment", "SpatialExperiment and base R")
-variable_count <- c(0, 1, 0, 1, 0, 1, 0, 3)
-line_count <- c(2, 2, 2, 2, 3, 2, 2, 4)
-time_elapsed <- c()
 ```
-## Select cells based on location
+
+# Define comparison functions
 
 ```{r}
-# tidySpatialExperiemt
-time_elapsed[1] <- 
-  system.time({
+# Select cells based on location
+tidy_select <- 
+  function() {
     spe |> 
       filter(pxl_col_in_fullres < 4000)
-  })[["elapsed"]]
+}
 
-# SpatialExperiment and base R
-time_elapsed[2] <- 
-  system.time({
+base_select <- 
+  function() {
     spe_coords <- spatialCoords(spe)
     spe[, spe_coords[, "pxl_col_in_fullres"] < 4000]
-  })[["elapsed"]]
-```
+}
 
-## Group cells by variable
-
-```{r}
-# tidySpatialExperiemt
-time_elapsed[3] <- 
-  system.time({
+# Group cells by variable
+tidy_group <- 
+  function() {
     spe |>
       nest(data = -sample_id)
-  })[["elapsed"]]
+}
 
-# SpatialExperiment and base R
-time_elapsed[4] <- 
-  system.time({
+base_group <- 
+  function() { 
     spe_col_data <- colData(spe)
     split(spe, spe_col_data$sample_id)
-  })[["elapsed"]]
-```
+}
 
-## Plot feature counts per cell
-
-```{r}
-# tidySpatialExperiemt
-time_elapsed[5] <- 
-  system.time({
+# Plot feature counts per cell
+tidy_plot <- 
+  function() {
     spe |>
       join_features("ENSMUSG00000051951", shape = "long") |>
       ggplot(aes(x = .cell, y = .abundance_counts)) +
       ggplot2::geom_point()
-  })[["elapsed"]]
+}
 
-# SpatialExperiment and base R
-time_elapsed[6] <- 
-  system.time({
+base_plot <- 
+  function() {
     spe_counts <- counts(spe)
-    plot(spe_counts["ENSMUSG00000051951", ])
-  })[["elapsed"]]
-```
+    plot(spe_counts["ENSMUSG00000051951", ]) 
+}
 
-## Aggregate cells by variable
-
-```{r}
-# tidySpatialExperiemt
-time_elapsed[7] <- 
-  system.time({
+# Aggregate cells by variable
+tidy_aggregate <- 
+  function() {
     spe |> 
       aggregate_cells(sample_id)
-  })[["elapsed"]]
+}
 
-# SpatialExperiment and base R
-time_elapsed[8] <- 
-  system.time({
+base_aggregate <- 
+  function() {
     spe_col_data <- colData(spe)
     spe_split <- split(spe, spe_col_data$sample_id)
     spe_split_counts <- lapply(spe_split, counts)
     lapply(spe_split_counts, rowSums)
-  })[["elapsed"]]
+}
 ```
 
-# Results
+# Summarise findings
 
-## Summarise findings
+```{r, fig.show = "hide"}
+# Construct benchmark vectors
+operation <- 
+  c("Select cells within pixel coordinates", "Split cells by variable", "Plot feature count per cell", "Aggregate cells by variable") |>
+  rep(each = 2)
 
-```{r}
+method <- 
+  c("tidySpatialExperiment", "SpatialExperiment and base R") |>
+  rep(times = 4)
+
+time_elapsed <- 
+  microbenchmark(
+    tidy_select(),
+    base_select(),
+    tidy_group(),
+    base_group(),
+    tidy_plot(),
+    base_plot(),
+    tidy_aggregate(),
+    base_aggregate()
+  ) |>
+  summary() |>
+  pull(mean)
+
+variable_count <- 
+  c(0, 1, 0, 1, 0, 1, 0, 3)
+
+line_count <- 
+  c(2, 2, 2, 2, 3, 2, 2, 4)
+
 # Create tibble 
-tidy_base_profile <- 
+tidy_base_benchmark <- 
   tibble(
     operation, 
     method,
@@ -129,13 +135,13 @@ tidy_base_profile <-
   )
 ```
 
-## Plot tidyomics and base R / Bioconductor individually
+# Plot tidyomics and base R / Bioconductor individually
 
 ```{r}
 # Create plot
 plot_list <-
   list(
-    tidy_base_profile |>
+    tidy_base_benchmark |>
       ggplot(aes(x = operation, y = line_count, group = method, colour = method)) +
       geom_point() +
       geom_line() + 
@@ -144,7 +150,7 @@ plot_list <-
       theme_bw() +
       theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1), legend.position = "bottom"),
     
-    tidy_base_profile |>
+    tidy_base_benchmark |>
       ggplot(aes(x = operation, y = variable_count, group = method, colour = method)) +
       geom_point() +
       geom_line() + 
@@ -153,12 +159,12 @@ plot_list <-
       theme_bw() +
       theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1), legend.position = "bottom"),
     
-    tidy_base_profile |>
+    tidy_base_benchmark |>
       ggplot(aes(x = operation, y = time_elapsed, group = method, colour = method)) +
       geom_point() +
       geom_line() + 
-      scale_y_continuous(limits = c(0, 3), breaks = c(0, 1, 2, 3)) +
-      labs(title = "Time elapsed", x = "Operation", y = "Seconds", colour = "Method") +
+      scale_y_continuous(limits = c(0, 300), breaks = c(0, 100, 200, 300)) +
+      labs(title = "Time elapsed", x = "Operation", y = "Milliseconds", colour = "Method") +
       theme_bw() +
       theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1), legend.position = "bottom")
   )
@@ -166,13 +172,13 @@ plot_list <-
 plot_grid(plotlist = plot_list, ncol = 3)
 ```
 
-## Plot tidyomics and base R / Bioconductor differences
+# Plot tidyomics and base R / Bioconductor differences
 
 ```{r}
 # Create plot
 plot_list <-
   list(
-    tidy_base_profile |>
+    tidy_base_benchmark |>
       group_by(operation) |>
       summarise(variable_count_difference = variable_count[method == "SpatialExperiment and base R"] - variable_count[method == "tidySpatialExperiment"]) |>
       ggplot(aes(x = operation, y = variable_count_difference, group = 1)) +
@@ -186,7 +192,7 @@ plot_list <-
       annotate(geom = "rect", xmin = -Inf, xmax = Inf, ymin = 0, ymax = Inf, fill = "blue", alpha = 0.2) +
       annotate(geom = "rect", xmin = -Inf, xmax = Inf, ymin = 0, ymax = -Inf, fill = "red", alpha = 0.2),
   
-  tidy_base_profile |>
+  tidy_base_benchmark |>
     group_by(operation) |>
     summarise(line_count_difference = line_count[method == "SpatialExperiment and base R"] - line_count[method == "tidySpatialExperiment"]) |>
     ggplot(aes(x = operation, y = line_count_difference, group = 1)) +
@@ -200,15 +206,15 @@ plot_list <-
     annotate(geom = "rect", xmin = -Inf, xmax = Inf, ymin = 0, ymax = Inf, fill = "blue", alpha = 0.2) +
     annotate(geom = "rect", xmin = -Inf, xmax = Inf, ymin = 0, ymax = -Inf, fill = "red", alpha = 0.2),
   
-  tidy_base_profile |>
+  tidy_base_benchmark |>
     group_by(operation) |>
     summarise(time_elapsed_difference = time_elapsed[method == "SpatialExperiment and base R"] - time_elapsed[method == "tidySpatialExperiment"]) |>
     ggplot(aes(x = operation, y = time_elapsed_difference, group = 1)) +
     geom_line() +
     geom_point() +
     geom_hline(yintercept = 0, linetype = "dotted") +
-    scale_y_continuous(limits = c(-1, 1), breaks = c(-1, 0, 1)) +
-    labs(title = "Time elapsed", x = "Operation", y = "Difference in time elapsed") +
+    scale_y_continuous(limits = c(-300, 300), breaks = c(-300, 0, 300)) +
+    labs(title = "Time elapsed", x = "Operation", y = "Difference in milliseconds elapsed") +
     theme_bw() +
     theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1), legend.position = "bottom") +
     annotate(geom = "rect", xmin = -Inf, xmax = Inf, ymin = 0, ymax = Inf, fill = "blue", alpha = 0.2) +
