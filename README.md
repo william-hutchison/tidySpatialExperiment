@@ -36,7 +36,7 @@ tidySpatialExperiment provides a bridge between the
 \[@righelli2022spatialexperiment\] and
 [Tidyverse](https://www.tidyverse.org) \[@wickham2019welcome\] packages.
 It creates an invisible layer that allows you to interact with a
-SpatialExperiment object as if it were a tibble: allowing the use of
+SpatialExperiment object as if it were a tibble: enabling the use of
 *dplyr*, *tidyr*, *ggplot2* and *plotly* functions. But, underneath,
 your data remains a SpatialExperiment object.
 
@@ -56,20 +56,19 @@ tidySpatialExperiment also provides three additional utility functions.
 |-------------------|---------------------------------------------------------------------------|
 | `as_tibble`       | Convert cell-wise information to a `tbl_df`                               |
 | `join_features`   | Combine cell-wise and feature-wise information into a `tbl_df`            |
-| `aggregate_cells` | Aggregate cell feature abundance into a pseudobulk `SummarizedExperiment` |
+| `aggregate_cells` | Aggregate cell-feature abundance into a pseudobulk `SummarizedExperiment` |
 
 ## SpatialExperiment-tibble abstraction
 
-A SpatialExperiment object represents cells as columns and features as
-rows, as is the Bioconductor convention. Additional information about
-the cells is accessed through the `reducedDims`, `colData` and
-`spatialCoords` functions.
+A SpatialExperiment object represents cells (observations) as columns
+and features (variables) as rows, as is the Bioconductor convention.
+Additional information about the cells is accessed through the
+`reducedDims`, `colData` and `spatialCoords` functions.
 
 tidySpatialExperiment provides a SpatialExperiment-tibble abstraction,
-representing cells (observations) as rows and features (variables) as
-columns, as is the Tidyverse convention. In addition, `colData` and
-`spatialCoords` are appended as columns to the same abstraction,
-allowing easy interaction with this additional data.
+representing cells as rows and features as columns, as is the Tidyverse
+convention. `colData` and `spatialCoords` are appended as columns to the
+same abstraction, allowing easy interaction with this additional data.
 
 ## Installation
 
@@ -114,8 +113,8 @@ spe
     ## # ℹ 89 more rows
     ## # ℹ 1 more variable: pxl_row_in_fullres <int>
 
-However, our object is still a SpatialExperiment object. Therefore, we
-have access to all SpatialExperiment functions.
+However, our data maintains its status as a SpatialExperiment object.
+Therefore, we have access to all SpatialExperiment functions.
 
 ``` r
 spe |>
