@@ -1,5 +1,5 @@
 ---
-title: "Benchmarking the efficiency gains and losses of tidySpatialExperiment"
+title: "Benchmarking efficiency"
 author:
 - name: William Hutchison
   affiliation: WEHI - Walter and Eliza Hall Institute of Medical Research
@@ -10,9 +10,9 @@ package: tidySpatialExperiment
 output:
   BiocStyle::html_document
 abstract: |
-  Placeholder
+  Examine the efficiency gains and losses of tidySpatialExperiment.
 vignette: |
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Benchmarking efficiency}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

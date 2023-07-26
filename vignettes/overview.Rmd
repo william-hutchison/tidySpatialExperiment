@@ -1,5 +1,5 @@
 ---
-title: "Overview of tidySpatialExperiment"
+title: "Overview"
 author:
 - name: William Hutchison
   affiliation: WEHI - Walter and Eliza Hall Institute of Medical Research
@@ -10,9 +10,9 @@ package: tidySpatialExperiment
 output:
   BiocStyle::html_document
 abstract: |
-  A bried overview of tidySpatialExperiment
+  A brief overview of the SpatialExperiment-tibble abstraction, compatability with the tidyverse and a few helpful utility functions.
 vignette: |
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Overview}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -156,4 +156,3 @@ spe |>
 ```{r sessionInfo, echo=FALSE}
 sessionInfo()
 ```
-
