@@ -6,10 +6,22 @@ test_that("join_features long",{
 
   spe %>%
     join_features(c("ENSMUSG00000051951", "ENSMUSG00000025900"), shape = "long") %>%
-    tidySpatialExperiment::pull(.abundance_counts) %>%
+    dplyr::pull(.abundance_counts) %>%
     sum() %>%
     expect_equal(8)
 })
+
+test_that("join_features wide",{
+  
+  spe %>%
+    join_features(c("ENSMUSG00000051951", "ENSMUSG00000025900"), shape = "wide") %>%
+    tidySpatialExperiment::pull(ENSMUSG00000051951) %>%
+    sum() %>%
+    expect_equal(8)
+})
+
+
+
 
 test_that("aggregate_cells", {
   
