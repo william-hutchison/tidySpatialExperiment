@@ -81,7 +81,9 @@ drop_class <- function(var, name) {
 #'
 #' @keywords internal
 #'
-#' @importFrom magrittr "%$%"
+#' @importFrom magrittr "%>%"
+#' @importFrom tibble rowid_to_column
+#' @importFrom dplyr mutate
 #' @importFrom utils tail
 #' @importFrom SummarizedExperiment assays
 #'
@@ -142,10 +144,16 @@ get_abundance_sc_wide <- function(.data, features=NULL, all=FALSE, assay = assay
         ) %>%
         as.matrix() %>%
         t() %>%
-        as_tibble(rownames=c_(.data)$name) %>%
+        as_tibble() %>%
+        #as_tibble(rownames=c_(.data)$name) %>%
 
         # Add prefix
-        setNames(c(c_(.data)$name, sprintf("%s%s", prefix, colnames(.)[-1])))
+        #setNames(c(c_(.data)$name, sprintf("%s%s", prefix, colnames(.)[-1]))) %>%
+      
+        # Add index for joining
+        tibble::rowid_to_column("index") %>%
+        dplyr::mutate(index = as.character(index))
+    
 }
 
 #' get abundance long

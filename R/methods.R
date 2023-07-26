@@ -69,9 +69,7 @@ setMethod("join_features", "SpatialExperiment",  function(.data,
                                                exclude_zeros = FALSE,
                                                shape = "long", ...)
 {
-        # Print message about changing data type
-        #message("tidySingleCellExperiment says: A data frame is returned for independent data analysis.")
-  
+
         # CRAN Note
         .cell = NULL
         .feature = NULL
@@ -95,19 +93,31 @@ setMethod("join_features", "SpatialExperiment",  function(.data,
                     by = "index"
                 ) %>%
                 dplyr::mutate("index" = NULL)
+          
+          # Print message about changing data type
+          message("tidySpatialExperiment says: A data frame is returned for independent data analysis.")
         }
 
         # Shape is wide
         else {
-            .data  %>% left_join(get_abundance_sc_wide(
-                .data = .data,
-                features = features,
-                all = all, ...
-            ),
-            by = c_(.data)$name)
-        }
+          colData(.data) <- 
+            .data %>% 
+                colData() %>%
+                tibble::as_tibble(rownames = c_(.data)$name) %>%
+                tibble::rowid_to_column("index") %>%
+                dplyr::mutate(index = as.character(index)) %>%
+                left_join(
+                    get_abundance_sc_wide(
+                        .data = .data,
+                        features = features,
+                        all = all, ...
+                    ),
+                    by = "index") %>%
+                dplyr::mutate("index" = NULL) %>%
+                as_meta_data(.data)
+            .data
+        } 
 })
-
 
 #' Aggregate cells
 #'
