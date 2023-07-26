@@ -76,6 +76,9 @@ setMethod("join_features", "SpatialExperiment",  function(.data,
 
         # Shape is long
         if (shape == "long") {
+            
+            # Print message about changing data type
+            message("tidySpatialExperiment says: A data frame is returned for independent data analysis.")
           
             # Join feature abundance with colData by index
             .data %>%
@@ -93,9 +96,6 @@ setMethod("join_features", "SpatialExperiment",  function(.data,
                     by = "index"
                 ) %>%
                 dplyr::mutate("index" = NULL)
-          
-          # Print message about changing data type
-          message("tidySpatialExperiment says: A data frame is returned for independent data analysis.")
         }
 
         # Shape is wide
