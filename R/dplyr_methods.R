@@ -1308,6 +1308,13 @@ count.SpatialExperiment <- function(x, ..., wt=NULL, sort=FALSE, name=NULL, .dro
 #' @name add_count
 #'
 #' @rdname dplyr-methods
+#' 
+#' @examples
+#' `%>%` <- magrittr::`%>%`
+#' example(read10xVisium)
+#' 
+#' spe %>%
+#'     add_count(in_tissue)
 NULL
 
 #' @export

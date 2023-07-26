@@ -605,6 +605,11 @@ spe \%>\%
 example(read10xVisium)
 
 spe \%>\%
+    add_count(in_tissue)
+`\%>\%` <- magrittr::`\%>\%`
+example(read10xVisium)
+
+spe \%>\%
     pull(in_tissue)
 }
 \seealso{
