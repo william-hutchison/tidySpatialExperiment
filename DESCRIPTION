@@ -1,7 +1,7 @@
 Type: Package
 Package: tidySpatialExperiment
 Title: Brings SpatialExperiment to the Tidyverse 
-Version: 0.0.3
+Version: 0.0.4
 Authors@R: c(
     person("William", "Hutchison", email = "hutchison.w@wehi.edu.au", role = c("aut", "cre")),
     person("Stefano", "Mangiola", email = "mangiolastefano@gmail.com", role = "aut")
@@ -53,7 +53,9 @@ Suggests:
     uwot,
     celldex,
     dittoSeq,
-    EnsDb.Hsapiens.v86
+    EnsDb.Hsapiens.v86,
+    cowplot, 
+    microbenchmark
 VignetteBuilder: 
     knitr
 Biarch: true
