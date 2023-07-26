@@ -951,52 +951,6 @@ right_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x
     y
 }
 
-#' Full join datasets
-#'
-#' @importFrom dplyr pull
-#' @importFrom dplyr full_join
-#'
-#' @param x tbls to join. (See dplyr)
-#' @param y tbls to join. (See dplyr)
-#' @param by A character vector of variables to join by. (See dplyr)
-#' @param copy If x and y are not from the same data source, and copy is TRUE,
-#'   then y will be copied into the same src as x. (See dplyr)
-#' @param suffix If there are non-joined duplicate variables in x and y, these
-#'   suffixes will be added to the output to disambiguate them. Should be a
-#'   character vector of length 2. (See dplyr)
-#' @param ... Data frames to combine (See dplyr)
-#'
-#' @return A tidySpatialExperiment object
-#'
-#' @examples
-#' `%>%` <- magrittr::`%>%`
-#' NULL
-#'
-#' @rdname dplyr-methods
-#' @name full_join
-#'
-#' @export
-NULL
-
-#' @export
-full_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x", ".y"),
-    ...) {
-
-    # Deprecation of special column names
-    if(is_sample_feature_deprecated_used( x, when(by, !is.null(.) ~ by, ~ colnames(y)))){
-       x = ping_old_special_column_into_metadata(x)
-    }
-
-    # Join metadata and assign to the returned SpatialExperiment object's colData
-    colData(x) <-
-        x %>%
-        as_tibble() %>%
-        dplyr::full_join(as_tibble(y), by=by, copy=copy, suffix=suffix, ...) %>%
-        as_meta_data(x)
-    
-    x
-}
-
 #' Subset rows using their positions
 #'
 #' @importFrom dplyr slice

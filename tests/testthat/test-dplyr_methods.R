@@ -136,13 +136,6 @@ test_that("inner_join", {
     expect_equal(44)
 })
 
-# test_that("full_join", {
-#     pbmc_small %>%
-#         full_join(tibble::tibble(groups = "g1", other = 1:4)) %>%
-#         nrow() %>%
-#         expect_equal(212)
-# })
-
 test_that("slice", {
     spe %>%
         slice(1) %>%

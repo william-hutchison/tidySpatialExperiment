@@ -14,7 +14,6 @@
 \alias{left_join}
 \alias{inner_join}
 \alias{right_join}
-\alias{full_join}
 \alias{slice}
 \alias{select}
 \alias{sample_n}
@@ -177,8 +176,6 @@ An object of the same type as \code{.data}.
 A \code{tbl}
 
 A \code{tbl}
-
-A tidySpatialExperiment object
 
 A tidySpatialExperiment object
 
@@ -574,9 +571,6 @@ spe \%>\%
             filter(in_tissue == TRUE) \%>\%
             mutate(new_column = 1)
         )
-
-`\%>\%` <- magrittr::`\%>\%`
-NULL
 
 `\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
