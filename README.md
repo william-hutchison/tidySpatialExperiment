@@ -1,4 +1,4 @@
-tidySpatialExperiment - part of tidytranscriptomics
+tidySpatialExperiment - part of tidyomics
 ================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -12,7 +12,7 @@ tidySpatialExperiment - part of tidytranscriptomics
 status](https://github.com/william-hutchison/tidySpatialExperiment/actions/workflows/check-bioc.yml/badge.svg)](https://github.com/william-hutchison/tidySpatialExperiment/actions)
 <!-- badges: end -->
 
-You can find more packages from the tidytranscriptomics ecosystem here:
+You can find more packages from the *tidyomics* ecosystem here:
 
 - [tidySingleCellExperiment](https://github.com/stemangiola/tidySingleCellExperiment)
   for tidy manipulation of SingleCellExperiment objects
@@ -78,8 +78,6 @@ GitHub with:
     install.packages("devtools")
     devtools::install_github("william-hutchison/tidySpatialExperiment")
 
-# Examples
-
 ## Load data
 
 Here, we load and view an example SpatialExperiment object. The output
@@ -90,6 +88,8 @@ we see is of the SpatialExperiment-tibble abstraction.
 library(tidySpatialExperiment)
 example(read10xVisium)
 ```
+
+## View data
 
 ``` r
 # View the SpatialExperiment-tibble abstraction
@@ -156,6 +156,8 @@ spe |>
     ##   <character> <character> <list>   <numeric>
     ## 1    section1      lowres   ####   0.0510334
     ## 2    section2      lowres   ####   0.0510334
+
+# Integration with the *tidyverse* ecosystem
 
 ## Manipulate with dplyr
 
@@ -274,7 +276,7 @@ spe |>
   ggplot2::coord_flip()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ## Plot with plotly
 
@@ -285,14 +287,41 @@ SpatialExperiment object.
 spe |>
   filter(sample_id == "section1") |>
   plot_ly(
-    x = ~ array_row, 
-    y = ~ array_col, 
+    x = ~ array_col, 
+    y = ~ array_row, 
     color = ~ in_tissue, 
     type = "scatter"
   )
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+
+# Integration with the *tidyomics* ecosystem
+
+## Interactively select cells with tidygate
+
+Different packages from the tidyomics ecosystem are easy to use
+together. Here, the tidygate package is used to interactively gate cells
+based on their array location.
+
+``` r
+spe_regions <-
+  spe |> 
+  filter(sample_id == "section1") |>
+  mutate(region = tidygate::gate_chr(array_col, array_row))
+```
+
+![](README_files/tidygate_demo.gif)
+
+The gated cells can then be divided into pseudobulks within a
+SummarizedExperiment object using tidySpatialExperiment’s
+\`aggregate_cells’ utility function.
+
+``` r
+spe_regions_aggregated <-
+  spe_regions |>
+  aggregate_cells(region)
+```
 
 # Important considerations
 
