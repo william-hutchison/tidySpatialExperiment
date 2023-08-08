@@ -226,7 +226,6 @@ distinct.SpatialExperiment <- function(.data, ..., .keep_all=FALSE) {
         dplyr::distinct(..., .keep_all=.keep_all)
 }
 
-
 #' Subset rows using column values
 #'
 #'

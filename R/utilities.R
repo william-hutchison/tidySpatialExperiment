@@ -325,6 +325,8 @@ get_special_datasets <- function(SpatialExperiment_object, n_dimensions_to_retur
 
         mat
     })
+    # Create list of special columns for SpatialExperiment
+    
 }
 
 get_needed_columns <- function(.data) {

@@ -1,5 +1,9 @@
 NBSP <- "\U00A0"
 
+#' pillar format comment
+#' 
+#' @keywords internal
+#' @noRd
 pillar___format_comment = function (x, width)
 {
   if (length(x) == 0L) {
@@ -8,14 +12,21 @@ pillar___format_comment = function (x, width)
   map_chr(x, pillar___wrap, prefix = "# ", width = min(width, cli::console_width()))
 }
 
+#' pillar string wrap
+#' 
 #' @importFrom fansi strwrap_ctl
+#' @keywords internal
+#' @noRd
 pillar___strwrap2 = function (x, width, indent)
 {
   fansi::strwrap_ctl(x, width = max(width, 0), indent = indent,
                      exdent = indent + 2)
 }
 
-
+#' pillar wrap
+#' 
+#' @keywords internal
+#' @noRd
 pillar___wrap = function (..., indent = 0, prefix = "", width)
 {
   x <- paste0(..., collapse = "")

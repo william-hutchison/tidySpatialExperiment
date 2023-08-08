@@ -43,15 +43,12 @@
 #'
 #' @export
 #' @examples
-#' \dontrun{
-#' library(ggplot2)
 #' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
 #' 
 #' spe %>%
-#`    ggplot(aes(x = .cell, y = array_row)) +
-#`    geom_point()
-#' }
+#'    ggplot(ggplot2::aes(x = .cell, y = array_row)) +
+#'    ggplot2::geom_point()
 NULL
 
 #' @export
