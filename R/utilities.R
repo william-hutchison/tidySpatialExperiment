@@ -315,18 +315,21 @@ get_special_columns <- function(SpatialExperiment_object) {
 }
 
 get_special_datasets <- function(SpatialExperiment_object, n_dimensions_to_return = Inf) {
-    rd <- SpatialExperiment_object@int_colData@listData$reducedDims
-
+  rd <- SpatialExperiment_object@int_colData@listData$reducedDims
+  
+  reduced_dimensions <-
     map2(rd %>% as.list(), names(rd), ~ {
-        mat <- .x[, seq_len(min(n_dimensions_to_return, ncol(.x))), drop=FALSE]
-
-        # Set names as SCE is much less constrained and there could be missing names
-        if (length(colnames(mat)) == 0) colnames(mat) <- sprintf("%s%s", .y, seq_len(ncol(mat)))
-
-        mat
+      mat <- .x[, seq_len(min(n_dimensions_to_return, ncol(.x))), drop=FALSE]
+      
+      # Set names as SCE is much less constrained and there could be missing names
+      if (length(colnames(mat)) == 0) colnames(mat) <- sprintf("%s%s", .y, seq_len(ncol(mat)))
+      mat
     })
-    # Create list of special columns for SpatialExperiment
-    
+  
+  spatial_coordinates <- 
+    spatialCoords(SpatialExperiment_object)
+  
+  list(reduced_dimensions, spatial_coordinates)
 }
 
 get_needed_columns <- function(.data) {
