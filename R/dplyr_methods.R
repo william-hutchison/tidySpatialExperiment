@@ -54,19 +54,6 @@
 #'   arrange(array_row)
 NULL
 
-#' @importFrom tibble as_tibble
-#'
-#' @export
-#' @inheritParams arrange
-arrange.SpatialExperiment <- function(.data, ..., .by_group=FALSE) {
-    new_metadata <-
-        .data %>%
-        as_tibble() %>%
-        dplyr::arrange(..., .by_group=.by_group)
-
-    .data[, pull(new_metadata, !!c_(.data)$symbol)]
-
-}
 
 
 #' Efficiently bind multiple data frames by row and column
@@ -207,24 +194,6 @@ bind_cols.SpatialExperiment <- bind_cols_
 #' @export
 NULL
 
-#' @inheritParams distinct
-#'
-#' @export
-distinct.SpatialExperiment <- function(.data, ..., .keep_all=FALSE) {
-    message(data_frame_returned_message)
-
-  distinct_columns =
-    (enquos(..., .ignore_empty = "all") %>% map(~ quo_name(.x)) %>% unlist)
-
-  # Deprecation of special column names
-  if(is_sample_feature_deprecated_used(.data, distinct_columns)){
-    .data= ping_old_special_column_into_metadata(.data)
-  }
-
-    .data %>%
-        as_tibble() %>%
-        dplyr::distinct(..., .keep_all=.keep_all)
-}
 
 #' Subset rows using column values
 #'
@@ -375,23 +344,6 @@ filter.SpatialExperiment <- function(.data, ..., .preserve=FALSE) {
 #' @export
 NULL
 
-#' @export
-group_by.SpatialExperiment <- function(.data, ..., .add=FALSE, .drop=group_by_drop_default(.data)) {
-    message(data_frame_returned_message)
-
-  # Deprecation of special column names
-  if(is_sample_feature_deprecated_used(
-    .data,
-    (enquos(..., .ignore_empty = "all") %>% map(~ quo_name(.x)) %>% unlist)
-  )){
-    .data= ping_old_special_column_into_metadata(.data)
-  }
-
-    .data %>%
-        as_tibble() %>%
-        dplyr::group_by(..., .add=.add, .drop=.drop)
-}
-
 
 #' Summarise each group to fewer rows
 #'
@@ -469,24 +421,6 @@ group_by.SpatialExperiment <- function(.data, ..., .add=FALSE, .drop=group_by_dr
 #'
 #' @export
 NULL
-
-#' @export
-summarise.SpatialExperiment <- function(.data, ...) {
-    message(data_frame_returned_message)
-
-  # Deprecation of special column names
-  if(is_sample_feature_deprecated_used(
-    .data,
-    (enquos(..., .ignore_empty = "all") %>% map(~ quo_name(.x)) %>% unlist)
-  )){
-    .data= ping_old_special_column_into_metadata(.data)
-  }
-
-    .data %>%
-        as_tibble() %>%
-        dplyr::summarise(...)
-}
-
 
 #' Create, modify, and delete columns
 #'
@@ -577,7 +511,6 @@ summarise.SpatialExperiment <- function(.data, ...) {
 #' @export
 NULL
 
-
 #' @importFrom dplyr mutate
 #' @importFrom rlang enquos
 #' @importFrom SummarizedExperiment colData
@@ -585,52 +518,50 @@ NULL
 #'
 #' @export
 mutate.SpatialExperiment <- function(.data, ...) {
-
-    # Check that we are not modifying a key column
-    cols <- enquos(...) %>% names()
-
-    # Deprecation of special column names
-    if(is_sample_feature_deprecated_used(
-      .data,
-      (enquos(..., .ignore_empty = "all") %>% map(~ quo_name(.x)) %>% unlist)
-    )){
-      .data= ping_old_special_column_into_metadata(.data)
-    }
-
-    tst <-
-        intersect(
-            cols %>%
-                names(),
-            get_special_columns(.data) %>%
-                c(get_needed_columns(.data))
-        ) %>%
-        length() %>%
-        gt(0)
-
-    if (tst) {
-        columns =
-            get_special_columns(.data) %>%
-            c(get_needed_columns()) %>%
-            paste(collapse=", ")
-        stop(
-            "tidySpatialExperiment says: you are trying to rename a column that is view only",
-            columns, " ",
-            "(it is not present in the colData). If you want to mutate a view-only column, make a copy and mutate that one."
-        )
-    }
-
-    # Extract colData for mutation and save to SpatialExperiment
-    colData(.data) <-
-        .data %>%
-        colData() %>%
-        as_tibble(rownames = c_(.data)$name) %>%
-        dplyr::mutate(...) %>%
-        as_meta_data(.data)
-
-    .data
+  
+  # Check that we are not modifying a key column
+  cols <- enquos(...) %>% names()
+  
+  # Deprecation of special column names
+  if(is_sample_feature_deprecated_used(
+    .data,
+    (enquos(..., .ignore_empty = "all") %>% map(~ quo_name(.x)) %>% unlist)
+  )){
+    .data= ping_old_special_column_into_metadata(.data)
+  }
+  
+  tst <-
+    intersect(
+      cols %>%
+        names(),
+      get_special_columns(.data) %>%
+        c(get_needed_columns(.data))
+    ) %>%
+    length() %>%
+    gt(0)
+  
+  if (tst) {
+    columns =
+      get_special_columns(.data) %>%
+      c(get_needed_columns()) %>%
+      paste(collapse=", ")
+    stop(
+      "tidySpatialExperiment says: you are trying to rename a column that is view only",
+      columns, " ",
+      "(it is not present in the colData). If you want to mutate a view-only column, make a copy and mutate that one."
+    )
+  }
+  
+  # Extract colData for mutation and save to SpatialExperiment
+  colData(.data) <-
+    .data %>%
+    colData() %>%
+    as_tibble(rownames = c_(.data)$name) %>%
+    dplyr::mutate(...) %>%
+    as_meta_data(.data)
+  
+  .data
 }
-
-
 
 #' Rename columns
 #'
@@ -674,44 +605,6 @@ mutate.SpatialExperiment <- function(.data, ...) {
 #' @export
 NULL
 
-#' @importFrom tidyselect eval_select
-#' @importFrom SummarizedExperiment colData
-#' @importFrom SummarizedExperiment colData<-
-#' @export
-rename.SpatialExperiment <- function(.data, ...) {
-
-    # Check that we are not modifying a key column
-    cols <- tidyselect::eval_select(expr(c(...)), colData(.data) %>% as.data.frame())
-
-    tst <-
-        intersect(
-            cols %>%
-                names(),
-            get_special_columns(.data) %>%
-                c(get_needed_columns(.data))
-        ) %>%
-        length() %>%
-        gt(0)
-
-    if (tst) {
-        columns =
-            get_special_columns(.data) %>%
-            c(get_needed_columns(.data)) %>%
-            paste(collapse=", ")
-        stop(
-            "tidySpatialExperiment says: you are trying to rename a column that is view only",
-            columns, " ",
-            "(it is not present in the colData). If you want to mutate a view-only column, make a copy and mutate that one."
-        )
-    }
-
-
-    colData(.data) <- dplyr::rename(colData(.data) %>% as.data.frame(), ...) %>% DataFrame()
-
-    .data
-}
-
-
 #' Group input by rows
 #'
 #'
@@ -748,15 +641,6 @@ rename.SpatialExperiment <- function(.data, ...) {
 #'
 #' @export
 NULL
-
-#' @export
-rowwise.SpatialExperiment <- function(data, ...) {
-    message(data_frame_returned_message)
-
-    data %>%
-        as_tibble() %>%
-        dplyr::rowwise(...)
-}
 
 
 #' Left join datasets
@@ -1024,16 +908,6 @@ right_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x
 #' @export
 NULL
 
-#' @importFrom SummarizedExperiment colData
-#' @export
-slice.SpatialExperiment <- function(.data, ..., .preserve=FALSE) {
-    new_meta <- dplyr::slice(colData(.data) %>% as.data.frame(), ..., .preserve=.preserve)
-    new_obj <- .data[, rownames(new_meta)]
-    # colData(new_obj)=new_meta
-
-    new_obj
-}
-
 #' Subset columns using their names and types
 #'
 #' @importFrom dplyr select
@@ -1086,38 +960,6 @@ slice.SpatialExperiment <- function(.data, ..., .preserve=FALSE) {
 #' @export
 NULL
 
-#' @importFrom SummarizedExperiment colData
-#' @export
-select.SpatialExperiment <- function(.data, ...) {
-  
-    # Deprecation of special column names
-    if(is_sample_feature_deprecated_used(
-        .data,
-        (enquos(..., .ignore_empty = "all") %>% map(~ quo_name(.x)) %>% unlist)
-    )){
-        .data= ping_old_special_column_into_metadata(.data)
-    }
-  
-    .data %>%
-        colData() %>%
-        tibble::as_tibble(rownames = c_(.data)$name) %>%
-        select_helper(...) %>%
-        when(
-            # If key columns are missing
-            (get_needed_columns(.data) %in% colnames(.)) %>%
-                all() %>%
-                `!`() ~ {
-                message("tidySpatialExperiment says: Key columns are missing. A data frame is returned for independent data analysis.")
-                (.)
-            },
-      
-            # If valid SpatialExperiment meta data
-            ~ {
-                colData(.data) <- (.) %>% as_meta_data(.data)
-                .data
-            }
-        )
-}
 
 
 #' Sample n rows from a table
@@ -1281,23 +1123,6 @@ sample_frac.SpatialExperiment <- function(tbl, size=1, replace=FALSE,
 #'     add_count()
 NULL
 
-#' @export
-count.SpatialExperiment <- function(x, ..., wt=NULL, sort=FALSE, name=NULL, .drop=group_by_drop_default(x)) {
-    message(data_frame_returned_message)
-
-  # Deprecation of special column names
-  if(is_sample_feature_deprecated_used(
-    x,
-    (enquos(..., .ignore_empty = "all") %>% map(~ quo_name(.x)) %>% unlist)
-  )){
-    x= ping_old_special_column_into_metadata(x)
-  }
-
-    x %>%
-        as_tibble() %>%
-        dplyr::count(..., wt=!!enquo(wt), sort=sort, name=name, .drop=.drop)
-}
-
 
 #' @export
 #'
@@ -1374,22 +1199,3 @@ add_count.SpatialExperiment <- function(x, ..., wt = NULL, sort = FALSE, name = 
 #' spe %>%
 #'     pull(in_tissue)
 NULL
-
-#' @export
-pull.SpatialExperiment <- function(.data, var=-1, name=NULL, ...) {
-    var <- enquo(var)
-    name <- enquo(name)
-
-    # Deprecation of special column names
-    if(is_sample_feature_deprecated_used(
-      .data,
-      quo_name(var)
-    )){
-      .data= ping_old_special_column_into_metadata(.data)
-    }
-
-    .data %>%
-        as_tibble() %>%
-        dplyr::pull(var=!!var, name=!!name, ...)
-}
-

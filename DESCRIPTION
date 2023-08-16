@@ -11,10 +11,10 @@ Description: tidySpatialExperiment is an adapter that abstracts the 'SpatialExpe
 License: GPL-3
 Depends:
     R (>= 4.1.0),
-    ttservice,
-    SingleCellExperiment,
     SpatialExperiment
 Imports:
+    ttservice,
+    tidySingleCellExperiment,
     SummarizedExperiment,
     BiocGenerics,
     dplyr,
