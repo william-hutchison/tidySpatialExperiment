@@ -406,44 +406,6 @@ extract.SpatialExperiment <- function(data, col, into, regex="([[:alnum:]]+)", r
 #'     pivot_longer(c(array_row, array_col), names_to = "dimension", values_to = "location")
 NULL
 
-#' @export
-pivot_longer.SpatialExperiment <- function(data,
-                                              cols, ..., cols_vary = "fastest", names_to = "name",
-                                              names_prefix = NULL, names_sep = NULL, names_pattern = NULL,
-                                              names_ptypes = NULL, names_transform = NULL, names_repair = "check_unique",
-                                              values_to = "value", values_drop_na = FALSE, values_ptypes = NULL,
-                                              values_transform = NULL) {
-    cols <- enquo(cols)
-
-    message(data_frame_returned_message)
-
-    # Deprecation of special column names
-    if(is_sample_feature_deprecated_used(
-      data,
-      c(quo_names(cols))
-    )){
-      data= ping_old_special_column_into_metadata(data)
-    }
-
-    data %>%
-        as_tibble() %>%
-        tidyr::pivot_longer(!!cols,
-                            ...,
-                            cols_vary = cols_vary,
-                            names_to = names_to,
-                            names_prefix = names_prefix,
-                            names_sep = names_sep,
-                            names_pattern = names_pattern,
-                            names_ptypes = names_ptypes,
-                            names_transform = names_transform,
-                            names_repair = names_repair,
-                            values_to = values_to,
-                            values_drop_na = values_drop_na,
-                            values_ptypes = values_ptypes,
-                            values_transform = values_transform
-        )
-}
-
 #' Unite multiple columns into one by pasting strings together
 #'
 #' Convenience function to paste together multiple columns into one.

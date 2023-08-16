@@ -2,20 +2,8 @@
 % Please edit documentation in R/tidyr_methods.R
 \name{extract}
 \alias{extract}
-\alias{extract.SpatialExperiment}
 \title{Extract a character column into multiple columns using regular
 expression groups}
-\usage{
-\method{extract}{SpatialExperiment}(
-  data,
-  col,
-  into,
-  regex = "([[:alnum:]]+)",
-  remove = TRUE,
-  convert = FALSE,
-  ...
-)
-}
 \arguments{
 \item{data}{A tidySpatialExperiment object}
 

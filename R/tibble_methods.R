@@ -136,7 +136,6 @@ as_tibble.SpatialExperiment <- function(x, ...,
 #' @rdname tibble-methods
 #' @name glimpse
 #'
-#' @export
 #' @examples
 #' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
@@ -144,14 +143,6 @@ as_tibble.SpatialExperiment <- function(x, ...,
 #' spe %>% 
 #'     glimpse()
 #'
+#' @export
 NULL
 
-#' @export
-#' @importFrom tibble glimpse
-#'
-#'
-glimpse.tidySpatialExperiment = function(x, width = NULL, ...){
-    x %>%
-        as_tibble() %>%
-        tibble::glimpse(width = width, ...)
-}
