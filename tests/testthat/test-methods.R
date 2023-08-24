@@ -20,9 +20,6 @@ test_that("join_features wide",{
     expect_equal(8)
 })
 
-
-
-
 test_that("aggregate_cells", {
   
     spe_aggregated <- 

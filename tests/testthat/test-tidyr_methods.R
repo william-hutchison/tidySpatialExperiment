@@ -49,4 +49,3 @@ test_that("pivot_longer", {
         .[1] %>%
         expect_equal("tbl_df")
 })
-

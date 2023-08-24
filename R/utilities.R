@@ -6,47 +6,15 @@
 #' @param .data A tidySpatialExperiment
 #'
 #' @noRd
-to_tib <- function(.data) {
-    colData(.data) %>%
-        as.data.frame() %>%
-        as_tibble(rownames=c_(.data)$name)
-}
+to_tib <- tidySingleCellExperiment:::to_tib
 
 # Greater than
 gt <- function(a, b) {
     a > b
 }
 
-# Smaller than
-st <- function(a, b) {
-    a < b
-}
+prepend <- tidySingleCellExperiment:::prepend
 
-# Negation
-not <- function(is) {
-    !is
-}
-
-# Raise to the power
-pow <- function(a, b) {
-    a^b
-}
-
-# Equals
-eq <- function(a, b) {
-    a == b
-}
-
-prepend <- function(x, values, before=1) {
-    n <- length(x)
-    stopifnot(before > 0 && before <= n)
-    if (before == 1) {
-        c(values, x)
-    }
-    else {
-        c(x[seq_len(before - 1)], values, x[before:n])
-    }
-}
 #' Add class to abject
 #'
 #'
@@ -56,11 +24,7 @@ prepend <- function(x, values, before=1) {
 #' @param name A character name of the attribute
 #'
 #' @return A tibble with an additional attribute
-add_class <- function(var, name) {
-    if (!name %in% class(var)) class(var) <- prepend(class(var), name)
-
-    var
-}
+add_class <- tidySingleCellExperiment:::add_class
 
 #' Remove class to abject
 #'
@@ -72,10 +36,7 @@ add_class <- function(var, name) {
 #'
 #' @return A tibble with an additional attribute
 #' @keywords internal
-drop_class <- function(var, name) {
-    class(var) <- class(var)[!class(var) %in% name]
-    var
-}
+drop_class <- tidySingleCellExperiment:::drop_class
 
 #' get abundance long
 #'
@@ -332,10 +293,7 @@ get_special_datasets <- function(SpatialExperiment_object, n_dimensions_to_retur
   list(reduced_dimensions, spatial_coordinates)
 }
 
-get_needed_columns <- function(.data) {
-
-  c(c_(.data)$name)
-}
+get_needed_columns <- tidySingleCellExperiment:::get_needed_columns
 
 #' Convert array of quosure (e.g. c(col_a, col_b)) into character vector
 #'
@@ -347,76 +305,34 @@ get_needed_columns <- function(.data) {
 #' @param v A array of quosures (e.g. c(col_a, col_b))
 #'
 #' @return A character vector
-quo_names <- function(v) {
-    v <- quo_name(quo_squash(v))
-    gsub("^c\\(|`|\\)$", "", v) %>%
-        strsplit(", ") %>%
-        unlist()
-}
+quo_names <- tidySingleCellExperiment:::quo_names
 
 #' @importFrom purrr when
 #' @importFrom dplyr select
 #' @importFrom rlang expr
 #' @importFrom tidyselect eval_select
-select_helper <- function(.data, ...) {
-    loc <- tidyselect::eval_select(expr(c(...)), .data)
+select_helper <- tidySingleCellExperiment:::select_helper
 
-    dplyr::select(.data, loc)
-}
-
-data_frame_returned_message = "tidySpatialExperiment says: A data frame is returned for independent data analysis."
-duplicated_cell_names = "tidySpatialExperiment says: This operation lead to duplicated cell names. A data frame is returned for independent data analysis."
+data_frame_returned_message <- "tidySpatialExperiment says: A data frame is returned for independent data analysis."
+duplicated_cell_names <- "tidySpatialExperiment says: This operation lead to duplicated cell names. A data frame is returned for independent data analysis."
 
 # This function is used for the change of special sample column to .sample
 # Check if "sample" is included in the query and is not part of any other existing annotation
 #' @importFrom stringr str_detect
 #' @importFrom stringr regex
-is_sample_feature_deprecated_used = function(.data, user_columns, use_old_special_names = FALSE){
+is_sample_feature_deprecated_used <- tidySingleCellExperiment:::is_sample_feature_deprecated_used
 
-  old_standard_is_used_for_cell =
-    (
-      ( any(str_detect(user_columns  , regex("\\bcell\\b"))) & !any(str_detect(user_columns  , regex("\\W*(\\.cell)\\W*")))  ) |
-        "cell" %in% user_columns
-    ) &
-    !"cell" %in% colnames(colData(.data))
-
-  old_standard_is_used = old_standard_is_used_for_cell
-
-  if(old_standard_is_used){
-    warning("tidySpatialExperiment says: from version 1.3.1, the special columns including cell id (colnames(se)) has changed to \".cell\". This dataset is returned with the old-style vocabulary (cell), however we suggest to update your workflow to reflect the new vocabulary (.cell)")
-
-    use_old_special_names = TRUE
-  }
-
-  use_old_special_names
-}
-
-get_special_column_name_symbol = function(name){
-  list(name = name, symbol = as.symbol(name))
-}
+get_special_column_name_symbol <- tidySingleCellExperiment:::get_special_column_name_symbol
 
 # Key column names
 #' @importFrom S4Vectors metadata
 #' @importFrom S4Vectors metadata<-
-ping_old_special_column_into_metadata = function(.data){
+ping_old_special_column_into_metadata <- tidySingleCellExperiment:::ping_old_special_column_into_metadata
 
-  metadata(.data)$cell__ = get_special_column_name_symbol("cell")
-
-  .data
-}
-
-get_special_column_name_cell = function(name){
-  list(name = name, symbol = as.symbol(name))
-}
-
-cell__ = get_special_column_name_symbol(".cell")
+get_special_column_name_cell <- tidySingleCellExperiment:::get_special_column_name_cell
 
 #' @importFrom S4Vectors metadata
-c_ =  function(x){
-  # Check if old deprecated columns are used
-  if("cell__" %in% names(metadata(x))) cell__ = metadata(x)$cell__
-  return(cell__)
-}
+c_ <-  tidySingleCellExperiment:::c_
 
 #' Add attribute to abject
 #'
@@ -429,40 +345,12 @@ c_ =  function(x){
 #' @param name A character name of the attribute
 #'
 #' @return A tibble with an additional attribute
-add_attr = function(var, attribute, name) {
-  attr(var, name) <- attribute
-  var
-}
+add_attr = tidySingleCellExperiment:::add_attr
 
-special_datasets_to_tibble = function(.SpatialExperiment, ...){
-  x =
-    .SpatialExperiment |>
-    get_special_datasets(...) %>%
-    map(~ .x %>% when(
-
-      # If row == 1 do a trick
-      dim(.) %>% is.null() ~ {
-        (.) %>%
-          tibble::enframe() %>%
-          spread(name, value)
-      },
-
-      # Otherwise continue normally
-      ~ as_tibble(.)
-    )) %>%
-    reduce(dplyr::bind_cols)
-
-  # To avoid name change by the bind_cols of as_tibble
-  colnames(x) = colnames(x) |> trick_to_avoid_renaming_of_already_unique_columns_by_dplyr()
-
-  x
-}
+special_datasets_to_tibble <- tidySingleCellExperiment:::special_datasets_to_tibble
 
 #' @importFrom stringr str_replace_all
-trick_to_avoid_renaming_of_already_unique_columns_by_dplyr = function(x){
-  x |> str_replace_all("\\.\\.\\.", "___")
-}
-
+trick_to_avoid_renaming_of_already_unique_columns_by_dplyr <- tidySingleCellExperiment:::trick_to_avoid_renaming_of_already_unique_columns_by_dplyr
 #' Get specific annotation columns
 #'
 #' @keywords internal
@@ -477,37 +365,7 @@ trick_to_avoid_renaming_of_already_unique_columns_by_dplyr = function(x){
 #' @param .col A vector of column names
 #' 
 #' @return A character
-get_specific_annotation_columns = function(.data, .col){
-  
-  # Comply with CRAN NOTES
-  . = NULL
-  
-  # Make col names
-  .col = enquo(.col)
-  
-  # x-annotation df
-  n_x = .data %>% distinct_at(vars(!!.col)) %>% nrow
-  
-  # element wise columns
-  .data %>%
-    select(-!!.col) %>%
-    colnames %>%
-    map(
-      ~
-        .x %>%
-        when(
-          .data %>%
-            distinct_at(vars(!!.col, .x)) %>%
-            nrow %>%
-            equals(n_x) ~ (.),
-          ~ NULL
-        )
-    ) %>%
-    
-    # Drop NULL
-    {	(.)[lengths((.)) != 0]	} %>%
-    unlist
-}
+get_specific_annotation_columns <- tidySingleCellExperiment:::get_specific_annotation_columns
 
 #' Subset columns
 #'
@@ -520,21 +378,7 @@ get_specific_annotation_columns = function(.data, .col){
 #' @param .column A vector of column names
 #'
 #' @return A tibble
-subset = function(.data, .column)	{
-
-  # Make col names
-  .column = enquo(.column)
-  
-  # Check if column present
-  if(quo_names(.column) %in% colnames(.data) %>% all %>% `!`)
-    stop("nanny says: some of the .column specified do not exist in the input data frame.")
-  
-  .data %>%
-    
-    # Selecting the right columns
-    select(	!!.column,	get_specific_annotation_columns(.data, !!.column)	) %>%
-    distinct()
-}
+subset <- tidySingleCellExperiment:::subset
 
 #' Bind columns without checking for duplicate sample_ids
 #' 
@@ -565,6 +409,3 @@ setMethod("cbind", "SpatialExperiment", function(..., deparse.level=1) {
   
   return(out)
 })
-
-feature__ = get_special_column_name_symbol(".feature")
-sample__ = get_special_column_name_symbol(".sample")
