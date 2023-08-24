@@ -58,9 +58,8 @@ Methods available in currently loaded packages:
 }
 
 \examples{
-`\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
-spe \%>\%
+spe |>
   slice(1)
 
 }

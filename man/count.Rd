@@ -47,11 +47,10 @@ but use \code{mutate()} instead of \code{summarise()} so that they add a new col
 with group-wise counts.
 }
 \examples{
-`\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
-spe \%>\%
+spe |>
     count()
-spe \%>\%
+spe |>
     add_count()
 
 }

@@ -27,11 +27,10 @@ The output of `bind_rows()` will contain a column if that column
 appears in any of the inputs.
 }
 \examples{
-`\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
-spe \%>\%
+spe |>
    bind_rows(spe)
-spe \%>\%
+spe |>
    bind_cols(1:99)
    
 }

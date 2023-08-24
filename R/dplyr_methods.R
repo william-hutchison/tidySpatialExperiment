@@ -4,10 +4,9 @@
 #' @family single table verbs
 #' 
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
 #' 
-#' spe %>%
+#' spe |>
 #'   arrange(array_row)
 NULL
 
@@ -16,11 +15,10 @@ NULL
 #' @inherit ttservice::bind_rows
 #' 
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
-#' spe %>%
+#' spe |>
 #'    bind_rows(spe)
-#' spe %>%
+#' spe |>
 #'    bind_cols(1:99)
 #'    
 #' @name bind
@@ -97,9 +95,8 @@ bind_cols.SpatialExperiment <- bind_cols_
 #' @inherit dplyr::distinct
 #' 
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
-#' spe %>%
+#' spe |>
 #'    distinct(sample_id)
 #'
 #' @export
@@ -110,9 +107,8 @@ NULL
 #' @inherit dplyr::filter
 #' 
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
-#' spe %>%
+#' spe |>
 #'     filter(in_tissue == TRUE)
 #'    
 #' @importFrom purrr map
@@ -153,9 +149,7 @@ filter.SpatialExperiment <- function(.data, ..., .preserve=FALSE) {
 #' @seealso \code{}
 #'
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
-#' spe %>%
 #'   group_by(sample_id)
 #'
 #' @export
@@ -167,9 +161,8 @@ NULL
 #' @family single table verbs
 #' 
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
-#' spe %>%
+#' spe |>
 #'     summarise(mean(array_row))
 #'
 #' @export
@@ -181,9 +174,8 @@ NULL
 #' @family single table verbs
 #'
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
-#' spe %>%
+#' spe |>
 #'     mutate(array_col = 1)
 #'
 #' @importFrom SummarizedExperiment colData
@@ -244,9 +236,8 @@ mutate.SpatialExperiment <- function(.data, ...) {
 #' @family single table verbs
 #' 
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
-#' spe %>%
+#' spe |>
 #'     rename(in_liver = in_tissue)
 #'
 #' @export
@@ -257,9 +248,8 @@ NULL
 #' @inherit dplyr::rowwise
 #'
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
-#' spe %>%
+#' spe |>
 #'     rowwise()
 #'
 #' @export
@@ -270,11 +260,10 @@ NULL
 #' @inherit dplyr::left_join
 #'
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
-#' spe %>%
+#' spe |>
 #'     left_join(
-#'         spe %>%
+#'         spe |>
 #'             filter(in_tissue == TRUE) %>%
 #'             mutate(new_column = 1)
 #'         )
@@ -311,11 +300,10 @@ left_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x"
 #' @inherit dplyr::inner_join
 #'
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
-#' spe %>%
+#' spe |>
 #'     inner_join(
-#'         spe %>%
+#'         spe |>
 #'             filter(in_tissue == TRUE) %>%
 #'             mutate(new_column = 1)
 #'         )
@@ -368,12 +356,11 @@ inner_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x
 #' @inherit dplyr::right_join
 #'
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
 #' 
-#' spe %>%
+#' spe |>
 #'     right_join(
-#'         spe %>%
+#'         spe |>
 #'             filter(in_tissue == TRUE) %>%
 #'             mutate(new_column = 1)
 #'         )
@@ -413,9 +400,8 @@ right_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x
 #' @family single table verbs
 #'
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
-#' spe %>%
+#' spe |>
 #'   slice(1)
 #'
 #' @export
@@ -426,25 +412,53 @@ NULL
 #' @inherit dplyr::select
 #'
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
-#' spe %>%
+#' spe |>
 #'     select(in_tissue)
 #'     
+#' @importFrom SummarizedExperiment colData
+#' @importFrom tibble as_tibble
 #' @export
-NULL
-
+select.SpatialExperiment <- function(.data, ...) {
+  
+    # Deprecation of special column names
+    if(is_sample_feature_deprecated_used(
+        .data,
+        (enquos(..., .ignore_empty = "all") %>% map(~ quo_name(.x)) %>% unlist)
+    )){
+        .data= ping_old_special_column_into_metadata(.data)
+    }
+  
+    .data %>%
+        colData() %>%
+        tibble::as_tibble(rownames = c_(.data)$name) %>%
+        select_helper(...) %>%
+        when(
+            # If key columns are missing
+            (get_needed_columns(.data) %in% colnames(.)) %>%
+                all() %>%
+                `!`() ~ {
+                message("tidySpatialExperiment says: Key columns are missing. A data frame is returned for independent data analysis.")
+                (.)
+            },
+      
+            # If valid SpatialExperiment meta data
+            ~ {
+                colData(.data) <- (.) %>% as_meta_data(.data)
+                .data
+            }
+        )
+}
 #' @name sample_n
 #' @rdname sample_n
 #' @aliases sample_frac
 #' @inherit dplyr::sample_n
 #' 
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
-#' spe %>%
+#' spe |>
 #'     sample_n(10)
-#' spe %>%
+#' spe |>
 #'     sample_frac(0.1)
 #'  
 #' @importFrom SummarizedExperiment colData
@@ -504,11 +518,10 @@ sample_frac.SpatialExperiment <- function(tbl, size=1, replace=FALSE,
 #' @inherit dplyr::count
 #'
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
-#' spe %>%
+#' spe |>
 #'     count()
-#' spe %>%
+#' spe |>
 #'     add_count()
 #'
 #' @export
@@ -544,9 +557,8 @@ add_count.SpatialExperiment <- function(x, ..., wt = NULL, sort = FALSE, name = 
 #' @inherit dplyr::pull
 #' 
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
-#' spe %>%
+#' spe |>
 #'     pull(in_tissue)
 #'
 #' @export

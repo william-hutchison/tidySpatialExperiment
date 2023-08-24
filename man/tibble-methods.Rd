@@ -88,15 +88,13 @@ prefer the more expressive maturing \code{as_tibble_row()} and
 }
 
 \examples{
-`\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
 
-spe \%>\%
+spe |>
     as_tibble()
-`\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
 
-spe \%>\% 
+spe |>
     glimpse()
 
 }

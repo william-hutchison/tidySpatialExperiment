@@ -28,9 +28,8 @@ life a little easier.
 }
 
 \examples{
-`\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
-spe \%>\%
+spe |>
     rowwise()
 
 }

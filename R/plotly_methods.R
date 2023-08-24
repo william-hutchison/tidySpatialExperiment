@@ -97,10 +97,9 @@
 #' @export
 #' 
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
 #' 
-#' spe %>%
+#' spe |>
 #'   plot_ly(x=~array_col, y=~ array_row)
 #'
 

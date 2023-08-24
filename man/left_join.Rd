@@ -158,11 +158,10 @@ Methods available in currently loaded packages:
 }
 
 \examples{
-`\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
-spe \%>\%
+spe |>
     left_join(
-        spe \%>\%
+        spe |>
             filter(in_tissue == TRUE) \%>\%
             mutate(new_column = 1)
         )

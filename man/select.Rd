@@ -2,7 +2,21 @@
 % Please edit documentation in R/dplyr_methods.R
 \name{select}
 \alias{select}
+\alias{select.SpatialExperiment}
 \title{Keep or drop columns using their names and types}
+\usage{
+\method{select}{SpatialExperiment}(.data, ...)
+}
+\arguments{
+\item{.data}{A data frame, data frame extension (e.g. a tibble), or a
+lazy data frame (e.g. from dbplyr or dtplyr). See \emph{Methods}, below, for
+more details.}
+
+\item{...}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> One or more unquoted
+expressions separated by commas. Variable names can be used as if they
+were positions in the data frame, so expressions like \code{x:y} can
+be used to select a range of variables.}
+}
 \value{
 An object of the same type as \code{.data}. The output has the following
 properties:
@@ -233,9 +247,8 @@ To take the difference between two selections, combine the \code{&} and
 }
 
 \examples{
-`\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
-spe \%>\%
+spe |>
     select(in_tissue)
     
 }

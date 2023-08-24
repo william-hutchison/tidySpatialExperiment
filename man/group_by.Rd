@@ -63,9 +63,7 @@ also force calls to \code{\link[dplyr:arrange]{arrange()}} to use the system loc
 }
 
 \examples{
-`\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
-spe \%>\%
   group_by(sample_id)
 
 }

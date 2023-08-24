@@ -99,9 +99,8 @@ The following methods are currently available in loaded packages:
 }
 
 \examples{
-`\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
-spe \%>\%
+spe |>
     filter(in_tissue == TRUE)
    
 }

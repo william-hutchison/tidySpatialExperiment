@@ -47,10 +47,8 @@ setClass("tidySpatialExperiment", contains = "SpatialExperiment")
 #' @return An object containing the information.for the specified features
 #'
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
-#'
-#' spe %>%
+#' spe |>
 #'     join_features(features = "ENSMUSG00000025900")
 #'
 #' @export
@@ -140,10 +138,8 @@ setMethod("join_features", "SpatialExperiment",  function(.data,
 #' @return A SummarizedExperiment object
 #' 
 #' @examples 
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
-#'
-#' spe %>%
+#' spe |>
 #'     aggregate_cells(sample_id, assays = "counts")
 #'
 #' @export

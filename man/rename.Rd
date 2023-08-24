@@ -31,9 +31,8 @@ The following methods are currently available in loaded packages:
 }
 
 \examples{
-`\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
-spe \%>\%
+spe |>
     rename(in_liver = in_tissue)
 
 }

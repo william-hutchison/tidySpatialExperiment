@@ -69,9 +69,8 @@ The following methods are currently available in loaded packages:
 }
 
 \examples{
-`\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
-spe \%>\%
+spe |>
     summarise(mean(array_row))
 
 }

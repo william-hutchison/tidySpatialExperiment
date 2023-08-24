@@ -30,10 +30,8 @@ A SummarizedExperiment object
 Combine cells into groups based on shared variables and aggregate feature counts.
 }
 \examples{
-`\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
-
-spe \%>\%
+spe |>
     aggregate_cells(sample_id, assays = "counts")
 
 }

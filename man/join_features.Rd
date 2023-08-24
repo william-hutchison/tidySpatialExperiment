@@ -40,10 +40,8 @@ join_features() extracts and joins information for specified features
 This function extracts information for specified features and returns the information in either long or wide format.
 }
 \examples{
-`\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
-
-spe \%>\%
+spe |>
     join_features(features = "ENSMUSG00000025900")
 
 }

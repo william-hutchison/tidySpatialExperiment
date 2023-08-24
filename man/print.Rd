@@ -65,10 +65,9 @@ Default: 100.
 }
 
 \examples{
-`\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
 
-spe \%>\%
+spe |>
     print()
     
 }

@@ -325,8 +325,8 @@ get_x_y_annotation_columns = function(.data, .horizontal, .vertical, .abundance,
 #' @return A matrix
 #'
 #' @examples
-#'
-#' tibble(.feature = "CD3G", count=1) |> as_matrix(rownames=.feature)
+#' tibble(.feature = "CD3G", count=1) |>
+#'   as_matrix(rownames=.feature)
 as_matrix <- function(tbl,
                       rownames = NULL,
                       do_check = TRUE) {

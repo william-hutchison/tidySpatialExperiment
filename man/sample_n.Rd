@@ -51,11 +51,10 @@ undocumented.
 }
 }
 \examples{
-`\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
-spe \%>\%
+spe |>
     sample_n(10)
-spe \%>\%
+spe |>
     sample_frac(0.1)
  
 }
