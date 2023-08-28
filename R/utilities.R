@@ -215,7 +215,6 @@ as_meta_data <- function(.data, SpatialExperiment_object) {
         # colnames()
         get_special_columns(SpatialExperiment_object) |>
   
-  
         # I need this in case we have multiple reduced dimension data frames with overlapping names of the columns.
         # For example multiple PCA versions
         vctrs::vec_as_names(repair = "unique") |>

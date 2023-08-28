@@ -20,7 +20,6 @@ setClass("tidySpatialExperiment", contains = "SpatialExperiment")
 
 #' Extract and join information for features.
 #'
-#'
 #' @description join_features() extracts and joins information for specified features
 #'
 #' @importFrom rlang enquo
