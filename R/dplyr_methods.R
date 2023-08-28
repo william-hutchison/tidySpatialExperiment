@@ -1,29 +1,3 @@
-#' @name arrange
-#' @rdname arrange
-#' @inherit dplyr::arrange
-#' @family single table verbs
-#' 
-#' @examples
-#' example(read10xVisium)
-#' 
-#' spe |>
-#'   arrange(array_row)
-NULL
-
-#' @name bind_rows
-#' @rdname bind_rows
-#' @inherit ttservice::bind_rows
-#' 
-#' @examples
-#' example(read10xVisium)
-#' spe |>
-#'    bind_rows(spe)
-#' spe |>
-#'    bind_cols(1:99)
-#'    
-#' @name bind
-NULL
-
 #' @rdname dplyr-methods
 #'
 #' @inheritParams bind
@@ -51,7 +25,6 @@ bind_rows.SingleCellExperiment <- function(..., .id=NULL, add.cell.ids=NULL) {
     tts <- flatten_if(dots_values(...), is_spliced)
     SingleCellExperiment::cbind(tts[[1]], tts[[2]], deparse.level = 0)
 }
-
 
 # Internal of bind_cols
 #' @importFrom SummarizedExperiment colData
@@ -90,17 +63,6 @@ bind_cols.default <- function(..., .id=NULL) {
 #'
 bind_cols.SpatialExperiment <- bind_cols_
 
-#' @name distinct
-#' @rdname distinct
-#' @inherit dplyr::distinct
-#' 
-#' @examples
-#' example(read10xVisium)
-#' spe |>
-#'    distinct(sample_id)
-#'
-#' @export
-NULL
 
 #' @name filter
 #' @rdname filter
@@ -141,32 +103,6 @@ filter.SpatialExperiment <- function(.data, ..., .preserve=FALSE) {
     # Use index to subset cells from original SpatialExperiment object
     .data[, new_meta[["index"]]]
 }
-
-
-#' @name group_by
-#' @rdname group_by
-#' @inherit dplyr::group_by
-#' @seealso \code{}
-#'
-#' @examples
-#' example(read10xVisium)
-#'   group_by(sample_id)
-#'
-#' @export
-NULL
-
-#' @name summarise
-#' @aliases summarize
-#' @inherit dplyr::summarise
-#' @family single table verbs
-#' 
-#' @examples
-#' example(read10xVisium)
-#' spe |>
-#'     summarise(mean(array_row))
-#'
-#' @export
-NULL
 
 #' @name mutate
 #' @rdname mutate
@@ -230,31 +166,6 @@ mutate.SpatialExperiment <- function(.data, ...) {
   .data
 }
 
-#' @name rename
-#' @rdname rename
-#' @inherit dplyr::rename
-#' @family single table verbs
-#' 
-#' @examples
-#' example(read10xVisium)
-#' spe |>
-#'     rename(in_liver = in_tissue)
-#'
-#' @export
-NULL
-
-#' @name rowwise
-#' @rdname rowwise
-#' @inherit dplyr::rowwise
-#'
-#' @examples
-#' example(read10xVisium)
-#' spe |>
-#'     rowwise()
-#'
-#' @export
-NULL
-
 #' @name left_join
 #' @rdname left_join
 #' @inherit dplyr::left_join
@@ -291,7 +202,6 @@ left_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x"
                 tibble::as_tibble(rownames = c_(y)$name),
             by=by, copy=copy, suffix=suffix, ...) %>%
         as_meta_data(x)
-    
     x
 }
 
@@ -331,7 +241,6 @@ inner_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x
                     tibble::as_tibble(rownames = c_(y)$name),
                 by=by, copy=copy, suffix=suffix, ...) %>%
             as_meta_data(x)
-        
         x
         
     } else {
@@ -345,10 +254,8 @@ inner_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x
                     tibble::as_tibble(rownames = c_(x)$name),
                 by = by, copy = copy, suffix = suffix, ...) %>%
           as_meta_data(y)
-        
         y
     }
-    
 }
 
 #' @name right_join
@@ -392,21 +299,6 @@ right_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x
     y
 }
 
-#' @name slice
-#' @rdname slice
-#' @aliases slice_head slice_tail 
-#'   slice_sample slice_min slice_max
-#' @inherit dplyr::slice
-#' @family single table verbs
-#'
-#' @examples
-#' example(read10xVisium)
-#' spe |>
-#'   slice(1)
-#'
-#' @export
-NULL
-
 #' @name select
 #' @rdname select
 #' @inherit dplyr::select
@@ -449,6 +341,7 @@ select.SpatialExperiment <- function(.data, ...) {
             }
         )
 }
+
 #' @name sample_n
 #' @rdname sample_n
 #' @aliases sample_frac
@@ -512,6 +405,106 @@ sample_frac.SpatialExperiment <- function(tbl, size=1, replace=FALSE,
     }
 }
 
+#' @rdname count
+#' @aliases add_count
+#' @importFrom dplyr add_count
+#'     
+#' @export
+add_count.SpatialExperiment <- function(x, ..., wt = NULL, sort = FALSE, name = NULL) {
+  
+  # Deprecation of special column names
+  if(is_sample_feature_deprecated_used(
+    x,
+    (enquos(..., .ignore_empty = "all") %>% map(~ quo_name(.x)) %>% unlist)
+  )){
+    x= ping_old_special_column_into_metadata(x)
+  }
+  
+  colData(x) <- 
+    x %>%
+    colData() %>%
+    tibble::as_tibble(rownames = c_(x)$name) %>% 
+    dplyr::add_count(..., wt = !!enquo(wt), sort = sort, name = name)  %>%
+    as_meta_data(x)
+  
+  x
+}
+
+#' @name group_by
+#' @rdname group_by
+#' @inherit dplyr::group_by
+#' @seealso \code{}
+#'
+#' @examples
+#' example(read10xVisium)
+#'   group_by(sample_id)
+#'
+#' @export
+NULL
+
+#' @name summarise
+#' @aliases summarize
+#' @inherit dplyr::summarise
+#' @family single table verbs
+#' 
+#' @examples
+#' example(read10xVisium)
+#' spe |>
+#'     summarise(mean(array_row))
+#'
+#' @export
+NULL
+
+#' @name arrange
+#' @rdname arrange
+#' @inherit dplyr::arrange
+#' @family single table verbs
+#' 
+#' @examples
+#' example(read10xVisium)
+#' 
+#' spe |>
+#'   arrange(array_row)
+NULL
+
+#' @name bind_rows
+#' @rdname bind_rows
+#' @inherit ttservice::bind_rows
+#' 
+#' @examples
+#' example(read10xVisium)
+#' spe |>
+#'    bind_rows(spe)
+#' spe |>
+#'    bind_cols(1:99)
+#'    
+#' @name bind
+NULL
+
+#' @name rename
+#' @rdname rename
+#' @inherit dplyr::rename
+#' @family single table verbs
+#' 
+#' @examples
+#' example(read10xVisium)
+#' spe |>
+#'     rename(in_liver = in_tissue)
+#'
+#' @export
+NULL
+
+#' @name rowwise
+#' @rdname rowwise
+#' @inherit dplyr::rowwise
+#'
+#' @examples
+#' example(read10xVisium)
+#' spe |>
+#'     rowwise()
+#'
+#' @export
+NULL
 
 #' @name count
 #' @rdname count
@@ -527,30 +520,32 @@ sample_frac.SpatialExperiment <- function(tbl, size=1, replace=FALSE,
 #' @export
 NULL
 
-#' @rdname count
-#' @aliases add_count
-#' @importFrom dplyr add_count
-#'     
+#' @name slice
+#' @rdname slice
+#' @aliases slice_head slice_tail 
+#'   slice_sample slice_min slice_max
+#' @inherit dplyr::slice
+#' @family single table verbs
+#'
+#' @examples
+#' example(read10xVisium)
+#' spe |>
+#'   slice(1)
+#'
 #' @export
-add_count.SpatialExperiment <- function(x, ..., wt = NULL, sort = FALSE, name = NULL) {
+NULL
 
-  # Deprecation of special column names
-  if(is_sample_feature_deprecated_used(
-    x,
-    (enquos(..., .ignore_empty = "all") %>% map(~ quo_name(.x)) %>% unlist)
-  )){
-    x= ping_old_special_column_into_metadata(x)
-  }
-
-  colData(x) <- 
-      x %>%
-      colData() %>%
-      tibble::as_tibble(rownames = c_(x)$name) %>% 
-      dplyr::add_count(..., wt = !!enquo(wt), sort = sort, name = name)  %>%
-      as_meta_data(x)
-
-  x
-}
+#' @name distinct
+#' @rdname distinct
+#' @inherit dplyr::distinct
+#' 
+#' @examples
+#' example(read10xVisium)
+#' spe |>
+#'    distinct(sample_id)
+#'
+#' @export
+NULL
 
 #' @name pull
 #' @rdname pull

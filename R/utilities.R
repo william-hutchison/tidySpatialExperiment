@@ -1,43 +1,3 @@
-#' @importFrom tibble as_tibble
-#' @importFrom SummarizedExperiment colData
-#'
-#' @keywords internal
-#'
-#' @param .data A tidySpatialExperiment
-#'
-#' @noRd
-to_tib <- tidySingleCellExperiment:::to_tib
-
-# Greater than
-gt <- function(a, b) {
-    a > b
-}
-
-prepend <- tidySingleCellExperiment:::prepend
-
-#' Add class to abject
-#'
-#'
-#' @keywords internal
-#'
-#' @param var A tibble
-#' @param name A character name of the attribute
-#'
-#' @return A tibble with an additional attribute
-add_class <- tidySingleCellExperiment:::add_class
-
-#' Remove class to abject
-#'
-#' @keywords internal
-#'
-#'
-#' @param var A tibble
-#' @param name A character name of the class
-#'
-#' @return A tibble with an additional attribute
-#' @keywords internal
-drop_class <- tidySingleCellExperiment:::drop_class
-
 #' get abundance long
 #'
 #' @keywords internal
@@ -53,9 +13,7 @@ drop_class <- tidySingleCellExperiment:::drop_class
 #' @param all A boolean
 #' @param ... Parameters to pass to join wide, i.e. assay name to extract feature abundance from
 #'
-#'
 #' @return A tidySpatialExperiment object
-#'
 #'
 #' @noRd
 get_abundance_sc_wide <- function(.data, features=NULL, all=FALSE, assay = assays(.data) %>% as.list() %>% tail(1) %>% names,  prefix = "" ) {
@@ -114,8 +72,36 @@ get_abundance_sc_wide <- function(.data, features=NULL, all=FALSE, assay = assay
         # Add index for joining
         tibble::rowid_to_column("index") %>%
         dplyr::mutate(index = as.character(index))
-    
 }
+
+#' Bind columns without checking for duplicate sample_ids
+#' 
+#' @keywords internal
+#' @noRd
+#' 
+#' @importFrom BiocGenerics rbind cbind
+setMethod("cbind", "SpatialExperiment", function(..., deparse.level=1) {
+  
+  old <- S4Vectors:::disableValidity()
+  if (!isTRUE(old)) {
+    S4Vectors:::disableValidity(TRUE)
+    on.exit(S4Vectors:::disableValidity(old))
+  }
+  args <- list(...)
+  
+  # bind SPEs
+  out <- do.call(
+    callNextMethod, 
+    c(args, list(deparse.level=1)))
+  
+  # merge 'imgData' from multiple samples
+  if (!is.null(imgData(args[[1]]))) { 
+    newimgdata <- do.call(rbind, lapply(args, imgData))
+    int_metadata(out)[names(int_metadata(out)) == "imgData"] <- NULL
+    int_metadata(out)$imgData <- newimgdata
+  } 
+  return(out)
+})
 
 #' get abundance long
 #'
@@ -134,7 +120,6 @@ get_abundance_sc_wide <- function(.data, features=NULL, all=FALSE, assay = assay
 #' @param exclude_zeros A boolean
 #'
 #' @return A tidySpatialExperiment object
-#'
 #'
 #' @noRd
 get_abundance_sc_long <- function(.data, features=NULL, all=FALSE, exclude_zeros=FALSE) {
@@ -160,7 +145,6 @@ get_abundance_sc_long <- function(.data, features=NULL, all=FALSE, exclude_zeros
                 3. set all=TRUE (this will output a very large object, does your computer have enough RAM?)
                 ")
     }
-
 
     # Get variable features if existing
     if (
@@ -293,46 +277,18 @@ get_special_datasets <- function(SpatialExperiment_object, n_dimensions_to_retur
   list(reduced_dimensions, spatial_coordinates)
 }
 
-get_needed_columns <- tidySingleCellExperiment:::get_needed_columns
-
-#' Convert array of quosure (e.g. c(col_a, col_b)) into character vector
-#'
-#' @keywords internal
-#'
-#' @importFrom rlang quo_name
-#' @importFrom rlang quo_squash
-#'
-#' @param v A array of quosures (e.g. c(col_a, col_b))
-#'
-#' @return A character vector
-quo_names <- tidySingleCellExperiment:::quo_names
-
-#' @importFrom purrr when
-#' @importFrom dplyr select
-#' @importFrom rlang expr
-#' @importFrom tidyselect eval_select
-select_helper <- tidySingleCellExperiment:::select_helper
-
-data_frame_returned_message <- "tidySpatialExperiment says: A data frame is returned for independent data analysis."
-duplicated_cell_names <- "tidySpatialExperiment says: This operation lead to duplicated cell names. A data frame is returned for independent data analysis."
-
-# This function is used for the change of special sample column to .sample
-# Check if "sample" is included in the query and is not part of any other existing annotation
-#' @importFrom stringr str_detect
-#' @importFrom stringr regex
-is_sample_feature_deprecated_used <- tidySingleCellExperiment:::is_sample_feature_deprecated_used
-
-get_special_column_name_symbol <- tidySingleCellExperiment:::get_special_column_name_symbol
-
 # Key column names
 #' @importFrom S4Vectors metadata
 #' @importFrom S4Vectors metadata<-
 ping_old_special_column_into_metadata <- tidySingleCellExperiment:::ping_old_special_column_into_metadata
 
-get_special_column_name_cell <- tidySingleCellExperiment:::get_special_column_name_cell
-
 #' @importFrom S4Vectors metadata
 c_ <-  tidySingleCellExperiment:::c_
+
+# Greater than
+gt <- function(a, b) {
+  a > b
+}
 
 #' Add attribute to abject
 #'
@@ -345,12 +301,18 @@ c_ <-  tidySingleCellExperiment:::c_
 #' @param name A character name of the attribute
 #'
 #' @return A tibble with an additional attribute
-add_attr = tidySingleCellExperiment:::add_attr
+add_attr <- tidySingleCellExperiment:::add_attr
 
-special_datasets_to_tibble <- tidySingleCellExperiment:::special_datasets_to_tibble
+#' @importFrom tibble as_tibble
+#' @importFrom SummarizedExperiment colData
+#'
+#' @keywords internal
+#'
+#' @param .data A tidySpatialExperiment
+#'
+#' @noRd
+to_tib <- tidySingleCellExperiment:::to_tib
 
-#' @importFrom stringr str_replace_all
-trick_to_avoid_renaming_of_already_unique_columns_by_dplyr <- tidySingleCellExperiment:::trick_to_avoid_renaming_of_already_unique_columns_by_dplyr
 #' Get specific annotation columns
 #'
 #' @keywords internal
@@ -380,32 +342,63 @@ get_specific_annotation_columns <- tidySingleCellExperiment:::get_specific_annot
 #' @return A tibble
 subset <- tidySingleCellExperiment:::subset
 
-#' Bind columns without checking for duplicate sample_ids
-#' 
+#' Add class to abject
+#'
+#'
 #' @keywords internal
-#' @noRd
-#' 
-#' @importFrom BiocGenerics rbind cbind
-setMethod("cbind", "SpatialExperiment", function(..., deparse.level=1) {
-  
-  old <- S4Vectors:::disableValidity()
-  if (!isTRUE(old)) {
-    S4Vectors:::disableValidity(TRUE)
-    on.exit(S4Vectors:::disableValidity(old))
-  }
-  args <- list(...)
-  
-  # bind SPEs
-  out <- do.call(
-    callNextMethod, 
-    c(args, list(deparse.level=1)))
-  
-  # merge 'imgData' from multiple samples
-  if (!is.null(imgData(args[[1]]))) { 
-    newimgdata <- do.call(rbind, lapply(args, imgData))
-    int_metadata(out)[names(int_metadata(out)) == "imgData"] <- NULL
-    int_metadata(out)$imgData <- newimgdata
-  } 
-  
-  return(out)
-})
+#'
+#' @param var A tibble
+#' @param name A character name of the attribute
+#'
+#' @return A tibble with an additional attribute
+add_class <- tidySingleCellExperiment:::add_class
+
+#' Remove class to abject
+#'
+#' @keywords internal
+#'
+#'
+#' @param var A tibble
+#' @param name A character name of the class
+#'
+#' @return A tibble with an additional attribute
+#' @keywords internal
+drop_class <- tidySingleCellExperiment:::drop_class
+
+#' Convert array of quosure (e.g. c(col_a, col_b)) into character vector
+#'
+#' @keywords internal
+#'
+#' @importFrom rlang quo_name
+#' @importFrom rlang quo_squash
+#'
+#' @param v A array of quosures (e.g. c(col_a, col_b))
+#'
+#' @return A character vector
+quo_names <- tidySingleCellExperiment:::quo_names
+
+#' @importFrom purrr when
+#' @importFrom dplyr select
+#' @importFrom rlang expr
+#' @importFrom tidyselect eval_select
+select_helper <- tidySingleCellExperiment:::select_helper
+
+# This function is used for the change of special sample column to .sample
+# Check if "sample" is included in the query and is not part of any other existing annotation
+#' @importFrom stringr str_detect
+#' @importFrom stringr regex
+is_sample_feature_deprecated_used <- tidySingleCellExperiment:::is_sample_feature_deprecated_used
+
+#' @importFrom stringr str_replace_all
+trick_to_avoid_renaming_of_already_unique_columns_by_dplyr <- tidySingleCellExperiment:::trick_to_avoid_renaming_of_already_unique_columns_by_dplyr
+
+# Inherited functions with no documentation
+get_special_column_name_cell <- tidySingleCellExperiment:::get_special_column_name_cell
+get_needed_columns <- tidySingleCellExperiment:::get_needed_columns
+get_special_column_name_symbol <- tidySingleCellExperiment:::get_special_column_name_symbol
+special_datasets_to_tibble <- tidySingleCellExperiment:::special_datasets_to_tibble
+prepend <- tidySingleCellExperiment:::prepend
+
+# Define messages
+data_frame_returned_message <- "tidySpatialExperiment says: A data frame is returned for independent data analysis."
+duplicated_cell_names <- "tidySpatialExperiment says: This operation lead to duplicated cell names. A data frame is returned for independent data analysis."

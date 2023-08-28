@@ -17,4 +17,4 @@ pillar___strwrap2 <- tidySingleCellExperiment:::pillar___strwrap2
 #' 
 #' @keywords internal
 #' @noRd
-pillar___wrap = tidySingleCellExperiment:::pillar___wrap
+pillar___wrap <- tidySingleCellExperiment:::pillar___wrap

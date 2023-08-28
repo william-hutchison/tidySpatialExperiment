@@ -1,4 +1,3 @@
-
 setMethod(
     f = "show",
     signature = "SpatialExperiment",

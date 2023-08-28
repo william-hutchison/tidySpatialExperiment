@@ -125,22 +125,9 @@ extract.SpatialExperiment <- function(data, col, into, regex="([[:alnum:]]+)", r
         as_tibble() %>%
         tidyr::extract(col=!!col, into=into, regex=regex, remove=remove, convert=convert, ...) %>%
         as_meta_data(data)
-
-
+    
     data
 }
-
-#' @name pivot_longer
-#' @rdname pivot_longer
-#' @inherit tidyr::pivot_longer
-#' 
-#' @examples
-#' example(read10xVisium)
-#' spe |>
-#'     pivot_longer(c(array_row, array_col), names_to = "dimension", values_to = "location")
-#'
-#' @export
-NULL
 
 #' @name unite
 #' @rdname unite
@@ -252,3 +239,15 @@ separate.SpatialExperiment <- function(data, col, into, sep="[^[:alnum:]]+", rem
 
     data
 }
+
+#' @name pivot_longer
+#' @rdname pivot_longer
+#' @inherit tidyr::pivot_longer
+#' 
+#' @examples
+#' example(read10xVisium)
+#' spe |>
+#'     pivot_longer(c(array_row, array_col), names_to = "dimension", values_to = "location")
+#'
+#' @export
+NULL
