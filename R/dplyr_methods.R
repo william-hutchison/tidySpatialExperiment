@@ -1,68 +1,52 @@
-#' @rdname dplyr-methods
-#'
-#' @inheritParams bind
-#'
-#' @export
-#'
-bind_rows <- function(..., .id=NULL, add.cell.ids=NULL) {
-    UseMethod("bind_rows")
-}
-
-#' @export
-bind_rows.default <- function(..., .id=NULL, add.cell.ids=NULL) {
-    dplyr::bind_rows(..., .id=.id)
-}
-
-#' @importFrom rlang dots_values
+#' @name bind_rows
+#' @rdname bind_rows
+#' @inherit ttservice::bind_rows
+#' 
+#' @examples
+#' example(read10xVisium)
+#' spe |>
+#'     bind_rows(spe)
+#'     
 #' @importFrom rlang flatten_if
 #' @importFrom rlang is_spliced
+#' @importFrom rlang dots_values
+#' @importFrom ttservice bind_rows
 #' @importFrom SingleCellExperiment cbind
-#'
 #' @export
-#'
-bind_rows.SingleCellExperiment <- function(..., .id=NULL, add.cell.ids=NULL) {
+bind_rows.SpatialExperiment <- function(..., .id=NULL, add.cell.ids=NULL) {
   
     tts <- flatten_if(dots_values(...), is_spliced)
     SingleCellExperiment::cbind(tts[[1]], tts[[2]], deparse.level = 0)
 }
 
-# Internal of bind_cols
-#' @importFrom SummarizedExperiment colData
-#' @importFrom SummarizedExperiment colData<-
-#'
-bind_cols_ = function(..., .id=NULL) {
-    tts <- tts <- flatten_if(dots_values(...), is_spliced)
-
-    colData(tts[[1]]) <- dplyr::bind_cols(colData(tts[[1]]) %>% as.data.frame(),
-                                          tts[[2]], .id=.id) %>% DataFrame()
-
-    tts[[1]]
-}
-
-#' @export
-#'
-#' @inheritParams bind
-#'
-#' @rdname dplyr-methods
-bind_cols <- function(..., .id=NULL) {
-    UseMethod("bind_cols")
-}
-
-#' @export
-bind_cols.default <- function(..., .id=NULL) {
-    dplyr::bind_cols(..., .id=.id)
-}
-
-#' @importFrom rlang dots_values
 #' @importFrom rlang flatten_if
 #' @importFrom rlang is_spliced
+#' @importFrom rlang dots_values
+#' @importFrom ttservice bind_cols
 #' @importFrom SummarizedExperiment colData
 #' @importFrom SummarizedExperiment colData<-
-#'
-#' @export
-#'
-bind_cols.SpatialExperiment <- bind_cols_
+bind_cols_ = function(..., .id=NULL) {
+  
+  tts <- tts <- flatten_if(dots_values(...), is_spliced)
+  colData(tts[[1]]) <- bind_cols(colData(tts[[1]]) %>% as.data.frame(),
+                                 tts[[2]], .id=.id) %>% DataFrame()
+  
+  tts[[1]]
+}
 
+#' @rdname bind_rows
+#' @aliases bind_cols
+#' 
+#' @examples 
+#' example(read10xVisium)
+#' spe |>
+#'     bind_cols(
+#'         spe |> 
+#'             select(array_row)
+#'     )
+#' 
+#' @export
+bind_cols.SpatialExperiment <- bind_cols_
 
 #' @name filter
 #' @rdname filter
@@ -268,7 +252,7 @@ inner_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x
 #' spe |>
 #'     right_join(
 #'         spe |>
-#'             filter(in_tissue == TRUE) %>%
+#'             filter(in_tissue == TRUE) |>
 #'             mutate(new_column = 1)
 #'         )
 #'
