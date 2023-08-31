@@ -437,6 +437,7 @@ add_count.SpatialExperiment <- function(x, ..., wt = NULL, sort = FALSE, name = 
 #'
 #' @examples
 #' example(read10xVisium)
+#' spe |>
 #'   group_by(sample_id)
 #'
 #' @export

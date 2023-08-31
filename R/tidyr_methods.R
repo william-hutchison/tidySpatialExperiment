@@ -101,6 +101,7 @@ nest.SpatialExperiment <- function(.data, ..., .names_sep = NULL) {
 #' @inherit tidyr::extract
 #' 
 #' @examples
+#' example(read10xVisium)
 #' spe |> 
 #'     extract(col = array_row, into = "A", regex = "([[:digit:]]3)")
 #'     

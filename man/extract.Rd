@@ -51,6 +51,7 @@ each group into a new column. If the groups don't match, or the input
 is NA, the output will be NA.
 }
 \examples{
+example(read10xVisium)
 spe |> 
     extract(col = array_row, into = "A", regex = "([[:digit:]]3)")
     
