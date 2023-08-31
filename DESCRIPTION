@@ -1,13 +1,14 @@
 Type: Package
 Package: tidySpatialExperiment
-Title: Brings SpatialExperiment to the Tidyverse 
-Version: 0.0.4
+Title: Brings SpatialExperiment to the tidyverse 
+Version: 0.99.0
 Authors@R: c(
     person("William", "Hutchison", email = "hutchison.w@wehi.edu.au", role = c("aut", "cre")),
     person("Stefano", "Mangiola", email = "mangiolastefano@gmail.com", role = "aut")
   )
-Description: tidySpatialExperiment is an adapter that abstracts the 'SpatialExperiment' container 
-    in the form of a tibble and allows data manipulation, plotting and nesting using 'tidyverse'.
+Description: tidySpatialExperiment is an adapter that abstracts the SpatialExperiment container 
+    in the form of a tibble and allows data manipulation, plotting and nesting using functions from
+    the tidyverse ecosystem.
 License: GPL-3
 Depends:
     R (>= 4.3.0),
