@@ -78,8 +78,10 @@ same abstraction, allowing easy interaction with this additional data.
 You can install the development version of tidySpatialExperiment from
 GitHub with:
 
-    install.packages("devtools")
-    devtools::install_github("william-hutchison/tidySpatialExperiment")
+``` r
+install.packages("devtools")
+devtools::install_github("william-hutchison/tidySpatialExperiment")
+```
 
 ## Load data
 
@@ -89,15 +91,6 @@ we see is of the SpatialExperiment-tibble abstraction.
 ``` r
 # Load example SpatialExperiment object
 library(tidySpatialExperiment)
-```
-
-    ## Warning: replacing previous import 'dplyr::bind_cols' by 'ttservice::bind_cols'
-    ## when loading 'tidySpatialExperiment'
-
-    ## Warning: replacing previous import 'dplyr::bind_rows' by 'ttservice::bind_rows'
-    ## when loading 'tidySpatialExperiment'
-
-``` r
 example(read10xVisium)
 ```
 
@@ -288,7 +281,7 @@ spe |>
   ggplot2::coord_flip()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ## Plot with plotly
 
@@ -306,7 +299,7 @@ spe |>
   )
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 # Integration with the *tidyomics* ecosystem
 

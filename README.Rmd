@@ -53,7 +53,7 @@ tidySpatialExperiment provides a SpatialExperiment-tibble abstraction, represent
 
 You can install the development version of tidySpatialExperiment from GitHub with:
 
-```
+```{r, eval=FALSE}
 install.packages("devtools")
 devtools::install_github("william-hutchison/tidySpatialExperiment")
 ```
