@@ -10,11 +10,12 @@ Description: tidySpatialExperiment is an adapter that abstracts the 'SpatialExpe
     in the form of a tibble and allows data manipulation, plotting and nesting using 'tidyverse'.
 License: GPL-3
 Depends:
-    R (>= 4.1.0),
-    SpatialExperiment
+    R (>= 4.3.0),
+    SingleCellExperiment,
+    SpatialExperiment,
+    tidySingleCellExperiment,
 Imports:
     ttservice,
-    tidySingleCellExperiment,
     SummarizedExperiment,
     BiocGenerics,
     dplyr,
