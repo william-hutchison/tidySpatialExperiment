@@ -60,15 +60,13 @@ tbl_format_header.tidySpatialExperiment <- function(x, setup, ...){
 #' @importFrom vctrs new_data_frame
 #' @importFrom SummarizedExperiment assayNames
 #' @export
-print.SpatialExperiment <- function(x, ..., n = NULL, width = NULL, n_extra = NULL) {
+print.SpatialExperiment <- function(x, ..., n = NULL, width = NULL) {
 
   x |>
     as_tibble(n_dimensions_to_return = 5 ) |>
-
     new_data_frame(class = c("tidySpatialExperiment", "tbl")) %>%
     add_attr( nrow(x),  "number_of_features") %>%
     add_attr( assays(x) %>% names , "assay_names") %>%
-
     print()
 
   invisible(x)
