@@ -65,15 +65,6 @@ spe |>
     
 example(read10xVisium)
 spe |>
-    bind_cols(
-        spe |> 
-            select(array_row)
-    )
-
-example(read10xVisium)
-spe |>
-   bind_rows(spe)
-spe |>
    bind_cols(1:99)
-   
+
 }

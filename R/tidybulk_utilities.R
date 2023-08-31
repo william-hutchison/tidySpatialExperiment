@@ -3,10 +3,7 @@
 #' @keywords internal
 #' @noRd
 #'
-#' @import dplyr
-#' @import tidyr
 #' @importFrom purrr as_mapper
-#' @importFrom magrittr equals
 #'
 #' @param .x A tibble
 #' @param .p A boolean
@@ -79,8 +76,6 @@ get_x_y_annotation_columns <- tidySingleCellExperiment:::get_x_y_annotation_colu
 #' @keywords internal
 #' @noRd
 #'
-#' @import dplyr
-#' @import tidyr
 #' @importFrom magrittr set_rownames
 #' @importFrom rlang quo_is_null
 #'

@@ -40,10 +40,7 @@ bind_cols_ = function(..., .id=NULL) {
 #' @examples 
 #' example(read10xVisium)
 #' spe |>
-#'     bind_cols(
-#'         spe |> 
-#'             select(array_row)
-#'     )
+#'    bind_cols(1:99)
 #' 
 #' @export
 bind_cols.SpatialExperiment <- bind_cols_
@@ -450,20 +447,6 @@ NULL
 #' 
 #' spe |>
 #'   arrange(array_row)
-NULL
-
-#' @name bind_rows
-#' @rdname bind_rows
-#' @inherit ttservice::bind_rows
-#' 
-#' @examples
-#' example(read10xVisium)
-#' spe |>
-#'    bind_rows(spe)
-#' spe |>
-#'    bind_cols(1:99)
-#'    
-#' @name bind
 NULL
 
 #' @name rename

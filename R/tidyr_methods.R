@@ -66,6 +66,7 @@ unnest_single_cell_experiment  <-  function(data, cols, ..., keep_empty=FALSE, p
 #' @importFrom tidyr nest
 #' @importFrom rlang enquos
 #' @importFrom rlang :=
+#' @importFrom rlang sym
 #' @export
 nest.SpatialExperiment <- function(.data, ..., .names_sep = NULL) {
     cols <- enquos(...)
@@ -139,6 +140,7 @@ extract.SpatialExperiment <- function(data, col, into, regex="([[:alnum:]]+)", r
 #' spe |>
 #'     unite("A", array_row:array_col)
 #' 
+#' @importFrom tidyr unite
 #' @importFrom SummarizedExperiment colData
 #' @importFrom SummarizedExperiment colData<-
 #' @export

@@ -163,7 +163,7 @@ example(read10xVisium)
 spe |>
     right_join(
         spe |>
-            filter(in_tissue == TRUE) \%>\%
+            filter(in_tissue == TRUE) |>
             mutate(new_column = 1)
         )
 

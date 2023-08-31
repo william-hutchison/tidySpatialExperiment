@@ -162,7 +162,7 @@ aggregate_cells <- function(.data, .sample = NULL, slot = "data", assays = NULL,
                           
                           # Get counts
                           ~  .x %>%
-                            aggregation_function(na.rm = T) %>%
+                            aggregation_function(na.rm = TRUE) %>%
                             enframe(
                               name  = "feature",
                               value = sprintf("%s", .y)
