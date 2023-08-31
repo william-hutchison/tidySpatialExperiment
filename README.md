@@ -3,7 +3,7 @@ tidySpatialExperiment - part of tidyomics
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-**Brings SpatialExperiment to the Tidyverse**
+**Brings SpatialExperiment to the *tidyverse* **
 
 <!-- badges: start -->
 
@@ -33,12 +33,15 @@ You can find more packages from the *tidyomics* ecosystem here:
 
 tidySpatialExperiment provides a bridge between the
 [SpatialExperiment](https://github.com/drighelli/SpatialExperiment)
-\[@righelli2022spatialexperiment\] and
-[Tidyverse](https://www.tidyverse.org) \[@wickham2019welcome\] packages.
-It creates an invisible layer that allows you to interact with a
-SpatialExperiment object as if it were a tibble: enabling the use of
-*dplyr*, *tidyr*, *ggplot2* and *plotly* functions. But, underneath,
-your data remains a SpatialExperiment object.
+\[@righelli2022spatialexperiment\] package and the
+[*tidyverse*](https://www.tidyverse.org) \[@wickham2019welcome\]
+ecosystem. It creates an invisible layer that allows you to interact
+with a SpatialExperiment object as if it were a tibble; enabling the use
+of functions from [dplyr](https://github.com/tidyverse/dplyr),
+[tidyr](https://github.com/tidyverse/tidyr),
+[ggplot2](https://github.com/tidyverse/ggplot2) and
+[plotly](https://github.com/plotly/plotly.R). But, underneath, your data
+remains a SpatialExperiment object.
 
 tidySpatialExperiment also provides three additional utility functions.
 
@@ -86,6 +89,15 @@ we see is of the SpatialExperiment-tibble abstraction.
 ``` r
 # Load example SpatialExperiment object
 library(tidySpatialExperiment)
+```
+
+    ## Warning: replacing previous import 'dplyr::bind_cols' by 'ttservice::bind_cols'
+    ## when loading 'tidySpatialExperiment'
+
+    ## Warning: replacing previous import 'dplyr::bind_rows' by 'ttservice::bind_rows'
+    ## when loading 'tidySpatialExperiment'
+
+``` r
 example(read10xVisium)
 ```
 
@@ -161,7 +173,7 @@ spe |>
 
 ## Manipulate with dplyr
 
-Most functions from *dplyr* are available for use with the
+Most functions from dplyr are available for use with the
 SpatialExperiment-tibble abstraction. For example, `filter` can be used
 to select cells by a variable of interest.
 
@@ -209,7 +221,7 @@ spe |>
 
 ## Tidy with tidyr
 
-Most functions from *tidyr* are also available. Here, `nest` is used to
+Most functions from tidyr are also available. Here, `nest` is used to
 group the data by sample_id, and `unnest` is used to ungroup the data.
 
 ``` r
@@ -257,7 +269,7 @@ The `ggplot` function can be used to create a plot from a
 SpatialExperiment object. This example also demonstrates how tidy
 operations can be combined to build up more complex analysis. It should
 be noted that helper functions such `aes` are not included and should be
-imported from *ggplot2*.
+imported from ggplot2.
 
 ``` r
 spe |>
