@@ -20,5 +20,4 @@ under active development.
 example(read10xVisium)
 spe |>
     pivot_longer(c(array_row, array_col), names_to = "dimension", values_to = "location")
-
 }

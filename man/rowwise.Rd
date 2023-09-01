@@ -31,7 +31,6 @@ life a little easier.
 example(read10xVisium)
 spe |>
     rowwise()
-
 }
 \seealso{
 \code{\link[dplyr:nest_by]{nest_by()}} for a convenient way of creating rowwise data frames

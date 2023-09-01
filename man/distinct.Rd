@@ -34,5 +34,4 @@ The following methods are currently available in loaded packages:
 example(read10xVisium)
 spe |>
    distinct(sample_id)
-
 }

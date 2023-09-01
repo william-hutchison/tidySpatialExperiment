@@ -251,6 +251,4 @@ separate.SpatialExperiment <- function(data, col, into, sep="[^[:alnum:]]+", rem
 #' example(read10xVisium)
 #' spe |>
 #'     pivot_longer(c(array_row, array_col), names_to = "dimension", values_to = "location")
-#'
-#' @export
 NULL

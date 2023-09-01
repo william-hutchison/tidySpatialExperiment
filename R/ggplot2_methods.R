@@ -11,5 +11,4 @@
 #'    
 #' @importFrom ggplot2 aes
 #' @importFrom ggplot2 ggplot
-#' @export
 NULL

@@ -72,7 +72,6 @@ The following methods are currently available in loaded packages:
 example(read10xVisium)
 spe |>
     summarise(mean(array_row))
-
 }
 \seealso{
 Other single table verbs: 

@@ -48,8 +48,6 @@ setClass("tidySpatialExperiment", contains = "SpatialExperiment")
 #' example(read10xVisium)
 #' spe |>
 #'     join_features(features = "ENSMUSG00000025900")
-#'
-#' @export
 NULL
 
 #' join_features

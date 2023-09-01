@@ -34,7 +34,6 @@ The following methods are currently available in loaded packages:
 example(read10xVisium)
 spe |>
     rename(in_liver = in_tissue)
-
 }
 \seealso{
 Other single table verbs: 

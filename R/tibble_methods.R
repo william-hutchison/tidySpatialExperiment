@@ -56,6 +56,4 @@ as_tibble.SpatialExperiment <- function(x, ...,
 #' example(read10xVisium)
 #' spe |>
 #'     glimpse()
-#'
-#' @export
 NULL

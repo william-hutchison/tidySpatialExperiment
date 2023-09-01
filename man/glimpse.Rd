@@ -30,5 +30,4 @@ See \code{\link[pillar:format_glimpse]{format_glimpse()}} for details on the for
 example(read10xVisium)
 spe |>
     glimpse()
-
 }

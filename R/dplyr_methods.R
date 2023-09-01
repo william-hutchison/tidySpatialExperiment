@@ -420,8 +420,6 @@ add_count.SpatialExperiment <- function(x, ..., wt = NULL, sort = FALSE, name = 
 #' example(read10xVisium)
 #' spe |>
 #'   group_by(sample_id)
-#'
-#' @export
 NULL
 
 #' @name summarise
@@ -433,8 +431,6 @@ NULL
 #' example(read10xVisium)
 #' spe |>
 #'     summarise(mean(array_row))
-#'
-#' @export
 NULL
 
 #' @name arrange
@@ -458,8 +454,6 @@ NULL
 #' example(read10xVisium)
 #' spe |>
 #'     rename(in_liver = in_tissue)
-#'
-#' @export
 NULL
 
 #' @name rowwise
@@ -470,8 +464,6 @@ NULL
 #' example(read10xVisium)
 #' spe |>
 #'     rowwise()
-#'
-#' @export
 NULL
 
 #' @name count
@@ -484,8 +476,6 @@ NULL
 #'     count()
 #' spe |>
 #'     add_count()
-#'
-#' @export
 NULL
 
 #' @name slice
@@ -499,8 +489,6 @@ NULL
 #' example(read10xVisium)
 #' spe |>
 #'   slice(1)
-#'
-#' @export
 NULL
 
 #' @name distinct
@@ -511,8 +499,6 @@ NULL
 #' example(read10xVisium)
 #' spe |>
 #'    distinct(sample_id)
-#'
-#' @export
 NULL
 
 #' @name pull
@@ -523,6 +509,4 @@ NULL
 #' example(read10xVisium)
 #' spe |>
 #'     pull(in_tissue)
-#'
-#' @export
 NULL

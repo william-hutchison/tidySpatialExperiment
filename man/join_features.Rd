@@ -43,5 +43,4 @@ This function extracts information for specified features and returns the inform
 example(read10xVisium)
 spe |>
     join_features(features = "ENSMUSG00000025900")
-
 }

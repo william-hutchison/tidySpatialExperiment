@@ -66,7 +66,6 @@ also force calls to \code{\link[dplyr:arrange]{arrange()}} to use the system loc
 example(read10xVisium)
 spe |>
   group_by(sample_id)
-
 }
 \seealso{
 \code{}

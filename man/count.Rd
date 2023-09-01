@@ -52,5 +52,4 @@ spe |>
     count()
 spe |>
     add_count()
-
 }

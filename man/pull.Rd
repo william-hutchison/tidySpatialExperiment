@@ -27,5 +27,4 @@ The following methods are currently available in loaded packages:
 example(read10xVisium)
 spe |>
     pull(in_tissue)
-
 }
