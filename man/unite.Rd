@@ -2,7 +2,11 @@
 % Please edit documentation in R/tidyr_methods.R
 \name{unite}
 \alias{unite}
+\alias{unite.SpatialExperiment}
 \title{Unite multiple columns into one by pasting strings together}
+\usage{
+\method{unite}{SpatialExperiment}(data, col, ..., sep = "_", remove = TRUE, na.rm = FALSE)
+}
 \arguments{
 \item{data}{A data frame.}
 
@@ -15,28 +19,24 @@ and symbols). The name is captured from the expression with
 symbols do not represent actual objects is now discouraged in the
 tidyverse; we support it here for backward compatibility).}
 
-\item{...}{<\code{\link[=tidyr_tidy_select]{tidy-select}}> Columns to unite}
+\item{...}{<\code{\link[tidyr:tidyr_tidy_select]{tidy-select}}> Columns to unite}
 
 \item{sep}{Separator to use between values.}
 
-\item{na.rm}{If \code{TRUE}, missing values will be remove prior to uniting
-each value.}
-
 \item{remove}{If \code{TRUE}, remove input columns from output data frame.}
-}
-\value{
-A tidySpatialExperiment objector a tibble depending on input
+
+\item{na.rm}{If \code{TRUE}, missing values will be removed prior to uniting
+each value.}
 }
 \description{
 Convenience function to paste together multiple columns into one.
 }
 \examples{
-`\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
-
-spe \%>\%
+spe |>
     unite("A", array_row:array_col)
+
 }
 \seealso{
-\code{\link[=separate]{separate()}}, the complement.
+\code{\link[tidyr:separate]{separate()}}, the complement.
 }

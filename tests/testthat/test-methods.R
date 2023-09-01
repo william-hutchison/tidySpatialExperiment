@@ -15,13 +15,10 @@ test_that("join_features wide",{
   
   spe %>%
     join_features(c("ENSMUSG00000051951", "ENSMUSG00000025900"), shape = "wide") %>%
-    tidySpatialExperiment::pull(ENSMUSG00000051951) %>%
+    pull(ENSMUSG00000051951) %>%
     sum() %>%
     expect_equal(8)
 })
-
-
-
 
 test_that("aggregate_cells", {
   

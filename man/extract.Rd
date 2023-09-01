@@ -17,47 +17,45 @@ expression groups}
 )
 }
 \arguments{
-\item{data}{A tidySpatialExperiment object}
+\item{data}{A data frame.}
 
-\item{col}{Column name or position. This is passed to
-\code{\link[tidyselect:vars_pull]{tidyselect::vars_pull()}}.
-
-This argument is passed by expression and supports
-\link[rlang:topic-inject]{quasiquotation} (you can unquote column
-names or column positions).}
+\item{col}{<\code{\link[tidyr:tidyr_tidy_select]{tidy-select}}> Column to expand.}
 
 \item{into}{Names of new variables to create as character vector.
 Use \code{NA} to omit the variable in the output.}
 
-\item{regex}{a regular expression used to extract the desired values.
-There should be one group (defined by \verb{()}) for each element of \code{into}.}
+\item{regex}{A string representing a regular expression used to extract the
+desired values. There should be one group (defined by \verb{()}) for each
+element of \code{into}.}
 
 \item{remove}{If \code{TRUE}, remove input column from output data frame.}
 
 \item{convert}{If \code{TRUE}, will run \code{\link[=type.convert]{type.convert()}} with
-\code{as.is=TRUE} on new columns. This is useful if the component
+\code{as.is = TRUE} on new columns. This is useful if the component
 columns are integer, numeric or logical.
 
 NB: this will cause string \code{"NA"}s to be converted to \code{NA}s.}
 
 \item{...}{Additional arguments passed on to methods.}
 }
-\value{
-A tidySpatialExperiment objector a tibble depending on input
-}
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}}
+
+\code{extract()} has been superseded in favour of \code{\link[tidyr:separate_wider_regex]{separate_wider_regex()}}
+because it has a more polished API and better handling of problems.
+Superseded functions will not go away, but will only receive critical bug
+fixes.
+
 Given a regular expression with capturing groups, \code{extract()} turns
 each group into a new column. If the groups don't match, or the input
 is NA, the output will be NA.
 }
 \examples{
-`\%>\%` <- magrittr::`\%>\%`
 example(read10xVisium)
-
-spe \%>\% 
+spe |> 
     extract(col = array_row, into = "A", regex = "([[:digit:]]3)")
     
 }
 \seealso{
-\code{\link[=separate]{separate()}} to split up by a separator.
+\code{\link[tidyr:separate]{separate()}} to split up by a separator.
 }

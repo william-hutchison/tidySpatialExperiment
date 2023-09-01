@@ -1,4 +1,3 @@
-
 setMethod(
     f = "show",
     signature = "SpatialExperiment",
@@ -20,7 +19,6 @@ setMethod(
 setClass("tidySpatialExperiment", contains = "SpatialExperiment")
 
 #' Extract and join information for features.
-#'
 #'
 #' @description join_features() extracts and joins information for specified features
 #'
@@ -47,13 +45,9 @@ setClass("tidySpatialExperiment", contains = "SpatialExperiment")
 #' @return An object containing the information.for the specified features
 #'
 #' @examples
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
-#'
-#' spe %>%
+#' spe |>
 #'     join_features(features = "ENSMUSG00000025900")
-#'
-#' @export
 NULL
 
 #' join_features
@@ -140,10 +134,8 @@ setMethod("join_features", "SpatialExperiment",  function(.data,
 #' @return A SummarizedExperiment object
 #' 
 #' @examples 
-#' `%>%` <- magrittr::`%>%`
 #' example(read10xVisium)
-#'
-#' spe %>%
+#' spe |>
 #'     aggregate_cells(sample_id, assays = "counts")
 #'
 #' @export
@@ -168,7 +160,7 @@ aggregate_cells <- function(.data, .sample = NULL, slot = "data", assays = NULL,
                           
                           # Get counts
                           ~  .x %>%
-                            aggregation_function(na.rm = T) %>%
+                            aggregation_function(na.rm = TRUE) %>%
                             enframe(
                               name  = "feature",
                               value = sprintf("%s", .y)

@@ -5,7 +5,7 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-**Brings SpatialExperiment to the Tidyverse** 
+**Brings SpatialExperiment to the *tidyverse*** 
 
 <!-- badges: start -->
 [![Lifecycle:experimental](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental) [![R build status](https://github.com/william-hutchison/tidySpatialExperiment/actions/workflows/check-bioc.yml/badge.svg)](https://github.com/william-hutchison/tidySpatialExperiment/actions)
@@ -23,7 +23,7 @@ You can find more packages from the *tidyomics* ecosystem here:
 
 # Introduction
 
-tidySpatialExperiment provides a bridge between the [SpatialExperiment](https://github.com/drighelli/SpatialExperiment) [@righelli2022spatialexperiment] and [Tidyverse](https://www.tidyverse.org) [@wickham2019welcome] packages. It creates an invisible layer that allows you to interact with a SpatialExperiment object as if it were a tibble: enabling the use of *dplyr*, *tidyr*, *ggplot2* and *plotly* functions. But, underneath, your data remains a SpatialExperiment object.
+tidySpatialExperiment provides a bridge between the [SpatialExperiment](https://github.com/drighelli/SpatialExperiment) [@righelli2022spatialexperiment] package and the [*tidyverse*](https://www.tidyverse.org) [@wickham2019welcome] ecosystem. It creates an invisible layer that allows you to interact with a SpatialExperiment object as if it were a tibble; enabling the use of functions from [dplyr](https://github.com/tidyverse/dplyr), [tidyr](https://github.com/tidyverse/tidyr), [ggplot2](https://github.com/tidyverse/ggplot2) and [plotly](https://github.com/plotly/plotly.R). But, underneath, your data remains a SpatialExperiment object.
 
 tidySpatialExperiment also provides three additional utility functions.
 
@@ -53,7 +53,7 @@ tidySpatialExperiment provides a SpatialExperiment-tibble abstraction, represent
 
 You can install the development version of tidySpatialExperiment from GitHub with:
 
-```
+```{r, eval=FALSE}
 install.packages("devtools")
 devtools::install_github("william-hutchison/tidySpatialExperiment")
 ```
@@ -98,7 +98,7 @@ spe |>
 # Integration with the *tidyverse* ecosystem
 ## Manipulate with dplyr
 
-Most functions from *dplyr* are available for use with the SpatialExperiment-tibble abstraction. For example, `filter` can be used to select cells by a variable of interest. 
+Most functions from dplyr are available for use with the SpatialExperiment-tibble abstraction. For example, `filter` can be used to select cells by a variable of interest. 
 
 ```{r}
 spe |>
@@ -114,7 +114,7 @@ spe |>
 
 ## Tidy with tidyr
 
-Most functions from *tidyr* are also available. Here, `nest` is used to group the data by sample_id, and `unnest` is used to ungroup the data.
+Most functions from tidyr are also available. Here, `nest` is used to group the data by sample_id, and `unnest` is used to ungroup the data.
 
 ```{r}
 # Nest the SpatialExperiment object by sample_id
@@ -132,7 +132,7 @@ spe_nested |>
 
 ## Plot with ggplot2
 
-The `ggplot` function can be used to create a plot from a SpatialExperiment object. This example also demonstrates how tidy operations can be combined to build up more complex analysis. It should be noted that helper functions such `aes` are not included and should be imported from *ggplot2*. 
+The `ggplot` function can be used to create a plot from a SpatialExperiment object. This example also demonstrates how tidy operations can be combined to build up more complex analysis. It should be noted that helper functions such `aes` are not included and should be imported from ggplot2. 
 
 ```{r}
 spe |>

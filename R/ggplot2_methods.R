@@ -1,68 +1,14 @@
-
-#' Create a new ggplot from a tidySpatialExperiment object
-#'
-#'
-#' `ggplot()` initializes a ggplot object. It can be used to
-#' declare the input data frame for a graphic and to specify the
-#' set of plot aesthetics intended to be common throughout all
-#' subsequent layers unless specifically overridden.
-#'
-#' `ggplot()` is used to construct the initial plot object,
-#' and is almost always followed by `+` to add component to the
-#' plot. There are three common ways to invoke `ggplot()`:
-#'
-#'
-#' The first method is recommended if all layers use the same
-#' data and the same set of aesthetics, although this method
-#' can also be used to add a layer using data from another
-#' data frame. See the first example below. The second
-#' method specifies the default data frame to use for the plot,
-#' but no aesthetics are defined up front. This is useful when
-#' one data frame is used predominantly as layers are added,
-#' but the aesthetics may vary from one layer to another. The
-#' third method initializes a skeleton `ggplot` object which
-#' is fleshed out as layers are added. This method is useful when
-#' multiple data frames are used to produce different layers, as
-#' is often the case in complex graphics.
-#'
-#' @importFrom ggplot2 aes
-#' @importFrom ggplot2 ggplot
-#'
-#' @param .data Default dataset to use for plot. If not already a data.frame,
-#'   will be converted to one by [fortify()]. If not specified,
-#'   must be supplied in each layer added to the plot.
-#' @param mapping Default list of aesthetic mappings to use for plot.
-#'   If not specified, must be supplied in each layer added to the plot.
-#' @param ... Other arguments passed on to methods. Not currently used.
-#' @param environment DEPRECATED. Used prior to tidy evaluation.
-#'
-#' @return A ggplot
-#'
-#' @rdname ggplot2-methods
 #' @name ggplot
-#'
-#' @export
-#' @examples
-#' `%>%` <- magrittr::`%>%`
-#' example(read10xVisium)
+#' @rdname ggplot
+#' @inherit ggplot2::ggplot
+#' @title Create a new \code{ggplot} from a \code{tidySpatialExperiment}
 #' 
-#' spe %>%
+#' @examples
+#' example(read10xVisium)
+#' spe |>
 #'    ggplot(ggplot2::aes(x = .cell, y = array_row)) +
 #'    ggplot2::geom_point()
+#'    
+#' @importFrom ggplot2 aes
+#' @importFrom ggplot2 ggplot
 NULL
-
-#' @export
-ggplot.SpatialExperiment <- function(data=NULL, mapping=aes(), ..., environment=parent.frame()) {
-
-  # Deprecation of special column names
-  if(is_sample_feature_deprecated_used(
-    data,
-    mapping %>% unlist() %>% map(~ quo_name(.x)) %>% unlist() %>% as.character()
-  )){
-    data= ping_old_special_column_into_metadata(data)
-  }
-
-    data %>%
-        as_tibble() %>%
-        ggplot2::ggplot(mapping=mapping)
-}

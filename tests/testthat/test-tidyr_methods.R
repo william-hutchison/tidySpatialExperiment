@@ -22,7 +22,7 @@ test_that("unite", {
         unite("A", array_row:array_col) %>%
         colData() %>%
         ncol() %>%
-        expect_equal(5)
+        expect_equal(3)
 })
 
 test_that("extract", {
@@ -39,7 +39,7 @@ test_that("separate", {
         separate(col = sample_id, into = c("A", "B"), sep = "[[:alnum:]]n") %>%
         colData() %>%
         ncol() %>%
-        expect_equal(8)
+        expect_equal(6)
 })
 
 test_that("pivot_longer", {
@@ -49,4 +49,3 @@ test_that("pivot_longer", {
         .[1] %>%
         expect_equal("tbl_df")
 })
-
