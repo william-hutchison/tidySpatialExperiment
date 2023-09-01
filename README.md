@@ -3,7 +3,7 @@ tidySpatialExperiment - part of tidyomics
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-**Brings SpatialExperiment to the *tidyverse* **
+**Brings SpatialExperiment to the *tidyverse***
 
 <!-- badges: start -->
 
