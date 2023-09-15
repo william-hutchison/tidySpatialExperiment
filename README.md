@@ -1,10 +1,7 @@
-tidySpatialExperiment - part of tidyomics
+tidySpatialExperiment - part of *tidyomics*
 ================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-**Brings SpatialExperiment to the *tidyverse***
-
 <!-- badges: start -->
 
 [![Lifecycle:experimental](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental)
@@ -15,19 +12,19 @@ status](https://github.com/william-hutchison/tidySpatialExperiment/actions/workf
 You can find more packages from the *tidyomics* ecosystem here:
 
 - [tidySingleCellExperiment](https://github.com/stemangiola/tidySingleCellExperiment)
-  for tidy manipulation of SingleCellExperiment objects
+  for tidy manipulation of SingleCellExperiment objects.
 - [tidySummarizedExperiment](https://github.com/stemangiola/tidySummarizedExperiment)
-  for tidy manipulation of SummarizedExperiment objects
+  for tidy manipulation of SummarizedExperiment objects.
 - [tidyseurat](https://github.com/stemangiola/tidyseurat) for tidy
-  manipulation of Seurat objects
+  manipulation of Seurat objects.
 - [tidybulk](https://github.com/stemangiola/tidybulk) for tidy bulk
-  RNA-seq data analysis
+  RNA-seq data analysis.
 - [nanny](https://github.com/stemangiola/nanny) for tidy high-level data
-  analysis and manipulation
+  analysis and manipulation.
 - [tidygate](https://github.com/stemangiola/tidygate) for adding custom
-  gate information to your tibble
+  gate information to your tibble.
 - [tidyHeatmap](https://github.com/stemangiola/tidyHeatmap) for heatmaps
-  produced with tidy principles
+  produced with tidy principles.
 
 # Introduction
 
@@ -63,15 +60,16 @@ tidySpatialExperiment also provides three additional utility functions.
 
 ## SpatialExperiment-tibble abstraction
 
-A SpatialExperiment object represents cells (observations) as columns
-and features (variables) as rows, as is the Bioconductor convention.
+A SpatialExperiment object represents observations (cells) as columns
+and variables (features) as rows, as is the Bioconductor convention.
 Additional information about the cells is accessed through the
 `reducedDims`, `colData` and `spatialCoords` functions.
 
 tidySpatialExperiment provides a SpatialExperiment-tibble abstraction,
-representing cells as rows and features as columns, as is the Tidyverse
-convention. `colData` and `spatialCoords` are appended as columns to the
-same abstraction, allowing easy interaction with this additional data.
+representing cells as rows and features as columns, as is the
+*tidyverse* convention. `colData` and `spatialCoords` are appended as
+columns to the same abstraction, allowing easy interaction with this
+additional data.
 
 ## Installation
 
@@ -215,7 +213,7 @@ spe |>
 ## Tidy with tidyr
 
 Most functions from tidyr are also available. Here, `nest` is used to
-group the data by sample_id, and `unnest` is used to ungroup the data.
+group the data by `sample_id`, and `unnest` is used to ungroup the data.
 
 ``` r
 # Nest the SpatialExperiment object by sample_id
@@ -305,9 +303,9 @@ spe |>
 
 ## Interactively select cells with tidygate
 
-Different packages from the tidyomics ecosystem are easy to use
-together. Here, the tidygate package is used to interactively gate cells
-based on their array location.
+Different packages from the *tidyomics* ecosystem are easy to use
+together. Here, tidygate is used to interactively gate cells based on
+their array location.
 
 ``` r
 spe_regions <-
@@ -320,7 +318,7 @@ spe_regions <-
 
 The gated cells can then be divided into pseudobulks within a
 SummarizedExperiment object using tidySpatialExperiment’s
-\`aggregate_cells’ utility function.
+`aggregate_cells` utility function.
 
 ``` r
 spe_regions_aggregated <-
@@ -330,15 +328,10 @@ spe_regions_aggregated <-
 
 # Important considerations
 
-tidySpatialExperiment is still in development and contains some rough
-edges. Below are examples of behaviour that is currently unclear. I will
-be adding warning messages / making changes to address these problems in
-the coming weeks.
-
 ## Read-only columns
 
-Removing the .cell column will return a tibble. This is consistent with
-the behaviour in other tidytranscriptomics packages.
+Removing the `.cell` column will return a tibble. This is consistent
+with the behaviour in other *tidyomics* packages.
 
 ``` r
 spe |>
@@ -358,8 +351,8 @@ spe |>
     ## 5 TRUE             14        94 section1 
     ## 6 FALSE            43         9 section1
 
-The sample_id column cannot be removed with tidyverse functions, and can
-only be modified if the changes are accepted by SpatialExperiment’s
+The sample_id column cannot be removed with *tidyverse* functions, and
+can only be modified if the changes are accepted by SpatialExperiment’s
 `colData` function.
 
 ``` r
@@ -417,10 +410,9 @@ spe |>
 
     ## Error in .local(x, ..., value): Number of unique 'sample_id's is 2, but 1 was provided.
 
-The pxl_col_in_fullres and px_row_in_fullres columns cannot be removed
-or modified with tidyverse functions. This is consistent with the
-behaviour of dimension reduction data in other tidytranscriptomics
-packages.
+The `pxl_col_in_fullres` and `px_row_in_fullres` columns cannot be
+removed or modified with *tidyverse* functions. This is consistent with
+the behaviour of dimension reduction data in other *tidyomics* packages.
 
 ``` r
 # Attempting to remove pxl_col_in_fullres produces an error
