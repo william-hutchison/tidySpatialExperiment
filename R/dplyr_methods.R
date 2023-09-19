@@ -327,6 +327,7 @@ select.SpatialExperiment <- function(.data, ...) {
 #' @rdname sample_n
 #' @aliases sample_frac
 #' @inherit dplyr::sample_n
+#' @return `tidySpatialExperiment`
 #' 
 #' @examples
 #' example(read10xVisium)

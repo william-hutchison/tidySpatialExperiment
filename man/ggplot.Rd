@@ -3,6 +3,9 @@
 \name{ggplot}
 \alias{ggplot}
 \title{Create a new \code{ggplot} from a \code{tidySpatialExperiment}}
+\value{
+\code{ggplot}
+}
 \description{
 \code{ggplot()} initializes a ggplot object. It can be used to
 declare the input data frame for a graphic and to specify the

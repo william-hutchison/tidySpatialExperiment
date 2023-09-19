@@ -1,6 +1,7 @@
 #' @name unnest
 #' @rdname unnest
 #' @inherit tidyr::unnest
+#' @return `tidySpatialExperiment`
 #' 
 #' @examples
 #' example(read10xVisium)
@@ -57,7 +58,8 @@ unnest_single_cell_experiment  <-  function(data, cols, ..., keep_empty=FALSE, p
 #' @name nest
 #' @rdname nest
 #' @inherit tidyr::nest
-#'
+#' @return `tidySpatialExperiment_nested`
+#' 
 #' @examples
 #' example(read10xVisium)
 #' spe |>
@@ -100,6 +102,7 @@ nest.SpatialExperiment <- function(.data, ..., .names_sep = NULL) {
 #' @name extract
 #' @rdname extract
 #' @inherit tidyr::extract
+#' @return `tidySpatialExperiment`
 #' 
 #' @examples
 #' example(read10xVisium)
@@ -134,6 +137,7 @@ extract.SpatialExperiment <- function(data, col, into, regex="([[:alnum:]]+)", r
 #' @name unite
 #' @rdname unite
 #' @inherit tidyr::unite
+#' @return `tidySpatialExperiment`
 #' 
 #' @examples
 #' example(read10xVisium)
@@ -189,6 +193,7 @@ unite.SpatialExperiment <- function(data, col, ..., sep="_", remove=TRUE, na.rm=
 #' @name separate
 #' @rdname separate
 #' @inherit tidyr::separate
+#' @return `tidySpatialExperiment`
 #'
 #' @examples
 #' example(read10xVisium)
@@ -246,6 +251,7 @@ separate.SpatialExperiment <- function(data, col, into, sep="[^[:alnum:]]+", rem
 #' @name pivot_longer
 #' @rdname pivot_longer
 #' @inherit tidyr::pivot_longer
+#' @return `tidySingleCellExperiment`
 #' 
 #' @examples
 #' example(read10xVisium)

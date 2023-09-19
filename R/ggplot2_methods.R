@@ -2,6 +2,7 @@
 #' @rdname ggplot
 #' @inherit ggplot2::ggplot
 #' @title Create a new \code{ggplot} from a \code{tidySpatialExperiment}
+#' @return `ggplot`
 #' 
 #' @examples
 #' example(read10xVisium)

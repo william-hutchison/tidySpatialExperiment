@@ -3,6 +3,9 @@
 \name{pivot_longer}
 \alias{pivot_longer}
 \title{Pivot data from wide to long}
+\value{
+\code{tidySingleCellExperiment}
+}
 \description{
 \code{pivot_longer()} "lengthens" data, increasing the number of rows and
 decreasing the number of columns. The inverse transformation is
