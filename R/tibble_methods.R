@@ -13,6 +13,7 @@
 #' @importFrom tidyr spread
 #' @importFrom tibble enframe
 #' @importFrom SummarizedExperiment colData
+#' @importFrom pkgconfig get_config
 #' @export
 as_tibble.SpatialExperiment <- function(x, ...,
     .name_repair=c("check_unique", "unique", "universal", "minimal"),
