@@ -3,16 +3,18 @@ setMethod(
     signature = "SpatialExperiment",
     definition = function(object) {
         if (
-          isTRUE(x = getOption(x = "restore_SpatialExperiment_show", default = FALSE))
+            isTRUE(x = getOption(x = "restore_SpatialExperiment_show", default = FALSE))
         ) {
-            f <-getMethod(
-              f = "show",
-              signature = "SummarizedExperiment",
-              where = asNamespace(ns = "SummarizedExperiment")
+            f <- getMethod(
+                f = "show",
+                signature = "SummarizedExperiment",
+                where = asNamespace(ns = "SummarizedExperiment")
             )
             f(object = object)
 
-        } else {  print(object)  }
+        } else {  
+            print(object)
+        }
     }
 )
 
@@ -61,12 +63,12 @@ setMethod("join_features", "SpatialExperiment",  function(.data,
                                                features = NULL,
                                                all = FALSE,
                                                exclude_zeros = FALSE,
-                                               shape = "long", ...)
-{
+                                               shape = "long", ...
+                                               ) {
 
         # CRAN Note
-        .cell = NULL
-        .feature = NULL
+        .cell <- NULL
+        .feature <- NULL
 
         # Shape is long
         if (shape == "long") {
@@ -90,10 +92,9 @@ setMethod("join_features", "SpatialExperiment",  function(.data,
                     by = "index"
                 ) %>%
                 dplyr::mutate("index" = NULL)
-        }
-
+        
         # Shape is wide
-        else {
+        } else {
           colData(.data) <- 
             .data %>% 
                 colData() %>%
@@ -141,34 +142,34 @@ setMethod("join_features", "SpatialExperiment",  function(.data,
 #' @export
 aggregate_cells <- function(.data, .sample = NULL, slot = "data", assays = NULL, aggregation_function = rowSums) {
   
-  .sample = enquo(.sample)
-  
-  # Subset only wanted assays
-  if(!is.null(assays)){
-    .data@assays@data = .data@assays@data[assays]
-  }
-  
-  .data %>%
+    .sample <- enquo(.sample)
     
-    nest(data = -!!.sample) %>%
-    mutate(.aggregated_cells = as.integer(map(data, ~ ncol(.x)))) %>% 
-    mutate(data = map(data, ~ 
-                        
-                        # loop over assays
-                        map2(
-                          as.list(assays(.x)), names(.x@assays),
+    # Subset only wanted assays
+    if (!is.null(assays) ) {
+        .data@assays@data <- .data@assays@data[assays]
+    }
+    
+    .data %>%
+      
+        nest(data = -!!.sample) %>%
+        mutate(.aggregated_cells = as.integer(map(data, ~ ncol(.x)))) %>% 
+        mutate(data = map(data, ~ 
                           
-                          # Get counts
-                          ~  .x %>%
-                            aggregation_function(na.rm = TRUE) %>%
-                            enframe(
-                              name  = "feature",
-                              value = sprintf("%s", .y)
-                            ) %>%
-                            mutate(feature = as.character(feature)) 
-                        ) %>%
-                        Reduce(function(...) full_join(..., by=c("feature")), .)
-                      
+                          # loop over assays
+                          map2(
+                              as.list(assays(.x)), names(.x@assays),
+                              
+                              # Get counts
+                              ~  .x %>%
+                                aggregation_function(na.rm = TRUE) %>%
+                                enframe(
+                                    name  = "feature",
+                                    value = sprintf("%s", .y)
+                                ) %>%
+                                mutate(feature = as.character(feature)) 
+                          ) %>%
+                          Reduce(function(...) full_join(..., by = c("feature")), .)
+                        
     )) %>%
     left_join(.data %>% as_tibble() %>% subset(!!.sample), by = quo_names(.sample)) %>%
     unnest(data) %>%

@@ -47,7 +47,7 @@ below, however, they are left in place for clarity.
 \examples{
 example(read10xVisium)
 spe |>
-   ggplot(ggplot2::aes(x = .cell, y = array_row)) +
-   ggplot2::geom_point()
+    ggplot(ggplot2::aes(x = .cell, y = array_row)) +
+    ggplot2::geom_point()
    
 }

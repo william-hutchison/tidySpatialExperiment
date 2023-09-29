@@ -16,7 +16,7 @@
 #' @return A tidySpatialExperiment object
 #'
 #' @noRd
-get_abundance_sc_wide <- function(.data, features=NULL, all=FALSE, assay = assays(.data) %>% as.list() %>% tail(1) %>% names,  prefix = "" ) {
+get_abundance_sc_wide <- function(.data, features = NULL, all = FALSE, assay = assays(.data) %>% as.list() %>% tail(1) %>% names,  prefix = "") {
 
     # Solve CRAN warnings
     . <- NULL
@@ -31,13 +31,13 @@ get_abundance_sc_wide <- function(.data, features=NULL, all=FALSE, assay = assay
             all == FALSE
     ) {
         stop("
-                Your object does not contain variable feature labels,
-                feature argument is empty and all arguments are set to FALSE.
-                Either:
-                1. use detect_variable_features() to select variable feature
-                2. pass an array of feature names
-                3. set all=TRUE (this will output a very large object, does your computer have enough RAM?)
-                ")
+              Your object does not contain variable feature labels,
+              feature argument is empty and all arguments are set to FALSE.
+              Either:
+              1. use detect_variable_features() to select variable feature
+              2. pass an array of feature names
+              3. set all=TRUE (this will output a very large object, does your computer have enough RAM?)
+              ")
     }
 
     # Get variable features if existing
@@ -47,27 +47,22 @@ get_abundance_sc_wide <- function(.data, features=NULL, all=FALSE, assay = assay
             all == FALSE
     ) {
         variable_genes <- variable_feature
-    } # Else
-    else {
+    } else {
         variable_genes <- NULL
     }
 
     # Just grub last assay
     assays(.data) %>%
         as.list() %>%
-      .[[assay]] %>%
+        .[[assay]] %>%
         when(
-            variable_genes %>% is.null() %>% `!`() ~ (.)[variable_genes, , drop=FALSE],
-            features %>% is.null() %>% `!`() ~ (.)[features, , drop=FALSE],
+            variable_genes %>% is.null() %>% `!`() ~ (.)[variable_genes, , drop = FALSE],
+            features %>% is.null() %>% `!`() ~ (.)[features, , drop = FALSE],
             ~ stop("It is not convenient to extract all genes, you should have either variable features or feature list to extract")
         ) %>%
         as.matrix() %>%
         t() %>%
         as_tibble() %>%
-        #as_tibble(rownames=c_(.data)$name) %>%
-
-        # Add prefix
-        #setNames(c(c_(.data)$name, sprintf("%s%s", prefix, colnames(.)[-1]))) %>%
       
         # Add index for joining
         tibble::rowid_to_column("index") %>%
@@ -80,27 +75,27 @@ get_abundance_sc_wide <- function(.data, features=NULL, all=FALSE, assay = assay
 #' @noRd
 #' 
 #' @importFrom BiocGenerics rbind cbind
-setMethod("cbind", "SpatialExperiment", function(..., deparse.level=1) {
+setMethod("cbind", "SpatialExperiment", function(..., deparse.level = 1) {
   
-  old <- S4Vectors:::disableValidity()
-  if (!isTRUE(old)) {
-    S4Vectors:::disableValidity(TRUE)
-    on.exit(S4Vectors:::disableValidity(old))
-  }
-  args <- list(...)
-  
-  # bind SPEs
-  out <- do.call(
-    callNextMethod, 
-    c(args, list(deparse.level=1)))
-  
-  # merge 'imgData' from multiple samples
-  if (!is.null(imgData(args[[1]]))) { 
-    newimgdata <- do.call(rbind, lapply(args, imgData))
-    int_metadata(out)[names(int_metadata(out)) == "imgData"] <- NULL
-    int_metadata(out)$imgData <- newimgdata
-  } 
-  return(out)
+    old <- S4Vectors:::disableValidity()
+    if (!isTRUE(old)) {
+        S4Vectors:::disableValidity(TRUE)
+        on.exit(S4Vectors:::disableValidity(old))
+    }
+    args <- list(...)
+    
+    # bind SPEs
+    out <- do.call(
+        callNextMethod, 
+        c(args, list(deparse.level=1)))
+    
+    # merge 'imgData' from multiple samples
+    if (!is.null(imgData(args[[1]]))) { 
+        newimgdata <- do.call(rbind, lapply(args, imgData))
+        int_metadata(out)[names(int_metadata(out)) == "imgData"] <- NULL
+        int_metadata(out)$imgData <- newimgdata
+    } 
+    return(out)
 })
 
 #' get abundance long
@@ -122,7 +117,7 @@ setMethod("cbind", "SpatialExperiment", function(..., deparse.level=1) {
 #' @return A tidySpatialExperiment object
 #'
 #' @noRd
-get_abundance_sc_long <- function(.data, features=NULL, all=FALSE, exclude_zeros=FALSE) {
+get_abundance_sc_long <- function(.data, features = NULL, all = FALSE, exclude_zeros = FALSE) {
 
     # Solve CRAN warnings
     . <- NULL
@@ -153,7 +148,7 @@ get_abundance_sc_long <- function(.data, features=NULL, all=FALSE, exclude_zeros
             all == FALSE
     ) {
         variable_genes <- variable_feature
-    } # Else
+    } 
     else {
         variable_genes <- NULL
     }
@@ -162,37 +157,37 @@ get_abundance_sc_long <- function(.data, features=NULL, all=FALSE, exclude_zeros
 
     # Check that I have assay manes
     if(length(assay_names) == 0)
-      stop("tidySpatialExperiment says: there are no assays names in the source SpatialExperiment.")
+        stop("tidySpatialExperiment says: there are no assays names in the source SpatialExperiment.")
 
     assays(.data) %>%
-      as.list() %>%
-      
-      # Take active assay
-      map2(assay_names, function(x, y) {
-        x <- 
-          x %>%
-          when(
-            variable_genes %>% is.null() %>% `!`() ~ x[variable_genes, , drop=FALSE],
-            features %>% is.null() %>% `!`() ~ x[toupper(rownames(x)) %in% toupper(features), , drop=FALSE],
-            all ~ x,
-            ~ stop("It is not convenient to extract all genes, you should have either variable features or feature list to extract")
-          ) %>%
-          as.matrix() %>%
-          DataFrame() %>%
-          tibble::as_tibble(rownames=".feature")
+        as.list() %>%
         
-        # Rename columns with index to handle duplicate cell names
-        colnames(x) <- c(".feature", 2:length(colnames(x))-1)
-        
-        x %>%
-          tidyr::pivot_longer(
-            cols = -.feature,
-            names_to = "index",
-            values_to = ".abundance" %>% paste(y, sep = "_"),
-            values_drop_na = TRUE
-          )
-      }) %>%
-      Reduce(function(...) full_join(..., by=c(".feature", c_(.data)$name)), .)
+        # Take active assay
+        map2(assay_names, function(x, y) {
+            x <- 
+                x %>%
+                    when(
+                        variable_genes %>% is.null() %>% `!`() ~ x[variable_genes, , drop = FALSE],
+                        features %>% is.null() %>% `!`() ~ x[toupper(rownames(x)) %in% toupper(features), , drop = FALSE],
+                        all ~ x,
+                        ~ stop("It is not convenient to extract all genes, you should have either variable features or feature list to extract")
+                    ) %>%
+                    as.matrix() %>%
+                    DataFrame() %>%
+                    tibble::as_tibble(rownames = ".feature")
+            
+            # Rename columns with index to handle duplicate cell names
+            colnames(x) <- c(".feature", 2:length(colnames(x))-1)
+            
+            x %>%
+                tidyr::pivot_longer(
+                    cols = -.feature,
+                    names_to = "index",
+                    values_to = ".abundance" %>% paste(y, sep = "_"),
+                    values_drop_na = TRUE
+                )
+        }) %>%
+        Reduce(function(...) full_join(..., by = c(".feature", c_(.data)$name)), .)
 }
 
 #' @importFrom dplyr select_if
@@ -212,7 +207,6 @@ as_meta_data <- function(.data, SpatialExperiment_object) {
     col_to_exclude <-
 
         # special_datasets_to_tibble(SpatialExperiment_object) |>
-        # colnames()
         get_special_columns(SpatialExperiment_object) |>
   
         # I need this in case we have multiple reduced dimension data frames with overlapping names of the columns.
@@ -222,7 +216,7 @@ as_meta_data <- function(.data, SpatialExperiment_object) {
     # To avoid name change by the bind_cols of as_tibble
     trick_to_avoid_renaming_of_already_unique_columns_by_dplyr()
 
-    .data_df =
+    .data_df <-
         .data %>%
         select_if(!colnames(.) %in% col_to_exclude) %>%
         data.frame()
@@ -259,21 +253,21 @@ get_special_columns <- function(SpatialExperiment_object) {
 }
 
 get_special_datasets <- function(SpatialExperiment_object, n_dimensions_to_return = Inf) {
-  rd <- SpatialExperiment_object@int_colData@listData$reducedDims
-  
-  reduced_dimensions <-
-    map2(rd %>% as.list(), names(rd), ~ {
-      mat <- .x[, seq_len(min(n_dimensions_to_return, ncol(.x))), drop=FALSE]
-      
-      # Set names as SCE is much less constrained and there could be missing names
-      if (length(colnames(mat)) == 0) colnames(mat) <- sprintf("%s%s", .y, seq_len(ncol(mat)))
-      mat
-    })
-  
-  spatial_coordinates <- 
-    spatialCoords(SpatialExperiment_object)
-  
-  list(reduced_dimensions, spatial_coordinates)
+    rd <- SpatialExperiment_object@int_colData@listData$reducedDims
+    
+    reduced_dimensions <-
+        map2(rd %>% as.list(), names(rd), ~ {
+            mat <- .x[, seq_len(min(n_dimensions_to_return, ncol(.x))), drop = FALSE]
+            
+            # Set names as SCE is much less constrained and there could be missing names
+            if (length(colnames(mat)) == 0) colnames(mat) <- sprintf("%s%s", .y, seq_len(ncol(mat)))
+            mat
+      })
+    
+    spatial_coordinates <- 
+        spatialCoords(SpatialExperiment_object)
+    
+    list(reduced_dimensions, spatial_coordinates)
 }
 
 # Key column names

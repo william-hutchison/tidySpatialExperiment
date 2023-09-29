@@ -66,7 +66,7 @@ get_tt_columns <- tidySingleCellExperiment:::get_tt_columns
 #' @param .abundance The name of the transcript/gene abundance column
 #' @param .abundance_scaled The name of the transcript/gene scaled abundance column
 #'
-#' @description This function recognise what are the sample-wise columns and transcrip-wise columns
+#' @description This function recognise what are the sample-wise columns and transcript-wise columns
 #'
 #' @return A list
 get_x_y_annotation_columns <- tidySingleCellExperiment:::get_x_y_annotation_columns
@@ -87,5 +87,5 @@ get_x_y_annotation_columns <- tidySingleCellExperiment:::get_x_y_annotation_colu
 #'
 #' @examples
 #' tibble(.feature = "CD3G", count=1) |>
-#'   as_matrix(rownames=.feature)
+#'     as_matrix(rownames=.feature)
 as_matrix <- tidySingleCellExperiment:::as_matrix

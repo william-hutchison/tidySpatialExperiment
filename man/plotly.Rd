@@ -193,7 +193,7 @@ help inform default axis/scale titles
 \examples{
 example(read10xVisium)
 spe |>
-  plot_ly(x=~array_col, y=~ array_row)
+    plot_ly(x=~array_col, y=~ array_row)
   
 }
 \references{

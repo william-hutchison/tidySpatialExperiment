@@ -7,8 +7,8 @@
 #' @examples
 #' example(read10xVisium)
 #' spe |>
-#'    ggplot(ggplot2::aes(x = .cell, y = array_row)) +
-#'    ggplot2::geom_point()
+#'     ggplot(ggplot2::aes(x = .cell, y = array_row)) +
+#'     ggplot2::geom_point()
 #'    
 #' @importFrom ggplot2 aes
 #' @importFrom ggplot2 ggplot
