@@ -53,8 +53,6 @@ as_tibble.SpatialExperiment <- function(x, ...,
 #' @name glimpse
 #' @rdname glimpse
 #' @inherit pillar::glimpse
-#' 
-#' @importFrom tidySingleCellExperiment glimpse 
 #'
 #' @examples
 #' example(read10xVisium)

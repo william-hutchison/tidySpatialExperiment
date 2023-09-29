@@ -259,8 +259,6 @@ separate.SpatialExperiment <- function(data, col, into, sep = "[^[:alnum:]]+", r
 #' @inherit tidyr::pivot_longer
 #' @return `tidySingleCellExperiment`
 #' 
-#' @importFrom tidySingleCellExperiment pivot_longer
-#' 
 #' @examples
 #' example(read10xVisium)
 #' spe |>
