@@ -1,3 +1,9 @@
+#' Show
+#'
+#' @importFrom methods getMethod
+#'
+#' @keywords internal
+#' @noRd
 setMethod(
     f = "show",
     signature = "SpatialExperiment",
@@ -5,7 +11,7 @@ setMethod(
         if (
             isTRUE(x = getOption(x = "restore_SpatialExperiment_show", default = FALSE))
         ) {
-            f <- getMethod(
+            f <- methods::getMethod(
                 f = "show",
                 signature = "SummarizedExperiment",
                 where = asNamespace(ns = "SummarizedExperiment")
@@ -24,13 +30,7 @@ setClass("tidySpatialExperiment", contains = "SpatialExperiment")
 #'
 #' @description join_features() extracts and joins information for specified features
 #'
-#' @importFrom rlang enquo
-#' @importFrom magrittr "%>%"
 #' @importFrom ttservice join_features
-#' @importFrom tibble as_tibble
-#' @importFrom tibble rowid_to_column
-#' @importFrom dplyr mutate
-#' @importFrom dplyr left_join
 #'
 #' @name join_features
 #' @rdname join_features
@@ -54,11 +54,8 @@ NULL
 
 #' join_features
 #'
-#' @docType methods
-#' @rdname join_features
-#'
-#' @return An object containing the information.for the specified features
-#'
+#' @keywords internal
+#' @noRd
 setMethod("join_features", "SpatialExperiment",  function(.data,
                                                features = NULL,
                                                all = FALSE,
@@ -122,6 +119,7 @@ setMethod("join_features", "SpatialExperiment",  function(.data,
 #' @importFrom rlang enquo
 #' @importFrom tibble enframe
 #' @importFrom Matrix rowSums
+#' @importFrom dplyr full_join
 #'
 #' @name aggregate_cells
 #' @rdname aggregate_cells
@@ -142,6 +140,9 @@ setMethod("join_features", "SpatialExperiment",  function(.data,
 #' @export
 aggregate_cells <- function(.data, .sample = NULL, slot = "data", assays = NULL, aggregation_function = rowSums) {
   
+    # Solve CRAN warnings
+    feature <- NULL
+    
     .sample <- enquo(.sample)
     
     # Subset only wanted assays
@@ -168,7 +169,7 @@ aggregate_cells <- function(.data, .sample = NULL, slot = "data", assays = NULL,
                                 ) %>%
                                 mutate(feature = as.character(feature)) 
                           ) %>%
-                          Reduce(function(...) full_join(..., by = c("feature")), .)
+                          Reduce(function(...) dplyr::full_join(..., by = c("feature")), .)
                         
     )) %>%
     left_join(.data %>% as_tibble() %>% subset(!!.sample), by = quo_names(.sample)) %>%

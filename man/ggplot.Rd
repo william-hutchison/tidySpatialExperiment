@@ -49,5 +49,4 @@ example(read10xVisium)
 spe |>
     ggplot(ggplot2::aes(x = .cell, y = array_row)) +
     ggplot2::geom_point()
-   
 }

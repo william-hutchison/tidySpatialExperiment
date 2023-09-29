@@ -13,13 +13,16 @@
 #' @param all A boolean
 #' @param ... Parameters to pass to join wide, i.e. assay name to extract feature abundance from
 #'
+#' @importFrom SummarizedExperiment assays
+#'
 #' @return A tidySpatialExperiment object
 #'
 #' @noRd
-get_abundance_sc_wide <- function(.data, features = NULL, all = FALSE, assay = assays(.data) %>% as.list() %>% tail(1) %>% names,  prefix = "") {
+get_abundance_sc_wide <- function(.data, features = NULL, all = FALSE, assay = SummarizedExperiment::assays(.data) %>% as.list() %>% tail(1) %>% names,  prefix = "") {
 
     # Solve CRAN warnings
     . <- NULL
+    index <- NULL
 
     # For SCE there is not filed for variable features
     variable_feature <- c()
@@ -71,10 +74,13 @@ get_abundance_sc_wide <- function(.data, features = NULL, all = FALSE, assay = a
 
 #' Bind columns without checking for duplicate sample_ids
 #' 
+#' @importFrom SingleCellExperiment int_metadata 
+#' @importFrom SpatialExperiment imgData
+#' @importFrom BiocGenerics rbind cbind
+#' @importFrom methods callNextMethod
+#' 
 #' @keywords internal
 #' @noRd
-#' 
-#' @importFrom BiocGenerics rbind cbind
 setMethod("cbind", "SpatialExperiment", function(..., deparse.level = 1) {
   
     old <- S4Vectors:::disableValidity()
@@ -86,14 +92,14 @@ setMethod("cbind", "SpatialExperiment", function(..., deparse.level = 1) {
     
     # bind SPEs
     out <- do.call(
-        callNextMethod, 
+        methods::callNextMethod, 
         c(args, list(deparse.level=1)))
     
     # merge 'imgData' from multiple samples
     if (!is.null(imgData(args[[1]]))) { 
-        newimgdata <- do.call(rbind, lapply(args, imgData))
-        int_metadata(out)[names(int_metadata(out)) == "imgData"] <- NULL
-        int_metadata(out)$imgData <- newimgdata
+        newimgdata <- do.call(rbind, lapply(args, SpatialExperiment::imgData))
+        SingleCellExperiment::int_metadata(out)[names(SingleCellExperiment::int_metadata(out)) == "imgData"] <- NULL
+        SingleCellExperiment::int_metadata(out)$imgData <- newimgdata
     } 
     return(out)
 })
@@ -120,7 +126,9 @@ setMethod("cbind", "SpatialExperiment", function(..., deparse.level = 1) {
 get_abundance_sc_long <- function(.data, features = NULL, all = FALSE, exclude_zeros = FALSE) {
 
     # Solve CRAN warnings
+    .feature <- NULL
     . <- NULL
+    
 
     # For SCE there is not filed for variable features
     variable_feature <- c()
@@ -252,6 +260,10 @@ get_special_columns <- function(SpatialExperiment_object) {
         as.character()
 }
 
+#' @importFrom SpatialExperiment spatialCoords
+#'
+#' @keywords internal
+#' @noRd
 get_special_datasets <- function(SpatialExperiment_object, n_dimensions_to_return = Inf) {
     rd <- SpatialExperiment_object@int_colData@listData$reducedDims
     
@@ -265,7 +277,7 @@ get_special_datasets <- function(SpatialExperiment_object, n_dimensions_to_retur
       })
     
     spatial_coordinates <- 
-        spatialCoords(SpatialExperiment_object)
+      SpatialExperiment::spatialCoords(SpatialExperiment_object)
     
     list(reduced_dimensions, spatial_coordinates)
 }

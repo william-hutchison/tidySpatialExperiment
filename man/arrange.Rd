@@ -48,7 +48,7 @@ The following methods are currently available in loaded packages:
 example(read10xVisium)
 
 spe |>
-  arrange(array_row)
+    arrange(array_row)
 }
 \seealso{
 Other single table verbs: 

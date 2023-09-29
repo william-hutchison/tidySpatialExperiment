@@ -3,17 +3,18 @@
 #' @inherit tibble::as_tibble
 #' @return `tibble`
 #' 
-#' @examples
-#' example(read10xVisium)
-#' spe |>
-#'     as_tibble()
-#'     
+#' @importFrom SpatialExperiment spatialCoords
 #' @importFrom purrr reduce
 #' @importFrom purrr map
 #' @importFrom tidyr spread
 #' @importFrom tibble enframe
 #' @importFrom SummarizedExperiment colData
 #' @importFrom pkgconfig get_config
+#' 
+#' @examples
+#' example(read10xVisium)
+#' spe |>
+#'     as_tibble()
 #' @export
 as_tibble.SpatialExperiment <- function(x, ...,
     .name_repair = c("check_unique", "unique", "universal", "minimal"),
@@ -34,7 +35,7 @@ as_tibble.SpatialExperiment <- function(x, ...,
         dplyr::relocate(c_(x)$name) %>%
         
         # Add spatial coordinate information to cell metadata
-        left_join(x %>% spatialCoords() %>% tibble::as_tibble(rownames = c_(x)$name), by = c_(x)$name, multiple = "first") %>%
+        left_join(x %>% SpatialExperiment::spatialCoords() %>% tibble::as_tibble(rownames = c_(x)$name), by = c_(x)$name, multiple = "first") %>%
   
           # Attach reduced dimensions
           when(
@@ -52,6 +53,8 @@ as_tibble.SpatialExperiment <- function(x, ...,
 #' @name glimpse
 #' @rdname glimpse
 #' @inherit pillar::glimpse
+#' 
+#' @importFrom tidySingleCellExperiment glimpse 
 #'
 #' @examples
 #' example(read10xVisium)

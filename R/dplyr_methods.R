@@ -421,18 +421,21 @@ add_count.SpatialExperiment <- function(x, ..., wt = NULL, sort = FALSE, name = 
 #' @name group_by
 #' @rdname group_by
 #' @inherit dplyr::group_by
-#' @seealso \code{}
-#'
+#' 
+#' @importFrom tidySingleCellExperiment group_by
+#' 
 #' @examples
 #' example(read10xVisium)
 #' spe |>
-#'   group_by(sample_id)
+#'     group_by(sample_id)
 NULL
 
 #' @name summarise
 #' @aliases summarize
 #' @inherit dplyr::summarise
 #' @family single table verbs
+#' 
+#' @importFrom tidySingleCellExperiment summarise
 #' 
 #' @examples
 #' example(read10xVisium)
@@ -445,17 +448,21 @@ NULL
 #' @inherit dplyr::arrange
 #' @family single table verbs
 #' 
+#' @importFrom tidySingleCellExperiment arrange
+#' 
 #' @examples
 #' example(read10xVisium)
 #' 
 #' spe |>
-#'   arrange(array_row)
+#'     arrange(array_row)
 NULL
 
 #' @name rename
 #' @rdname rename
 #' @inherit dplyr::rename
 #' @family single table verbs
+#' 
+#' @importFrom tidySingleCellExperiment rename
 #' 
 #' @examples
 #' example(read10xVisium)
@@ -467,6 +474,8 @@ NULL
 #' @rdname rowwise
 #' @inherit dplyr::rowwise
 #'
+#' @importFrom tidySingleCellExperiment rowwise
+#' 
 #' @examples
 #' example(read10xVisium)
 #' spe |>
@@ -476,6 +485,8 @@ NULL
 #' @name count
 #' @rdname count
 #' @inherit dplyr::count
+#'
+#' @importFrom tidySingleCellExperiment count
 #'
 #' @examples
 #' example(read10xVisium)
@@ -492,16 +503,20 @@ NULL
 #' @inherit dplyr::slice
 #' @family single table verbs
 #'
+#' @importFrom tidySingleCellExperiment slice
+#'
 #' @examples
 #' example(read10xVisium)
 #' spe |>
-#'   slice(1)
+#'    slice(1)
 NULL
 
 #' @name distinct
 #' @rdname distinct
 #' @inherit dplyr::distinct
-#' 
+#'
+#' @importFrom tidySingleCellExperiment distinct
+#'
 #' @examples
 #' example(read10xVisium)
 #' spe |>
@@ -511,7 +526,9 @@ NULL
 #' @name pull
 #' @rdname pull
 #' @inherit dplyr::pull
-#' 
+#'
+#' @importFrom tidySingleCellExperiment pull
+#'
 #' @examples
 #' example(read10xVisium)
 #' spe |>

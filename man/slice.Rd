@@ -60,7 +60,7 @@ Methods available in currently loaded packages:
 \examples{
 example(read10xVisium)
 spe |>
-  slice(1)
+   slice(1)
 }
 \seealso{
 Other single table verbs: 

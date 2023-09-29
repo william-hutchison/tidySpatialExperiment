@@ -28,9 +28,14 @@ unnest.tidySpatialExperiment_nested <- function(data, cols, ..., keep_empty = FA
 #' @importFrom purrr reduce
 #' @importFrom purrr when
 #' @importFrom purrr imap
+#' @importFrom methods is
 #' @export
 unnest_single_cell_experiment  <-  function(data, cols, ..., keep_empty = FALSE, ptype = NULL,
                                             names_sep = NULL, names_repair = "check_unique", .drop, .id, .sep, .preserve) {
+    
+    # Fix CRAN warnings 
+    . <- NULL
+    
     # Need this otherwise crashes map
     .data_ <- data
     cols <- enquo(cols)
@@ -253,6 +258,8 @@ separate.SpatialExperiment <- function(data, col, into, sep = "[^[:alnum:]]+", r
 #' @rdname pivot_longer
 #' @inherit tidyr::pivot_longer
 #' @return `tidySingleCellExperiment`
+#' 
+#' @importFrom tidySingleCellExperiment pivot_longer
 #' 
 #' @examples
 #' example(read10xVisium)

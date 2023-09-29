@@ -98,7 +98,6 @@ prefer the more expressive \code{as_tibble_row()} and
 example(read10xVisium)
 spe |>
     as_tibble()
-    
 }
 \seealso{
 \code{\link[tibble:tibble]{tibble()}} constructs a tibble from individual columns. \code{\link[tibble:enframe]{enframe()}}

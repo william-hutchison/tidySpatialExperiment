@@ -65,8 +65,12 @@ also force calls to \code{\link[dplyr:arrange]{arrange()}} to use the system loc
 \examples{
 example(read10xVisium)
 spe |>
-  group_by(sample_id)
+    group_by(sample_id)
 }
 \seealso{
-\code{}
+Other grouping functions: 
+\code{\link[dplyr]{group_map}()},
+\code{\link[dplyr]{group_nest}()},
+\code{\link[dplyr]{group_split}()},
+\code{\link[dplyr]{group_trim}()}
 }

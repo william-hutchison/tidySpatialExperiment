@@ -88,4 +88,4 @@ get_x_y_annotation_columns <- tidySingleCellExperiment:::get_x_y_annotation_colu
 #' @examples
 #' tibble(.feature = "CD3G", count=1) |>
 #'     as_matrix(rownames=.feature)
-as_matrix <- tidySingleCellExperiment:::as_matrix
+sas_matrix <- tidySingleCellExperiment:::as_matrix
