@@ -77,7 +77,7 @@ get_abundance_sc_wide <- function(.data, features = NULL, all = FALSE, assay = S
 #' @importFrom SingleCellExperiment int_metadata 
 #' @importFrom SpatialExperiment imgData
 #' @importFrom BiocGenerics rbind cbind
-#' @importFrom methods callNextMethod
+#' @import methods
 #' 
 #' @keywords internal
 #' @noRd

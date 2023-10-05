@@ -4,9 +4,8 @@
 #' @title Create a new \code{ggplot} from a \code{tidySpatialExperiment}
 #' @return `ggplot`
 #' 
-#' @importFrom ggplot2 ggplot
+#' @import tidySingleCellExperiment
 #' @importFrom ggplot2 aes
-#' @importFrom ggplot2 ggplot
 #' 
 #' @examples
 #' example(read10xVisium)
