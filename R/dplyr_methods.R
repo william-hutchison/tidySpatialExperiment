@@ -19,13 +19,22 @@ bind_rows.SpatialExperiment <- function(..., .id = NULL, add.cell.ids = NULL) {
   SingleCellExperiment::cbind(tts[[1]], tts[[2]], deparse.level = 0)
 }
 
+#' @rdname bind_rows
+#' @aliases bind_cols
+#' 
+#' @examples 
+#' example(read10xVisium)
+#' spe |>
+#'    bind_cols(1:99)
+#' 
 #' @importFrom rlang flatten_if
 #' @importFrom rlang is_spliced
 #' @importFrom rlang dots_values
 #' @importFrom ttservice bind_cols
 #' @importFrom SummarizedExperiment colData
 #' @importFrom SummarizedExperiment colData<-
-bind_cols_ <- function(..., .id = NULL) {
+#' @export
+bind_cols.SpatialExperiment <- function(..., .id = NULL) {
   
   tts <- tts <- flatten_if(dots_values(...), is_spliced)
   colData(tts[[1]]) <- 
@@ -38,17 +47,6 @@ bind_cols_ <- function(..., .id = NULL) {
   
   tts[[1]]
 }
-
-#' @rdname bind_rows
-#' @aliases bind_cols
-#' 
-#' @examples 
-#' example(read10xVisium)
-#' spe |>
-#'    bind_cols(1:99)
-#' 
-#' @export
-bind_cols.SpatialExperiment <- bind_cols_
 
 #' @name filter
 #' @rdname filter
