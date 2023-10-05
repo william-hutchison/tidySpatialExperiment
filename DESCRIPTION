@@ -17,6 +17,7 @@ Depends:
     SingleCellExperiment,
     SpatialExperiment,
     tidySingleCellExperiment,
+    tidySummarizedExperiment
 Imports:
     ttservice,
     SummarizedExperiment,
@@ -25,7 +26,6 @@ Imports:
     tibble,
     tidyr,
     ggplot2,
-    plotly,
     magrittr,
     rlang,
     purrr,
@@ -59,7 +59,8 @@ Suggests:
     EnsDb.Hsapiens.v86,
     cowplot, 
     microbenchmark, 
-    DropletUtils
+    DropletUtils,
+    plotly
 VignetteBuilder: 
     knitr
 Biarch: true
