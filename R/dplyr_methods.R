@@ -10,8 +10,8 @@
 #' @importFrom rlang flatten_if
 #' @importFrom rlang is_spliced
 #' @importFrom rlang dots_values
-#' @importFrom ttservice bind_rows
 #' @importFrom SingleCellExperiment cbind
+#' @importFrom ttservice bind_rows
 #' @export
 bind_rows.SpatialExperiment <- function(..., .id = NULL, add.cell.ids = NULL) {
   
@@ -19,8 +19,9 @@ bind_rows.SpatialExperiment <- function(..., .id = NULL, add.cell.ids = NULL) {
   SingleCellExperiment::cbind(tts[[1]], tts[[2]], deparse.level = 0)
 }
 
-#' @rdname bind_rows
-#' @aliases bind_cols
+#' @name bind_cols
+#' @rdname bind_cols
+#' @inherit ttservice::bind_cols
 #' 
 #' @examples 
 #' example(read10xVisium)

@@ -1,6 +1,6 @@
 #' Show
 #'
-#' @import methods
+#' @importFrom methods getMethod
 #'
 #' @keywords internal
 #' @noRd

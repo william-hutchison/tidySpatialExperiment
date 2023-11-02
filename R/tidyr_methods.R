@@ -28,7 +28,7 @@ unnest.tidySpatialExperiment_nested <- function(data, cols, ..., keep_empty = FA
 #' @importFrom purrr reduce
 #' @importFrom purrr when
 #' @importFrom purrr imap
-#' @import methods
+#' @importFrom methods is
 #' @export
 unnest_single_cell_experiment  <-  function(data, cols, ..., keep_empty = FALSE, ptype = NULL,
                                             names_sep = NULL, names_repair = "check_unique", .drop, .id, .sep, .preserve) {
