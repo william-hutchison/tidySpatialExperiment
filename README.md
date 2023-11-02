@@ -249,7 +249,7 @@ spe |>
   ggplot2::coord_flip()
 ```
 
-<img src="man/figures/unnamed-chunk-10-1.png" width="100%" />
+![](man/figures/unnamed-chunk-10-1.png)<!-- -->
 
 ## Plot with plotly
 
