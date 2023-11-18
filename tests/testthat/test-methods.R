@@ -34,3 +34,12 @@ test_that("aggregate_cells", {
         sum() %>%
         expect_equal(1355)
 })
+
+test_that("rectangle", {
+
+    spe_filtered <- spe %>%
+                    filter(sample_id == "section1") %>%
+                    mutate(in_rectangle = rectangle(array_col, array_row, center = c(50, 50), height = 100, width = 20))
+
+    expect_equal(sum(spe_filtered$in_rectangle, na.rm = TRUE), 8)
+})

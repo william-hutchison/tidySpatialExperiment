@@ -179,3 +179,40 @@ aggregate_cells <- function(.data, .sample = NULL, slot = "data", assays = NULL,
     
     as_SummarizedExperiment(.sample = !!.sample, .transcript = feature, .abundance = !!as.symbol(names(.data@assays)))
 }
+
+#' Rectangle Gating Function
+#'
+#' @description Determines whether points specified by spatial coordinates are within a defined rectangle.
+#'
+#' @importFrom magrittr "%>%"
+#' @importFrom dplyr mutate
+#'
+#' @name rectangle
+#' @rdname rectangle
+#' 
+#' @param spatial_coord1 Numeric vector for x-coordinates (e.g., array_col)
+#' @param spatial_coord2 Numeric vector for y-coordinates (e.g., array_row)
+#' @param center Numeric vector of length 2 specifying the center of the rectangle (x, y)
+#' @param height The height of the rectangle
+#' @param width The width of the rectangle
+#' 
+#' @return Logical vector indicating points within the rectangle
+#' 
+#' @examples 
+#' example(read10xVisium)
+#' spe |>
+#'     mutate(in_rectangle = rectangle(array_col, array_row, center = c(50, 50), height = 20, width = 10))
+#'
+#' @export
+rectangle <- function(spatial_coord1, spatial_coord2, center, height, width) {
+    x_min = center[1] - width / 2
+    x_max = center[1] + width / 2
+    y_min = center[2] - height / 2
+    y_max = center[2] + height / 2
+
+    within_x = spatial_coord1 >= x_min & spatial_coord1 <= x_max
+    within_y = spatial_coord2 >= y_min & spatial_coord2 <= y_max
+
+    return(within_x & within_y)
+}
+
