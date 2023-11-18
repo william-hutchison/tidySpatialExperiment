@@ -35,6 +35,16 @@ test_that("aggregate_cells", {
         expect_equal(1355)
 })
 
+test_that("ellipse", {
+
+  spe_filtered <- spe %>%
+    filter(sample_id == "section1") %>%
+    mutate(in_ellipse = ellipse(array_col, array_row, center =  c(50, 50), axes_lengths = c(30, 20)))
+
+  expect_equal(sum(spe_filtered$in_ellipse, na.rm = TRUE), 7)
+})
+
+
 test_that("rectangle", {
 
     spe_filtered <- spe %>%
