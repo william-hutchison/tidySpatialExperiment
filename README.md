@@ -320,6 +320,29 @@ spe_regions_aggregated <-
   spe_regions |>
   aggregate_cells(region)
 ```
+# Ellipse and Rectangle Functions
+
+## Ellipse Function
+
+The ellipse function is used to determine if points within a spatial dataset fall within a specified ellipse. 
+Usage: `in_ellipse = ellipse(spatial_coord1, spatial_coord2, center, axes_lengths)`
+
+- `spatial_coord1`: X-coordinates of the points.
+- `spatial_coord2`: Y-coordinates of the points.
+- `center`: A numeric vector specifying the center of the ellipse (x, y).
+- `axes_lengths`: A numeric vector specifying the lengths of the semi-major and semi-minor axes of the ellipse.
+
+## Rectangle Function
+
+The rectangle function identifies if points in a spatial dataset are within a specified rectangle.
+Usage: `in_rectangle = rectangle(spatial_coord1, spatial_coord2, center, height, width)`
+
+- `spatial_coord1`: X-coordinates of the points.
+- `spatial_coord2`: Y-coordinates of the points.
+- `center`: A numeric vector specifying the center of the rectangle (x, y).
+- `height`: The height of the rectangle.
+- `width`: The width of the rectangle.
+
 
 # Important considerations
 

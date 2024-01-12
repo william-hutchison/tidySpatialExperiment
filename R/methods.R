@@ -179,3 +179,71 @@ aggregate_cells <- function(.data, .sample = NULL, slot = "data", assays = NULL,
     
     as_SummarizedExperiment(.sample = !!.sample, .transcript = feature, .abundance = !!as.symbol(names(.data@assays)))
 }
+
+#' Rectangle Gating Function
+#'
+#' @description Determines whether points specified by spatial coordinates are within a defined rectangle.
+#'
+#' @importFrom magrittr "%>%"
+#' @importFrom dplyr mutate
+#'
+#' @name rectangle
+#' @rdname rectangle
+#' 
+#' @param spatial_coord1 Numeric vector for x-coordinates (e.g., array_col)
+#' @param spatial_coord2 Numeric vector for y-coordinates (e.g., array_row)
+#' @param center Numeric vector of length 2 specifying the center of the rectangle (x, y)
+#' @param height The height of the rectangle
+#' @param width The width of the rectangle
+#' 
+#' @return Logical vector indicating points within the rectangle
+#' 
+#' @examples 
+#' example(read10xVisium)
+#' spe |>
+#'     mutate(in_rectangle = rectangle(array_col, array_row, center = c(50, 50), height = 20, width = 10))
+#'
+#' @export
+rectangle <- function(spatial_coord1, spatial_coord2, center, height, width) {
+    x_min = center[1] - width / 2
+    x_max = center[1] + width / 2
+    y_min = center[2] - height / 2
+    y_max = center[2] + height / 2
+
+    within_x = spatial_coord1 >= x_min & spatial_coord1 <= x_max
+    within_y = spatial_coord2 >= y_min & spatial_coord2 <= y_max
+
+    return(within_x & within_y)
+}
+
+#' Ellipse Gating Function
+#'
+#' @name ellipse
+#' @rdname ellipse
+#' @description Function to create an ellipse gate in a SpatialExperiment object
+#' @param spatial_coord1 Numeric vector for x-coordinates
+#' @param spatial_coord2 Numeric vector for y-coordinates
+#' @param center Numeric vector (length 2) for ellipse center (x, y)
+#' @param axes_lengths Numeric vector (length 2) for the lengths of the major and minor axes of the ellipse
+#' @return Logical vector indicating points within the ellipse
+#' @examples
+#' example(read10xVisium)
+#' spe |>
+#'   mutate(in_ellipse = ellipse(array_col, array_row, center = c(50, 50), axes_lengths = c(20, 10)))
+#' @export
+ellipse <- function(spatial_coord1, spatial_coord2, center, axes_lengths) {
+    # axes_lengths should be a vector of length 2: [major_axis, minor_axis]
+
+    # Scaling factor to normalize the ellipse to a unit circle
+    scale_x = 1 / axes_lengths[1]
+    scale_y = 1 / axes_lengths[2]
+
+    # Normalized coordinates relative to ellipse center
+    normalized_x = (spatial_coord1 - center[1]) * scale_x
+    normalized_y = (spatial_coord2 - center[2]) * scale_y
+
+    # Check if points are within the unit circle (ellipse after normalization)
+    within_ellipse = (normalized_x^2 + normalized_y^2) <= 1
+
+    return(within_ellipse)
+}
