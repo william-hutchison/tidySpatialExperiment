@@ -8,22 +8,48 @@
 [![Lifecycle:experimental](https://img.shields.io/badge/lifecycle-experimental-blue.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-You can find more packages from the *tidyomics* ecosystem here:
+Resources to help you get started with tidySpatialExperiment and
+*tidyomics*:
 
-- [tidySingleCellExperiment](https://github.com/stemangiola/tidySingleCellExperiment)
-  for tidy manipulation of SingleCellExperiment objects.
-- [tidySummarizedExperiment](https://github.com/stemangiola/tidySummarizedExperiment)
-  for tidy manipulation of SummarizedExperiment objects.
-- [tidyseurat](https://github.com/stemangiola/tidyseurat) for tidy
-  manipulation of Seurat objects.
-- [tidybulk](https://github.com/stemangiola/tidybulk) for tidy bulk
-  RNA-seq data analysis.
-- [nanny](https://github.com/stemangiola/nanny) for tidy high-level data
-  analysis and manipulation.
-- [tidygate](https://github.com/stemangiola/tidygate) for adding custom
-  gate information to your tibble.
-- [tidyHeatmap](https://github.com/stemangiola/tidyHeatmap) for heatmaps
-  produced with tidy principles.
+- [The tidySpatialExperiment
+  website](http://william-hutchison.github.io/tidySpatialExperiment/)
+- [The tidyomics blog](https://tidyomics.github.io/tidyomicsBlog/)
+- [Third party
+  tutorials](https://rstudio-pubs-static.s3.amazonaws.com/792462_f948e766b15d4ee5be5c860493bda0b3.html)
+
+The *tidyomics* ecosystem includes packages for:
+
+- Working with genomic features:
+
+  - [plyranges](https://github.com/sa-lee/plyranges), for tidy
+    manipulation of genomic range data.
+  - [nullranges](https://github.com/nullranges/nullranges), for tidy
+    generation of genomic ranges representing the null hypothesis.
+  - [plyinteractions](https://github.com/tidyomics/plyinteractions), for
+    tidy manipulation of genomic interaction data.
+
+- Working with transcriptomic features:
+
+  - [tidySummarizedExperiment](https://github.com/stemangiola/tidySummarizedExperiment),
+    for tidy manipulation of SummarizedExperiment objects.
+  - [tidySingleCellExperiment](https://github.com/stemangiola/tidySingleCellExperiment),
+    for tidy manipulation of SingleCellExperiment objects.
+  - [tidyseurat](https://github.com/stemangiola/tidyseurat), for tidy
+    manipulation of Seurat objects.
+  - [tidybulk](https://github.com/stemangiola/tidybulk), for bulk
+    RNA-seq analysis.
+
+- Working with cytometry features:
+
+  - [tidytof](https://github.com/keyes-timothy/tidytof), for tidy
+    manipulation of high-dimensional cytometry data.
+
+A few more tidy tools for data manipulation and plotting:
+
+- [tidyHeatmap](https://github.com/stemangiola/tidyHeatmap), for
+  producing heatmaps with tidy principles. analysis and manipulation
+- [tidygate](https://github.com/stemangiola/tidygate), for interactive
+  plotting and gating.
 
 # Introduction
 
@@ -87,7 +113,6 @@ Here, we load an example SpatialExperiment object.
 ``` r
 # Load example SpatialExperiment object
 library(tidySpatialExperiment)
-example(read10xVisium)
 ```
 
 ## View data
@@ -97,7 +122,7 @@ The default view is now of the SpatialExperiment-tibble abstraction.
 ``` r
 spe
 #  # A SpatialExperiment-tibble abstraction: 99 × 7
-#  # [90mFeatures=50 | Cells=99 | Assays=counts[0m
+#  # [90mFeatures=50 | Cells=99 | Assays=counts[0m
 #    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres
 #    <chr>              <lgl>         <int>     <int> <chr>                  <int>
 #  1 AAACAACGAATAGTTC-1 FALSE             0        16 section1                2312
@@ -158,7 +183,7 @@ to select cells by a variable of interest.
 spe |>
   filter(array_col < 5)
 #  # A SpatialExperiment-tibble abstraction: 6 × 7
-#  # [90mFeatures=50 | Cells=6 | Assays=counts[0m
+#  # [90mFeatures=50 | Cells=6 | Assays=counts[0m
 #    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres
 #    <chr>              <lgl>         <int>     <int> <chr>                  <int>
 #  1 AAACATGGTGAGAGGA-1 FALSE            62         0 section1                1212
@@ -177,7 +202,7 @@ existing variable.
 spe |>
   mutate(in_region = c(in_tissue & array_row < 10))
 #  # A SpatialExperiment-tibble abstraction: 99 × 8
-#  # [90mFeatures=50 | Cells=99 | Assays=counts[0m
+#  # [90mFeatures=50 | Cells=99 | Assays=counts[0m
 #    .cell     in_tissue array_row array_col sample_id in_region pxl_col_in_fullres
 #    <chr>     <lgl>         <int>     <int> <chr>     <lgl>                  <int>
 #  1 AAACAACG… FALSE             0        16 section1  FALSE                   2312
@@ -212,7 +237,7 @@ spe_nested
 spe_nested |>
   unnest(data)
 #  # A SpatialExperiment-tibble abstraction: 99 × 7
-#  # [90mFeatures=50 | Cells=99 | Assays=counts[0m
+#  # [90mFeatures=50 | Cells=99 | Assays=counts[0m
 #    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres
 #    <chr>              <lgl>         <int>     <int> <chr>                  <int>
 #  1 AAACAACGAATAGTTC-1 FALSE             0        16 section1                2312
@@ -328,7 +353,7 @@ can only be modified if the changes are accepted by SpatialExperiment’s
 spe |>
   select(-sample_id)
 #  # A SpatialExperiment-tibble abstraction: 99 × 7
-#  # [90mFeatures=50 | Cells=99 | Assays=counts[0m
+#  # [90mFeatures=50 | Cells=99 | Assays=counts[0m
 #    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres
 #    <chr>              <lgl>         <int>     <int> <chr>                  <int>
 #  1 AAACAACGAATAGTTC-1 FALSE             0        16 section1                2312
@@ -344,7 +369,7 @@ spe |>
   mutate(sample_id = stringr::str_c(sample_id, "_modified")) |>
   head()
 #  # A SpatialExperiment-tibble abstraction: 99 × 7
-#  # [90mFeatures=6 | Cells=99 | Assays=counts[0m
+#  # [90mFeatures=6 | Cells=99 | Assays=counts[0m
 #    .cell              in_tissue array_row array_col sample_id  pxl_col_in_fullres
 #    <chr>              <lgl>         <int>     <int> <chr>                   <int>
 #  1 AAACAACGAATAGTTC-1 FALSE             0        16 section1_…               2312

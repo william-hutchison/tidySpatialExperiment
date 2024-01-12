@@ -87,22 +87,52 @@
 </div>
 <!-- badges: start -->
 
-<p>You can find more packages from the <em>tidyomics</em> ecosystem here:</p>
+<p>Resources to help you get started with tidySpatialExperiment and <em>tidyomics</em>:</p>
+<ul>
+<li><a href="http://william-hutchison.github.io/tidySpatialExperiment/" class="external-link">The tidySpatialExperiment website</a></li>
+<li><a href="https://tidyomics.github.io/tidyomicsBlog/" class="external-link">The tidyomics blog</a></li>
+<li><a href="https://rstudio-pubs-static.s3.amazonaws.com/792462_f948e766b15d4ee5be5c860493bda0b3.html" class="external-link">Third party tutorials</a></li>
+</ul>
+<p>The <em>tidyomics</em> ecosystem includes packages for:</p>
 <ul>
 <li>
-<a href="https://github.com/stemangiola/tidySingleCellExperiment" class="external-link">tidySingleCellExperiment</a> for tidy manipulation of SingleCellExperiment objects.</li>
+<p>Working with genomic features:</p>
+<ul>
 <li>
-<a href="https://github.com/stemangiola/tidySummarizedExperiment" class="external-link">tidySummarizedExperiment</a> for tidy manipulation of SummarizedExperiment objects.</li>
+<a href="https://github.com/sa-lee/plyranges" class="external-link">plyranges</a>, for tidy manipulation of genomic range data.</li>
 <li>
-<a href="https://github.com/stemangiola/tidyseurat" class="external-link">tidyseurat</a> for tidy manipulation of Seurat objects.</li>
+<a href="https://github.com/nullranges/nullranges" class="external-link">nullranges</a>, for tidy generation of genomic ranges representing the null hypothesis.</li>
 <li>
-<a href="https://github.com/stemangiola/tidybulk" class="external-link">tidybulk</a> for tidy bulk RNA-seq data analysis.</li>
+<a href="https://github.com/tidyomics/plyinteractions" class="external-link">plyinteractions</a>, for tidy manipulation of genomic interaction data.</li>
+</ul>
+</li>
 <li>
-<a href="https://github.com/stemangiola/nanny" class="external-link">nanny</a> for tidy high-level data analysis and manipulation.</li>
+<p>Working with transcriptomic features:</p>
+<ul>
 <li>
-<a href="https://github.com/stemangiola/tidygate" class="external-link">tidygate</a> for adding custom gate information to your tibble.</li>
+<a href="https://github.com/stemangiola/tidySummarizedExperiment" class="external-link">tidySummarizedExperiment</a>, for tidy manipulation of SummarizedExperiment objects.</li>
 <li>
-<a href="https://github.com/stemangiola/tidyHeatmap" class="external-link">tidyHeatmap</a> for heatmaps produced with tidy principles.</li>
+<a href="https://github.com/stemangiola/tidySingleCellExperiment" class="external-link">tidySingleCellExperiment</a>, for tidy manipulation of SingleCellExperiment objects.</li>
+<li>
+<a href="https://github.com/stemangiola/tidyseurat" class="external-link">tidyseurat</a>, for tidy manipulation of Seurat objects.</li>
+<li>
+<a href="https://github.com/stemangiola/tidybulk" class="external-link">tidybulk</a>, for bulk RNA-seq analysis.</li>
+</ul>
+</li>
+<li>
+<p>Working with cytometry features:</p>
+<ul>
+<li>
+<a href="https://github.com/keyes-timothy/tidytof" class="external-link">tidytof</a>, for tidy manipulation of high-dimensional cytometry data.</li>
+</ul>
+</li>
+</ul>
+<p>A few more tidy tools for data manipulation and plotting:</p>
+<ul>
+<li>
+<a href="https://github.com/stemangiola/tidyHeatmap" class="external-link">tidyHeatmap</a>, for producing heatmaps with tidy principles. analysis and manipulation</li>
+<li>
+<a href="https://github.com/stemangiola/tidygate" class="external-link">tidygate</a>, for interactive plotting and gating.</li>
 </ul>
 </div>
 <div class="section level1">
@@ -197,8 +227,7 @@
 <p>Here, we load an example SpatialExperiment object.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load example SpatialExperiment object</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/william-hutchison/tidySpatialExperiment" class="external-link">tidySpatialExperiment</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/example.html" class="external-link">example</a></span><span class="op">(</span><span class="va">read10xVisium</span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/william-hutchison/tidySpatialExperiment" class="external-link">tidySpatialExperiment</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="view-data">View data<a class="anchor" aria-label="anchor" href="#view-data"></a>
