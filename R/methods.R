@@ -115,7 +115,6 @@ setMethod("join_features", "SpatialExperiment",  function(.data,
 #'
 #' @description Combine cells into groups based on shared variables and aggregate feature counts.
 #'
-#' @importFrom magrittr "%>%"
 #' @importFrom rlang enquo
 #' @importFrom tibble enframe
 #' @importFrom Matrix rowSums
@@ -184,7 +183,6 @@ aggregate_cells <- function(.data, .sample = NULL, slot = "data", assays = NULL,
 #'
 #' @description Determines whether points specified by spatial coordinates are within a defined rectangle.
 #'
-#' @importFrom magrittr "%>%"
 #' @importFrom dplyr mutate
 #'
 #' @name rectangle
