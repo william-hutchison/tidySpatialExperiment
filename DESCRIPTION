@@ -56,7 +56,6 @@ Suggests:
     uwot,
     celldex,
     dittoSeq,
-    EnsDb.Hsapiens.v86,
     cowplot, 
     microbenchmark, 
     DropletUtils,
