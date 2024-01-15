@@ -2,7 +2,6 @@
 #'
 #' @keywords internal
 #'
-#' @importFrom magrittr "%>%"
 #' @importFrom tibble rowid_to_column
 #' @importFrom dplyr mutate
 #' @importFrom utils tail
@@ -108,7 +107,6 @@ setMethod("cbind", "SpatialExperiment", function(..., deparse.level = 1) {
 #'
 #' @keywords internal
 #'
-#' @importFrom magrittr "%$%"
 #' @importFrom tidyr pivot_longer
 #' @importFrom tibble as_tibble
 #' @importFrom purrr when
