@@ -1,7 +1,7 @@
 Type: Package
 Package: tidySpatialExperiment
 Title: Brings SpatialExperiment to the tidyverse 
-Version: 0.99.11
+Version: 0.99.12
 Authors@R: c(
     person("William", "Hutchison", email = "hutchison.w@wehi.edu.au", role = c("aut", "cre"), 
            comment = c(ORCID = "0009-0001-6242-4269")),
@@ -56,7 +56,6 @@ Suggests:
     uwot,
     celldex,
     dittoSeq,
-    EnsDb.Hsapiens.v86,
     cowplot, 
     microbenchmark, 
     DropletUtils,
@@ -69,5 +68,5 @@ Encoding: UTF-8
 LazyData: false
 RoxygenNote: 7.3.0
 Roxygen: list(markdown = TRUE)
-URL: https://github.com/william-hutchison/tidySpatialExperiment
+URL: https://github.com/william-hutchison/tidySpatialExperiment, https://william-hutchison.github.io/tidySpatialExperiment/
 BugReports: https://github.com/william-hutchison/tidySpatialExperiment/issues
