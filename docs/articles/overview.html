@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">tidySpatialExperiment</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.11</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,7 +75,7 @@
 
 
 
-<script src="overview_files/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="overview_files/plotly-binding-4.10.3/plotly.js"></script><script src="overview_files/typedarray-0.1/typedarray.min.js"></script><link href="overview_files/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="overview_files/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="overview_files/plotly-binding-4.10.4/plotly.js"></script><script src="overview_files/typedarray-0.1/typedarray.min.js"></script><link href="overview_files/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
 <script src="overview_files/crosstalk-1.2.1/js/crosstalk.min.js"></script><link href="overview_files/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
 <script src="overview_files/plotly-main-2.11.1/plotly-latest.min.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
@@ -223,11 +223,8 @@ GitHub with:</p>
 output we see is of the SpatialExperiment-tibble abstraction.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load example SpatialExperiment object</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/william-hutchison/tidySpatialExperiment" class="external-link">tidySpatialExperiment</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: package 'S4Vectors' was built under R version 4.3.2</span></span></code></pre>
-<pre><code><span><span class="co">## Warning: package 'GenomeInfoDb' was built under R version 4.3.2</span></span></code></pre>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/example.html" class="external-link">example</a></span><span class="op">(</span><span class="va">read10xVisium</span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/william-hutchison/tidySpatialExperiment" class="external-link">tidySpatialExperiment</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/example.html" class="external-link">example</a></span><span class="op">(</span><span class="va">read10xVisium</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: no function found corresponding to methods exports from 'HDF5Array'</span></span>
 <span><span class="co">## for: 'extract_sparse_array'</span></span></code></pre>
 <pre><code><span><span class="co">## Warning: multiple methods tables found for 'sparsity'</span></span></code></pre>
@@ -235,7 +232,7 @@ output we see is of the SpatialExperiment-tibble abstraction.</p>
 <div class="section level3">
 <h3 id="view-data">View data<a class="anchor" aria-label="anchor" href="#view-data"></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># View the SpatialExperiment-tibble abstraction</span></span>
 <span><span class="va">spe</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A SpatialExperiment-tibble abstraction: 99 × 7</span></span></span>
@@ -256,7 +253,7 @@ output we see is of the SpatialExperiment-tibble abstraction.</p>
 <span><span class="co">## <span style="color: #949494;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></span></code></pre>
 <p>However, our data maintains its status as a SpatialExperiment object.
 Therefore, we have access to all SpatialExperiment functions.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">colData</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -269,7 +266,7 @@ Therefore, we have access to all SpatialExperiment functions.</p>
 <span><span class="co">## AAACACCAATAACTGC-1      TRUE        59        19    section1</span></span>
 <span><span class="co">## AAACAGAGCGACTCCT-1      TRUE        14        94    section1</span></span>
 <span><span class="co">## AAACAGCTTTCAGAAG-1     FALSE        43         9    section1</span></span></code></pre>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-methods.html" class="external-link">spatialCoords</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -280,7 +277,7 @@ Therefore, we have access to all SpatialExperiment functions.</p>
 <span><span class="co">## AAACACCAATAACTGC-1               2519               8315</span></span>
 <span><span class="co">## AAACAGAGCGACTCCT-1               7679               2927</span></span>
 <span><span class="co">## AAACAGCTTTCAGAAG-1               1831               6400</span></span></code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/SpatialExperiment/man/SpatialExperiment-methods.html" class="external-link">imgData</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## DataFrame with 2 rows and 4 columns</span></span>
@@ -299,7 +296,7 @@ Therefore, we have access to all SpatialExperiment functions.</p>
 <p>Most functions from dplyr are available for use with the
 SpatialExperiment-tibble abstraction. For example, <code>filter</code>
 can be used to select cells by a variable of interest.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/filter.html">filter</a></span><span class="op">(</span><span class="va">array_col</span> <span class="op">&lt;</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A SpatialExperiment-tibble abstraction: 6 × 7</span></span></span>
@@ -315,7 +312,7 @@ can be used to select cells by a variable of interest.</p>
 <span><span class="co">## <span style="color: #949494;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></span></code></pre>
 <p>And <code>mutate</code> can be used to add new variables, or modify
 the value of an existing variable.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/mutate.html">mutate</a></span><span class="op">(</span>in_region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">in_tissue</span> <span class="op">&amp;</span> <span class="va">array_row</span> <span class="op">&lt;</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A SpatialExperiment-tibble abstraction: 99 × 8</span></span></span>
@@ -341,7 +338,7 @@ the value of an existing variable.</p>
 <p>Most functions from tidyr are also available. Here, <code>nest</code>
 is used to group the data by <code>sample_id</code>, and
 <code>unnest</code> is used to ungroup the data.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Nest the SpatialExperiment object by sample_id</span></span>
 <span><span class="va">spe_nested</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">spe</span> <span class="op">|&gt;</span> </span>
@@ -354,7 +351,7 @@ is used to group the data by <code>sample_id</code>, and
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>         </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">1</span> section1  <span style="color: #949494;">&lt;SptlExpr[,50]&gt;</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">2</span> section2  <span style="color: #949494;">&lt;SptlExpr[,49]&gt;</span></span></span></code></pre>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Unnest the nested SpatialExperiment objects</span></span>
 <span><span class="va">spe_nested</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
@@ -383,7 +380,7 @@ SpatialExperiment object. This example also demonstrates how tidy
 operations can be combined to build up more complex analysis. It should
 be noted that helper functions such <code>aes</code> are not included
 and should be imported from ggplot2.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sample_id</span> <span class="op">==</span> <span class="st">"section1"</span> <span class="op">&amp;</span> <span class="va">in_tissue</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  </span>
@@ -405,7 +402,7 @@ and should be imported from ggplot2.</p>
 </h3>
 <p>The <code>plot_ly</code> function can also be used to create a plot
 from a SpatialExperiment object.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sample_id</span> <span class="op">==</span> <span class="st">"section1"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/plot_ly.html">plot_ly</a></span><span class="op">(</span></span>
@@ -414,8 +411,8 @@ from a SpatialExperiment object.</p>
 <span>    color <span class="op">=</span> <span class="op">~</span> <span class="va">in_tissue</span>, </span>
 <span>    type <span class="op">=</span> <span class="st">"scatter"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-381ac685e0b12b9270f1" style="width:700px;height:432.632880098888px;"></div>
-<script type="application/json" data-for="htmlwidget-381ac685e0b12b9270f1">{"x":{"visdat":{"8ad01d3a1ea0":["function () ","plotlyVisDat"]},"cur_data":"8ad01d3a1ea0","attrs":{"8ad01d3a1ea0":{"x":{},"y":{},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"array_col"},"yaxis":{"domain":[0,1],"automargin":true,"title":"array_row"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[16,9,13,43,0,97,117,115,124,83,4,118,108,126,91,23,118,110,113,12,2,105,92,15,122,106,112,125],"y":[0,43,47,73,62,61,3,45,54,65,58,2,4,70,65,1,14,8,23,64,64,71,0,29,26,10,0,63],"type":"scatter","mode":"markers","name":"FALSE","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[102,43,19,94,28,42,19,64,79,59,70,67,19,48,22,54,55,62,26,27,52,15],"y":[50,3,59,14,42,52,37,6,35,67,66,45,45,10,66,62,55,24,24,51,10,37],"type":"scatter","mode":"markers","name":"TRUE","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-9e661f7dc4928a23a346" style="width:700px;height:432.632880098888px;"></div>
+<script type="application/json" data-for="htmlwidget-9e661f7dc4928a23a346">{"x":{"visdat":{"175797b488a3":["function () ","plotlyVisDat"]},"cur_data":"175797b488a3","attrs":{"175797b488a3":{"x":{},"y":{},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"array_col"},"yaxis":{"domain":[0,1],"automargin":true,"title":"array_row"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[16,9,13,43,0,97,117,115,124,83,4,118,108,126,91,23,118,110,113,12,2,105,92,15,122,106,112,125],"y":[0,43,47,73,62,61,3,45,54,65,58,2,4,70,65,1,14,8,23,64,64,71,0,29,26,10,0,63],"type":"scatter","mode":"markers","name":"FALSE","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[102,43,19,94,28,42,19,64,79,59,70,67,19,48,22,54,55,62,26,27,52,15],"y":[50,3,59,14,42,52,37,6,35,67,66,45,45,10,66,62,55,24,24,51,10,37],"type":"scatter","mode":"markers","name":"TRUE","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="section level2">
@@ -427,7 +424,7 @@ from a SpatialExperiment object.</p>
 <p>Different packages from the <em>tidyomics</em> ecosystem are easy to
 use together. When run in the R Console, the following code will lunch
 tidygate to interactively gate cells based on their array location.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe_regions</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">spe</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sample_id</span> <span class="op">==</span> <span class="st">"section1"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -435,7 +432,7 @@ tidygate to interactively gate cells based on their array location.</p>
 <p>The gated cells can then be divided into pseudobulks within a
 SummarizedExperiment object using tidySpatialExperiment’s
 <code>aggregate_cells</code> utility function.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe_regions_aggregated</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">spe_regions</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/aggregate_cells.html">aggregate_cells</a></span><span class="op">(</span><span class="va">region</span><span class="op">)</span></span></code></pre></div>
@@ -449,7 +446,7 @@ SummarizedExperiment object using tidySpatialExperiment’s
 </h3>
 <p>Removing the <code>.cell</code> column will return a tibble. This is
 consistent with the behaviour in other <em>tidyomics</em> packages.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">.cell</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -466,7 +463,7 @@ consistent with the behaviour in other <em>tidyomics</em> packages.</p>
 <p>The sample_id column cannot be removed with <em>tidyverse</em>
 functions, and can only be modified if the changes are accepted by
 SpatialExperiment’s <code>colData</code> function.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># sample_id is not removed, despite the user's request</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">sample_id</span><span class="op">)</span></span></code></pre></div>
@@ -486,7 +483,7 @@ SpatialExperiment’s <code>colData</code> function.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> AAACATTTCCCGGATT-1 FALSE            61        97 section1                <span style="text-decoration: underline;">7</span>886</span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 89 more rows</span></span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></span></code></pre>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># This change maintains separation of sample_ids and is permitted</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/mutate.html">mutate</a></span><span class="op">(</span>sample_id <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html" class="external-link">str_c</a></span><span class="op">(</span><span class="va">sample_id</span>, <span class="st">"_modified"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -507,7 +504,7 @@ SpatialExperiment’s <code>colData</code> function.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> AAACATTTCCCGGATT-1 FALSE            61        97 section1…               <span style="text-decoration: underline;">7</span>886</span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 89 more rows</span></span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></span></code></pre>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># This change does not maintain separation of sample_ids and produces an error</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/mutate.html">mutate</a></span><span class="op">(</span>sample_id <span class="op">=</span> <span class="st">"new_sample"</span><span class="op">)</span></span></code></pre></div>
@@ -516,14 +513,14 @@ SpatialExperiment’s <code>colData</code> function.</p>
 <code>px_row_in_fullres</code> columns cannot be removed or modified
 with <em>tidyverse</em> functions. This is consistent with the behaviour
 of dimension reduction data in other <em>tidyomics</em> packages.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Attempting to remove pxl_col_in_fullres produces an error</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">pxl_col_in_fullres</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `select_helper()`:</span></span></span>
 <span><span class="co">## <span style="color: #BBBB00;">!</span> Can't subset columns that don't exist.</span></span>
 <span><span class="co">## <span style="color: #BB0000;">✖</span> Column `pxl_col_in_fullres` doesn't exist.</span></span></code></pre>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Attempting to modify pxl_col_in_fullres produces an error</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">pxl_col_in_fullres</span><span class="op">)</span></span></code></pre></div>
@@ -555,19 +552,19 @@ of dimension reduction data in other <em>tidyomics</em> packages.</p>
 <span><span class="co">## [8] base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">##  [1] tidySpatialExperiment_0.99.8    tidySummarizedExperiment_1.12.0</span></span>
+<span><span class="co">##  [1] tidySpatialExperiment_0.99.11   tidySummarizedExperiment_1.12.0</span></span>
 <span><span class="co">##  [3] ggplot2_3.4.4                   ttservice_0.4.0                </span></span>
 <span><span class="co">##  [5] tidyr_1.3.0                     dplyr_1.1.4                    </span></span>
 <span><span class="co">##  [7] tidySingleCellExperiment_1.13.3 SpatialExperiment_1.12.0       </span></span>
 <span><span class="co">##  [9] SingleCellExperiment_1.24.0     SummarizedExperiment_1.32.0    </span></span>
 <span><span class="co">## [11] Biobase_2.62.0                  GenomicRanges_1.54.1           </span></span>
-<span><span class="co">## [13] GenomeInfoDb_1.38.5             IRanges_2.36.0                 </span></span>
-<span><span class="co">## [15] S4Vectors_0.40.2                BiocGenerics_0.48.1            </span></span>
+<span><span class="co">## [13] GenomeInfoDb_1.36.4             IRanges_2.36.0                 </span></span>
+<span><span class="co">## [15] S4Vectors_0.38.2                BiocGenerics_0.48.1            </span></span>
 <span><span class="co">## [17] MatrixGenerics_1.14.0           matrixStats_1.2.0              </span></span>
 <span><span class="co">## [19] BiocStyle_2.28.1               </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
-<span><span class="co">##  [1] bitops_1.0-7              rlang_1.1.2              </span></span>
+<span><span class="co">##  [1] bitops_1.0-7              rlang_1.1.3              </span></span>
 <span><span class="co">##  [3] magrittr_2.0.3            compiler_4.3.1           </span></span>
 <span><span class="co">##  [5] DelayedMatrixStats_1.22.6 systemfonts_1.0.5        </span></span>
 <span><span class="co">##  [7] vctrs_0.6.5               stringr_1.5.1            </span></span>
@@ -585,7 +582,7 @@ of dimension reduction data in other <em>tidyomics</em> packages.</p>
 <span><span class="co">## [31] parallel_4.3.1            R6_2.5.1                 </span></span>
 <span><span class="co">## [33] RColorBrewer_1.1-3        bslib_0.6.1              </span></span>
 <span><span class="co">## [35] stringi_1.8.3             limma_3.56.2             </span></span>
-<span><span class="co">## [37] jquerylib_0.1.4           Rcpp_1.0.11              </span></span>
+<span><span class="co">## [37] jquerylib_0.1.4           Rcpp_1.0.12              </span></span>
 <span><span class="co">## [39] bookdown_0.37             knitr_1.45               </span></span>
 <span><span class="co">## [41] R.utils_2.12.3            Matrix_1.6-4             </span></span>
 <span><span class="co">## [43] tidyselect_1.2.0          rstudioapi_0.15.0        </span></span>
@@ -594,10 +591,10 @@ of dimension reduction data in other <em>tidyomics</em> packages.</p>
 <span><span class="co">## [49] tibble_3.2.1              withr_2.5.2              </span></span>
 <span><span class="co">## [51] evaluate_0.23             desc_1.4.3               </span></span>
 <span><span class="co">## [53] pillar_1.9.0              BiocManager_1.30.22      </span></span>
-<span><span class="co">## [55] plotly_4.10.3             generics_0.1.3           </span></span>
-<span><span class="co">## [57] RCurl_1.98-1.13           sparseMatrixStats_1.12.2 </span></span>
+<span><span class="co">## [55] plotly_4.10.4             generics_0.1.3           </span></span>
+<span><span class="co">## [57] RCurl_1.98-1.14           sparseMatrixStats_1.12.2 </span></span>
 <span><span class="co">## [59] munsell_0.5.0             scales_1.3.0             </span></span>
-<span><span class="co">## [61] glue_1.6.2                lazyeval_0.2.2           </span></span>
+<span><span class="co">## [61] glue_1.7.0                lazyeval_0.2.2           </span></span>
 <span><span class="co">## [63] tools_4.3.1               data.table_1.14.10       </span></span>
 <span><span class="co">## [65] locfit_1.5-9.8            fs_1.6.3                 </span></span>
 <span><span class="co">## [67] rhdf5_2.44.0              grid_4.3.1               </span></span>
@@ -608,7 +605,7 @@ of dimension reduction data in other <em>tidyomics</em> packages.</p>
 <span><span class="co">## [77] fansi_1.0.6               S4Arrays_1.2.0           </span></span>
 <span><span class="co">## [79] viridisLite_0.4.2         gtable_0.3.4             </span></span>
 <span><span class="co">## [81] R.methodsS3_1.8.2         sass_0.4.8               </span></span>
-<span><span class="co">## [83] digest_0.6.33             dqrng_0.3.2              </span></span>
+<span><span class="co">## [83] digest_0.6.34             dqrng_0.3.2              </span></span>
 <span><span class="co">## [85] SparseArray_1.2.3         farver_2.1.1             </span></span>
 <span><span class="co">## [87] rjson_0.2.21              htmlwidgets_1.6.4        </span></span>
 <span><span class="co">## [89] memoise_2.0.1             htmltools_0.5.7          </span></span>

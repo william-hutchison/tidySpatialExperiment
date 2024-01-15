@@ -44,7 +44,7 @@ It was easier to remove the deprecated .env argument.
     
     <a class="navbar-brand me-2" href="../index.html">tidySpatialExperiment</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.11</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -237,20 +237,20 @@ the input. Weights are automatically standardised to sum to 1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    section2      lowres   ####   0.0510334</span>
 <span class="r-in"><span><span class="va">spe</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>    <span class="fu">sample_n</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A SpatialExperiment-tibble abstraction: 10 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># </span><span style="color: #555555;">Features=50 | Cells=10 | Assays=counts</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> tidySpatialExperiment says: When sampling with replacement a data frame is returned for independent data analysis.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> AAACGGGTTGGTATCC-1 FALSE             1        23 section1                <span style="text-decoration: underline;">2</span>794</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> AAAGACTGGGCGCTTT-1 FALSE            29        15 section1                <span style="text-decoration: underline;">2</span>243</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> AAACTGCTGGCTCCAA-1 TRUE             45        67 section1                <span style="text-decoration: underline;">5</span>821</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> AAACAGAGCGACTCCT-1 TRUE             14        94 section1                <span style="text-decoration: underline;">7</span>679</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> AAAGCTTGCCTACATA-1 FALSE            26       122 section1                <span style="text-decoration: underline;">9</span>605</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> AAACCGTTCGTCCAGG-1 TRUE             52        42 section1                <span style="text-decoration: underline;">4</span>101</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> AAACTCGTGATATAAG-1 FALSE            23       113 section1                <span style="text-decoration: underline;">8</span>986</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> AAACAATCTACTAGCA-1 TRUE              3        43 section1                <span style="text-decoration: underline;">4</span>170</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> AAACGGGCGTACGGGT-1 FALSE            65        91 section1                <span style="text-decoration: underline;">7</span>473</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> AAAGTCGACCCTCAGT-1 TRUE             37        15 section1                <span style="text-decoration: underline;">2</span>244</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> AAACACCAATAACTGC-1 TRUE             59        19 section2                <span style="text-decoration: underline;">2</span>519</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> AAAGGTCAACGACATG-1 FALSE             0       112 section1                <span style="text-decoration: underline;">8</span>917</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> AAACCGGAAATGTTAA-1 FALSE            54       124 section1                <span style="text-decoration: underline;">9</span>743</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> AAACCTCATGAAGTTG-1 TRUE             37        19 section2                <span style="text-decoration: underline;">2</span>519</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> AAACCACTACACAGAT-1 FALSE             3       117 section2                <span style="text-decoration: underline;">9</span>261</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> AAACATTTCCCGGATT-1 FALSE            61        97 section2                <span style="text-decoration: underline;">7</span>886</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> AAAGGTAAGCTGTACC-1 FALSE            10       106 section2                <span style="text-decoration: underline;">8</span>504</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> AAACTAACGTGGCGAC-1 FALSE             8       110 section1                <span style="text-decoration: underline;">8</span>780</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> AAACATTTCCCGGATT-1 FALSE            61        97 section1                <span style="text-decoration: underline;">7</span>886</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> AAAGACCCAAGTCGCG-1 TRUE             10        48 section1                <span style="text-decoration: underline;">4</span>514</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span>
 <span class="r-in"><span><span class="va">spe</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>    <span class="fu">sample_frac</span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span></span></span>
@@ -259,25 +259,25 @@ the input. Weights are automatically standardised to sum to 1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> AAACATGGTGAGAGGA-1 FALSE            62         0 section1                <span style="text-decoration: underline;">1</span>212</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> AAACCTAAGCAGCCGG-1 FALSE            65        83 section1                <span style="text-decoration: underline;">6</span>922</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> AAACCACTACACAGAT-1 FALSE             3       117 section1                <span style="text-decoration: underline;">9</span>261</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> AAACCTAAGCAGCCGG-1 FALSE            65        83 section1                <span style="text-decoration: underline;">6</span>922</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> AAACTCGTGATATAAG-1 FALSE            23       113 section1                <span style="text-decoration: underline;">8</span>986</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> AAAGCTTGCCTACATA-1 FALSE            26       122 section1                <span style="text-decoration: underline;">9</span>605</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> AAAGGGCAGCTTGAAT-1 TRUE             24        26 section1                <span style="text-decoration: underline;">3</span>000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> AAAGGGCAGCTTGAAT-1 TRUE             24        26 section1                <span style="text-decoration: underline;">3</span>000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> AAAGGTAAGCTGTACC-1 FALSE            10       106 section1                <span style="text-decoration: underline;">8</span>504</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> AAAGGTCAACGACATG-1 FALSE             0       112 section1                <span style="text-decoration: underline;">8</span>917</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> AAAGTAGCATTGCTCA-1 TRUE             51        27 section1                <span style="text-decoration: underline;">3</span>069</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> AAACGGTTGCGAACTG-1 TRUE             67        59 section1                <span style="text-decoration: underline;">5</span>271</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> AAACTGCTGGCTCCAA-1 TRUE             45        67 section1                <span style="text-decoration: underline;">5</span>821</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> AAACTTGCAAACGTAT-1 TRUE             45        19 section1                <span style="text-decoration: underline;">2</span>519</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> AAAGAATGACCTTAGA-1 FALSE            64         2 section1                <span style="text-decoration: underline;">1</span>349</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> AAAGACATGAAGTTTA-1 FALSE             0        92 section1                <span style="text-decoration: underline;">7</span>541</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> AAAGACATGAAGTTTA-1 FALSE             0        92 section1                <span style="text-decoration: underline;">7</span>541</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> AAAGACTGGGCGCTTT-1 FALSE            29        15 section1                <span style="text-decoration: underline;">2</span>243</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> AAACATGGTGAGAGGA-1 FALSE            62         0 section2                <span style="text-decoration: underline;">1</span>212</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> AAACCTAAGCAGCCGG-1 FALSE            65        83 section2                <span style="text-decoration: underline;">6</span>922</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> AAACCACTACACAGAT-1 FALSE             3       117 section2                <span style="text-decoration: underline;">9</span>261</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> AAACCTAAGCAGCCGG-1 FALSE            65        83 section2                <span style="text-decoration: underline;">6</span>922</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> AAACTCGTGATATAAG-1 FALSE            23       113 section2                <span style="text-decoration: underline;">8</span>986</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> AAAGCTTGCCTACATA-1 FALSE            26       122 section2                <span style="text-decoration: underline;">9</span>605</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> AAAGGGCAGCTTGAAT-1 TRUE             24        26 section2                <span style="text-decoration: underline;">3</span>000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> AAAGGGCAGCTTGAAT-1 TRUE             24        26 section2                <span style="text-decoration: underline;">3</span>000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> AAAGGTAAGCTGTACC-1 FALSE            10       106 section2                <span style="text-decoration: underline;">8</span>504</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> AAAGGTCAACGACATG-1 FALSE             0       112 section2                <span style="text-decoration: underline;">8</span>917</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">20</span> AAAGTAGCATTGCTCA-1 TRUE             51        27 section2                <span style="text-decoration: underline;">3</span>069</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> AAACGGTTGCGAACTG-1 TRUE             67        59 section2                <span style="text-decoration: underline;">5</span>271</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> AAACTGCTGGCTCCAA-1 TRUE             45        67 section2                <span style="text-decoration: underline;">5</span>821</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> AAACTTGCAAACGTAT-1 TRUE             45        19 section2                <span style="text-decoration: underline;">2</span>519</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> AAAGAATGACCTTAGA-1 FALSE            64         2 section2                <span style="text-decoration: underline;">1</span>349</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> AAAGACATGAAGTTTA-1 FALSE             0        92 section2                <span style="text-decoration: underline;">7</span>541</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> AAAGACATGAAGTTTA-1 FALSE             0        92 section2                <span style="text-decoration: underline;">7</span>541</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">20</span> AAAGACTGGGCGCTTT-1 FALSE            29        15 section2                <span style="text-decoration: underline;">2</span>243</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span>
 <span class="r-in"><span> </span></span>
 </code></pre></div>
