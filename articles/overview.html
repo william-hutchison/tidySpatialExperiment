@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidySpatialExperiment</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.13</span>
       </span>
     </div>
 
@@ -82,9 +82,7 @@
 
       
 
-      </header><script src="overview_files/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="overview_files/plotly-binding-4.10.3/plotly.js"></script><script src="overview_files/typedarray-0.1/typedarray.min.js"></script><link href="overview_files/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
-<script src="overview_files/crosstalk-1.2.1/js/crosstalk.min.js"></script><link href="overview_files/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
-<script src="overview_files/plotly-main-2.11.1/plotly-latest.min.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Overview</h1>
@@ -115,6 +113,73 @@ Research<br><small class="dont-index">Source: <a href="https://github.com/willia
     </div>
     
 <div class="section level2">
+<h2 id="tidyspatialexperiment---part-of-tidyomics">tidySpatialExperiment - part of <em>tidyomics</em>
+<a><img src="reference/figures/logo.png" style="float:right; height:138px;"></a><a class="anchor" aria-label="anchor" href="#tidyspatialexperiment---part-of-tidyomics"></a>
+</h2>
+<p>Resources to help you get started with tidySpatialExperiment and
+<em>tidyomics</em>:</p>
+<ul>
+<li><a href="http://william-hutchison.github.io/tidySpatialExperiment/" class="external-link">The
+tidySpatialExperiment website</a></li>
+<li><a href="https://tidyomics.github.io/tidyomicsBlog/" class="external-link">The tidyomics
+blog</a></li>
+<li><a href="https://rstudio-pubs-static.s3.amazonaws.com/792462_f948e766b15d4ee5be5c860493bda0b3.html" class="external-link">Third
+party tutorials</a></li>
+</ul>
+<p>The <em>tidyomics</em> ecosystem includes packages for:</p>
+<ul>
+<li>
+<p>Working with genomic features:</p>
+<ul>
+<li>
+<a href="https://github.com/sa-lee/plyranges" class="external-link">plyranges</a>, for
+tidy manipulation of genomic range data.</li>
+<li>
+<a href="https://github.com/nullranges/nullranges" class="external-link">nullranges</a>,
+for tidy generation of genomic ranges representing the null
+hypothesis.</li>
+<li>
+<a href="https://github.com/tidyomics/plyinteractions" class="external-link">plyinteractions</a>,
+for tidy manipulation of genomic interaction data.</li>
+</ul>
+</li>
+<li>
+<p>Working with transcriptomic features:</p>
+<ul>
+<li>
+<a href="https://github.com/stemangiola/tidySummarizedExperiment" class="external-link">tidySummarizedExperiment</a>,
+for tidy manipulation of SummarizedExperiment objects.</li>
+<li>
+<a href="https://github.com/stemangiola/tidySingleCellExperiment" class="external-link">tidySingleCellExperiment</a>,
+for tidy manipulation of SingleCellExperiment objects.</li>
+<li>
+<a href="https://github.com/stemangiola/tidyseurat" class="external-link">tidyseurat</a>,
+for tidy manipulation of Seurat objects.</li>
+<li>
+<a href="https://github.com/stemangiola/tidybulk" class="external-link">tidybulk</a>, for
+bulk RNA-seq analysis.</li>
+</ul>
+</li>
+<li>
+<p>Working with cytometry features:</p>
+<ul>
+<li>
+<a href="https://github.com/keyes-timothy/tidytof" class="external-link">tidytof</a>, for
+tidy manipulation of high-dimensional cytometry data.</li>
+</ul>
+</li>
+</ul>
+<p>A few more tidy tools for data manipulation and plotting:</p>
+<ul>
+<li>
+<a href="https://github.com/stemangiola/tidyHeatmap" class="external-link">tidyHeatmap</a>, for
+producing heatmaps with tidy principles. analysis and manipulation</li>
+<li>
+<a href="https://github.com/stemangiola/tidygate" class="external-link">tidygate</a>, for
+interactive plotting and gating.</li>
+</ul>
+</div>
+<div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
 <p>tidySpatialExperiment provides a bridge between the <a href="https://github.com/drighelli/SpatialExperiment" class="external-link">SpatialExperiment</a>
@@ -131,7 +196,7 @@ functions.</p>
 <table class="table">
 <colgroup>
 <col width="48%">
-<col width="52%">
+<col width="51%">
 </colgroup>
 <thead><tr class="header">
 <th>Package</th>
@@ -175,7 +240,7 @@ functions.</p>
 <table class="table">
 <colgroup>
 <col width="48%">
-<col width="52%">
+<col width="51%">
 </colgroup>
 <thead><tr class="header">
 <th>Utility</th>
@@ -184,23 +249,49 @@ functions.</p>
 <tbody>
 <tr class="odd">
 <td><code>as_tibble</code></td>
-<td>Convert cell-wise information to a <code>tbl_df</code>
+<td>Convert cell data to a <code>tbl_df</code>
 </td>
 </tr>
 <tr class="even">
 <td><code>join_features</code></td>
-<td>Combine cell-wise and feature-wise information into a
-<code>tbl_df</code>
-</td>
+<td>Append feature data to cell data</td>
 </tr>
 <tr class="odd">
 <td><code>aggregate_cells</code></td>
 <td>Aggregate cell-feature abundance into a pseudobulk
-<code>SummarizedExperiment</code>
-</td>
+<code>SummarizedExperiment</code> object</td>
+</tr>
+<tr class="even">
+<td><code>rectangle</code></td>
+<td>Select rectangular region of space</td>
+</tr>
+<tr class="odd">
+<td><code>ellipse</code></td>
+<td>Select elliptical region of space</td>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="section level3">
+<h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h3>
+<p>You can install the development version of tidySpatialExperiment from
+GitHub with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"william-hutchison/tidySpatialExperiment"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="load-data">Load data<a class="anchor" aria-label="anchor" href="#load-data"></a>
+</h3>
+<p>Here, we load an example SpatialExperiment object.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load example SpatialExperiment object</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/william-hutchison/tidySpatialExperiment" class="external-link">tidySpatialExperiment</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: replacing previous import 'tidySingleCellExperiment::plot_ly' by</span></span>
+<span><span class="co">## 'ttservice::plot_ly' when loading 'tidySpatialExperiment'</span></span></code></pre>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/example.html" class="external-link">example</a></span><span class="op">(</span><span class="va">read10xVisium</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="spatialexperiment-tibble-abstraction">SpatialExperiment-tibble abstraction<a class="anchor" aria-label="anchor" href="#spatialexperiment-tibble-abstraction"></a>
@@ -215,35 +306,10 @@ abstraction, representing cells as rows and features as columns, as is
 the <em>tidyverse</em> convention. <code>colData</code> and
 <code>spatialCoords</code> are appended as columns to the same
 abstraction, allowing easy interaction with this additional data.</p>
-</div>
-<div class="section level3">
-<h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
-</h3>
-<p>You can install the development version of tidySpatialExperiment from
-GitHub with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"william-hutchison/tidySpatialExperiment"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="load-data">Load data<a class="anchor" aria-label="anchor" href="#load-data"></a>
-</h3>
-<p>Here, we load and view an example SpatialExperiment object. The
-output we see is of the SpatialExperiment-tibble abstraction.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load example SpatialExperiment object</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/william-hutchison/tidySpatialExperiment" class="external-link">tidySpatialExperiment</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: replacing previous import 'tidySingleCellExperiment::plot_ly' by</span></span>
-<span><span class="co">## 'ttservice::plot_ly' when loading 'tidySpatialExperiment'</span></span></code></pre>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/example.html" class="external-link">example</a></span><span class="op">(</span><span class="va">read10xVisium</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="view-data">View data<a class="anchor" aria-label="anchor" href="#view-data"></a>
-</h3>
+<p>The default view is now of the SpatialExperiment-tibble
+abstraction.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># View the SpatialExperiment-tibble abstraction</span></span>
-<span><span class="va">spe</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">spe</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A SpatialExperiment-tibble abstraction: 99 × 7</span></span></span>
 <span><span class="co">## <span style="color: #949494;"># </span><span style="color: #555555;">Features=50 | Cells=99 | Assays=counts</span></span></span>
 <span><span class="co">##    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres</span></span>
@@ -396,7 +462,7 @@ and should be imported from ggplot2.</p>
 <span>  <span class="co"># Add a column with the sum of feature counts per cell</span></span>
 <span>  <span class="fu"><a href="../reference/mutate.html">mutate</a></span><span class="op">(</span>count_sum <span class="op">=</span> <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_int</a></span><span class="op">(</span><span class="va">.cell</span>, <span class="op">~</span></span>
 <span>    <span class="va">spe</span><span class="op">[</span>, <span class="va">.x</span><span class="op">]</span> <span class="op">|&gt;</span> </span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/dge.html" class="external-link">counts</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>      <span class="fu">counts</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>    <span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  </span>
@@ -404,7 +470,7 @@ and should be imported from ggplot2.</p>
 <span>  <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">.cell</span>, <span class="va">count_sum</span><span class="op">)</span>, y <span class="op">=</span> <span class="va">count_sum</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="overview_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
+<p><img src="overview_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="plot-with-plotly">Plot with plotly<a class="anchor" aria-label="anchor" href="#plot-with-plotly"></a>
@@ -420,8 +486,7 @@ from a SpatialExperiment object.</p>
 <span>    color <span class="op">=</span> <span class="op">~</span> <span class="va">in_tissue</span>, </span>
 <span>    type <span class="op">=</span> <span class="st">"scatter"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-e0f0b234a13d19442ad6" style="width:700px;height:432.632880098888px;"></div>
-<script type="application/json" data-for="htmlwidget-e0f0b234a13d19442ad6">{"x":{"visdat":{"81f8256040d7":["function () ","plotlyVisDat"]},"cur_data":"81f8256040d7","attrs":{"81f8256040d7":{"x":{},"y":{},"color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"array_col"},"yaxis":{"domain":[0,1],"automargin":true,"title":"array_row"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[16,9,13,43,0,97,117,115,124,83,4,118,108,126,91,23,118,110,113,12,2,105,92,15,122,106,112,125],"y":[0,43,47,73,62,61,3,45,54,65,58,2,4,70,65,1,14,8,23,64,64,71,0,29,26,10,0,63],"type":"scatter","mode":"markers","name":"FALSE","marker":{"color":"rgba(102,194,165,1)","line":{"color":"rgba(102,194,165,1)"}},"textfont":{"color":"rgba(102,194,165,1)"},"error_y":{"color":"rgba(102,194,165,1)"},"error_x":{"color":"rgba(102,194,165,1)"},"line":{"color":"rgba(102,194,165,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":[102,43,19,94,28,42,19,64,79,59,70,67,19,48,22,54,55,62,26,27,52,15],"y":[50,3,59,14,42,52,37,6,35,67,66,45,45,10,66,62,55,24,24,51,10,37],"type":"scatter","mode":"markers","name":"TRUE","marker":{"color":"rgba(141,160,203,1)","line":{"color":"rgba(141,160,203,1)"}},"textfont":{"color":"rgba(141,160,203,1)"},"error_y":{"color":"rgba(141,160,203,1)"},"error_x":{"color":"rgba(141,160,203,1)"},"line":{"color":"rgba(141,160,203,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p><img src="reference/figures/plotly_demo.png"></p>
 </div>
 </div>
 <div class="section level2">
@@ -431,13 +496,14 @@ from a SpatialExperiment object.</p>
 <h3 id="interactively-select-cells-with-tidygate">Interactively select cells with tidygate<a class="anchor" aria-label="anchor" href="#interactively-select-cells-with-tidygate"></a>
 </h3>
 <p>Different packages from the <em>tidyomics</em> ecosystem are easy to
-use together. When run in the R Console, the following code will lunch
-tidygate to interactively gate cells based on their array location.</p>
+use together. Here, tidygate is used to interactively gate cells based
+on their array location.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe_regions</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">spe</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sample_id</span> <span class="op">==</span> <span class="st">"section1"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/mutate.html">mutate</a></span><span class="op">(</span>region <span class="op">=</span> <span class="fu">tidygate</span><span class="fu">::</span><span class="fu">gate_chr</span><span class="op">(</span><span class="va">array_col</span>, <span class="va">array_row</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/tidygate_demo.gif"></p>
 <p>The gated cells can then be divided into pseudobulks within a
 SummarizedExperiment object using tidySpatialExperiment’s
 <code>aggregate_cells</code> utility function.</p>
@@ -448,6 +514,90 @@ SummarizedExperiment object using tidySpatialExperiment’s
 </div>
 </div>
 <div class="section level2">
+<h2 id="utilities">Utilities<a class="anchor" aria-label="anchor" href="#utilities"></a>
+</h2>
+<div class="section level3">
+<h3 id="append-feature-data-to-cell-data">Append feature data to cell data<a class="anchor" aria-label="anchor" href="#append-feature-data-to-cell-data"></a>
+</h3>
+<p>The <em>tidyomics</em> ecosystem places the emphasis on interacting
+with cell data. To interact with feature data, the
+<code>join_feature</code> function can be used to append feature values
+to cell data.</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Join feature data in wide format, preserving the SpatialExperiment object</span></span>
+<span><span class="va">spe</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/join_features.html">join_features</a></span><span class="op">(</span>features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ENSMUSG00000025915"</span>, <span class="st">"ENSMUSG00000042501"</span><span class="op">)</span>, shape <span class="op">=</span> <span class="st">"wide"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A SpatialExperiment-tibble abstraction: 99 × 9</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># </span><span style="color: #555555;">Features=6 | Cells=99 | Assays=counts</span></span></span>
+<span><span class="co">##    .cell              in_tissue array_row array_col sample_id ENSMUSG00000025915</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> AAACAACGAATAGTTC-1 FALSE             0        16 section1                   0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> AAACAAGTATCTCCCA-1 TRUE             50       102 section1                   0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> AAACAATCTACTAGCA-1 TRUE              3        43 section1                   0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> AAACACCAATAACTGC-1 TRUE             59        19 section1                   0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> AAACAGAGCGACTCCT-1 TRUE             14        94 section1                   0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> AAACAGCTTTCAGAAG-1 FALSE            43         9 section1                   0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> AAACAGGGTCTATATT-1 FALSE            47        13 section1                   0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> AAACAGTGTTCCTGGG-1 FALSE            73        43 section1                   0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> AAACATGGTGAGAGGA-1 FALSE            62         0 section1                   0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> AAACATTTCCCGGATT-1 FALSE            61        97 section1                   0</span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 89 more rows</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 3 more variables: ENSMUSG00000042501 &lt;dbl&gt;, pxl_col_in_fullres &lt;int&gt;,</span></span></span>
+<span><span class="co">## <span style="color: #949494;">#   pxl_row_in_fullres &lt;int&gt;</span></span></span></code></pre>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Join feature data in long format, discarding the SpatialExperiment object</span></span>
+<span><span class="va">spe</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/join_features.html">join_features</a></span><span class="op">(</span>features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ENSMUSG00000025915"</span>, <span class="st">"ENSMUSG00000042501"</span><span class="op">)</span>, shape <span class="op">=</span> <span class="st">"long"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## tidySpatialExperiment says: A data frame is returned for independent data analysis.</span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
+<span><span class="co">##   .cell       in_tissue array_row array_col sample_id .feature .abundance_counts</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> AAACAACGAA… FALSE             0        16 section1  ENSMUSG…                 0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> AAACAACGAA… FALSE             0        16 section1  ENSMUSG…                 0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> AAACAAGTAT… TRUE             50       102 section1  ENSMUSG…                 0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> AAACAAGTAT… TRUE             50       102 section1  ENSMUSG…                 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> AAACAATCTA… TRUE              3        43 section1  ENSMUSG…                 0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> AAACAATCTA… TRUE              3        43 section1  ENSMUSG…                 0</span></span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="aggregate-cells">Aggregate cells<a class="anchor" aria-label="anchor" href="#aggregate-cells"></a>
+</h3>
+<p>Sometimes, it is necessary to aggregate the gene-transcript abundance
+from a group of cells into a single value. For example, when comparing
+groups of cells across different samples with fixed-effect models.</p>
+<p>Cell aggregation can be achieved using the
+<code>aggregate_cells</code> function.</p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">spe</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/aggregate_cells.html">aggregate_cells</a></span><span class="op">(</span><span class="va">in_tissue</span>, assays <span class="op">=</span> <span class="st">"counts"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## class: SummarizedExperiment </span></span>
+<span><span class="co">## dim: 50 2 </span></span>
+<span><span class="co">## metadata(0):</span></span>
+<span><span class="co">## assays(1): counts</span></span>
+<span><span class="co">## rownames(50): ENSMUSG00000002459 ENSMUSG00000005886 ...</span></span>
+<span><span class="co">##   ENSMUSG00000104217 ENSMUSG00000104328</span></span>
+<span><span class="co">## rowData names(1): feature</span></span>
+<span><span class="co">## colnames(2): FALSE TRUE</span></span>
+<span><span class="co">## colData names(2): in_tissue .aggregated_cells</span></span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="elliptical-and-rectangular-region-selection">Elliptical and rectangular region selection<a class="anchor" aria-label="anchor" href="#elliptical-and-rectangular-region-selection"></a>
+</h3>
+<p>To select cells by their geometric region in space, the
+<code>ellipse</code> and <code>rectangle</code> functions can be
+used.</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">spe</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sample_id</span> <span class="op">==</span> <span class="st">"section1"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/mutate.html">mutate</a></span><span class="op">(</span>in_ellipse <span class="op">=</span> <span class="fu"><a href="../reference/ellipse.html">ellipse</a></span><span class="op">(</span><span class="va">array_col</span>, <span class="va">array_row</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">40</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">array_col</span>, y <span class="op">=</span> <span class="va">array_row</span>, colour <span class="op">=</span> <span class="va">in_ellipse</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="overview_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
+</div>
+</div>
+<div class="section level2">
 <h2 id="important-considerations">Important considerations<a class="anchor" aria-label="anchor" href="#important-considerations"></a>
 </h2>
 <div class="section level3">
@@ -455,7 +605,7 @@ SummarizedExperiment object using tidySpatialExperiment’s
 </h3>
 <p>Removing the <code>.cell</code> column will return a tibble. This is
 consistent with the behaviour in other <em>tidyomics</em> packages.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">.cell</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -472,7 +622,7 @@ consistent with the behaviour in other <em>tidyomics</em> packages.</p>
 <p>The sample_id column cannot be removed with <em>tidyverse</em>
 functions, and can only be modified if the changes are accepted by
 SpatialExperiment’s <code>colData</code> function.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># sample_id is not removed, despite the user's request</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">sample_id</span><span class="op">)</span></span></code></pre></div>
@@ -492,7 +642,7 @@ SpatialExperiment’s <code>colData</code> function.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> AAACATTTCCCGGATT-1 FALSE            61        97 section1                <span style="text-decoration: underline;">7</span>886</span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 89 more rows</span></span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></span></code></pre>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># This change maintains separation of sample_ids and is permitted</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/mutate.html">mutate</a></span><span class="op">(</span>sample_id <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html" class="external-link">str_c</a></span><span class="op">(</span><span class="va">sample_id</span>, <span class="st">"_modified"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -513,7 +663,7 @@ SpatialExperiment’s <code>colData</code> function.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> AAACATTTCCCGGATT-1 FALSE            61        97 section1…               <span style="text-decoration: underline;">7</span>886</span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 89 more rows</span></span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></span></code></pre>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># This change does not maintain separation of sample_ids and produces an error</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/mutate.html">mutate</a></span><span class="op">(</span>sample_id <span class="op">=</span> <span class="st">"new_sample"</span><span class="op">)</span></span></code></pre></div>
@@ -522,14 +672,14 @@ SpatialExperiment’s <code>colData</code> function.</p>
 <code>px_row_in_fullres</code> columns cannot be removed or modified
 with <em>tidyverse</em> functions. This is consistent with the behaviour
 of dimension reduction data in other <em>tidyomics</em> packages.</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Attempting to remove pxl_col_in_fullres produces an error</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">pxl_col_in_fullres</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `select_helper()`:</span></span></span>
 <span><span class="co">## <span style="color: #BBBB00;">!</span> Can't subset columns that don't exist.</span></span>
 <span><span class="co">## <span style="color: #BB0000;">✖</span> Column `pxl_col_in_fullres` doesn't exist.</span></span></code></pre>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Attempting to modify pxl_col_in_fullres produces an error</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">pxl_col_in_fullres</span><span class="op">)</span></span></code></pre></div>
@@ -537,11 +687,8 @@ of dimension reduction data in other <em>tidyomics</em> packages.</p>
 <span><span class="co">## <span style="color: #00BBBB;">ℹ</span> In argument: `pxl_col_in_fullres`.</span></span>
 <span><span class="co">## <span style="font-weight: bold;">Caused by error:</span></span></span>
 <span><span class="co">## <span style="color: #BBBB00;">!</span> object 'pxl_col_in_fullres' not found</span></span></code></pre>
-</div>
-</div>
-<div class="section level2">
-<h2 id="session-info">Session info<a class="anchor" aria-label="anchor" href="#session-info"></a>
-</h2>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## R version 4.3.2 (2023-10-31)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
 <span><span class="co">## Running under: Ubuntu 22.04.3 LTS</span></span>
@@ -564,16 +711,15 @@ of dimension reduction data in other <em>tidyomics</em> packages.</p>
 <span><span class="co">## [8] base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">##  [1] tidySpatialExperiment_0.99.12   tidySummarizedExperiment_1.12.0</span></span>
-<span><span class="co">##  [3] ggplot2_3.4.4                   ttservice_0.4.0                </span></span>
-<span><span class="co">##  [5] tidyr_1.3.0                     dplyr_1.1.4                    </span></span>
-<span><span class="co">##  [7] tidySingleCellExperiment_1.12.0 SpatialExperiment_1.12.0       </span></span>
-<span><span class="co">##  [9] SingleCellExperiment_1.24.0     SummarizedExperiment_1.32.0    </span></span>
-<span><span class="co">## [11] Biobase_2.62.0                  GenomicRanges_1.54.1           </span></span>
-<span><span class="co">## [13] GenomeInfoDb_1.38.5             IRanges_2.36.0                 </span></span>
-<span><span class="co">## [15] S4Vectors_0.40.2                BiocGenerics_0.48.1            </span></span>
-<span><span class="co">## [17] MatrixGenerics_1.14.0           matrixStats_1.2.0              </span></span>
-<span><span class="co">## [19] BiocStyle_2.30.0               </span></span>
+<span><span class="co">##  [1] tidySpatialExperiment_0.99.13   ggplot2_3.4.4                  </span></span>
+<span><span class="co">##  [3] ttservice_0.4.0                 tidyr_1.3.0                    </span></span>
+<span><span class="co">##  [5] dplyr_1.1.4                     tidySingleCellExperiment_1.12.0</span></span>
+<span><span class="co">##  [7] SpatialExperiment_1.12.0        SingleCellExperiment_1.24.0    </span></span>
+<span><span class="co">##  [9] SummarizedExperiment_1.32.0     Biobase_2.62.0                 </span></span>
+<span><span class="co">## [11] GenomicRanges_1.54.1            GenomeInfoDb_1.38.5            </span></span>
+<span><span class="co">## [13] IRanges_2.36.0                  S4Vectors_0.40.2               </span></span>
+<span><span class="co">## [15] BiocGenerics_0.48.1             MatrixGenerics_1.14.0          </span></span>
+<span><span class="co">## [17] matrixStats_1.2.0               BiocStyle_2.30.0               </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
 <span><span class="co">##  [1] bitops_1.0-7              rlang_1.1.3              </span></span>
@@ -592,37 +738,37 @@ of dimension reduction data in other <em>tidyomics</em> packages.</p>
 <span><span class="co">## [27] rhdf5filters_1.14.1       DelayedArray_0.28.0      </span></span>
 <span><span class="co">## [29] Rhdf5lib_1.24.1           BiocParallel_1.36.0      </span></span>
 <span><span class="co">## [31] parallel_4.3.2            R6_2.5.1                 </span></span>
-<span><span class="co">## [33] RColorBrewer_1.1-3        bslib_0.6.1              </span></span>
-<span><span class="co">## [35] stringi_1.8.3             limma_3.58.1             </span></span>
-<span><span class="co">## [37] jquerylib_0.1.4           Rcpp_1.0.12              </span></span>
-<span><span class="co">## [39] bookdown_0.37             knitr_1.45               </span></span>
-<span><span class="co">## [41] R.utils_2.12.3            Matrix_1.6-1.1           </span></span>
-<span><span class="co">## [43] tidyselect_1.2.0          abind_1.4-5              </span></span>
-<span><span class="co">## [45] yaml_2.3.8                codetools_0.2-19         </span></span>
-<span><span class="co">## [47] lattice_0.21-9            tibble_3.2.1             </span></span>
-<span><span class="co">## [49] withr_2.5.2               evaluate_0.23            </span></span>
-<span><span class="co">## [51] desc_1.4.3                pillar_1.9.0             </span></span>
-<span><span class="co">## [53] BiocManager_1.30.22       plotly_4.10.3            </span></span>
-<span><span class="co">## [55] generics_0.1.3            RCurl_1.98-1.14          </span></span>
-<span><span class="co">## [57] sparseMatrixStats_1.14.0  munsell_0.5.0            </span></span>
-<span><span class="co">## [59] scales_1.3.0              glue_1.7.0               </span></span>
-<span><span class="co">## [61] lazyeval_0.2.2            tools_4.3.2              </span></span>
-<span><span class="co">## [63] data.table_1.14.10        locfit_1.5-9.8           </span></span>
-<span><span class="co">## [65] fs_1.6.3                  rhdf5_2.46.1             </span></span>
-<span><span class="co">## [67] grid_4.3.2                crosstalk_1.2.1          </span></span>
-<span><span class="co">## [69] edgeR_4.0.7               DropletUtils_1.22.0      </span></span>
-<span><span class="co">## [71] colorspace_2.1-0          GenomeInfoDbData_1.2.11  </span></span>
-<span><span class="co">## [73] HDF5Array_1.30.0          cli_3.6.2                </span></span>
-<span><span class="co">## [75] textshaping_0.3.7         fansi_1.0.6              </span></span>
-<span><span class="co">## [77] S4Arrays_1.2.0            viridisLite_0.4.2        </span></span>
-<span><span class="co">## [79] gtable_0.3.4              R.methodsS3_1.8.2        </span></span>
-<span><span class="co">## [81] sass_0.4.8                digest_0.6.34            </span></span>
-<span><span class="co">## [83] dqrng_0.3.2               SparseArray_1.2.3        </span></span>
-<span><span class="co">## [85] farver_2.1.1              rjson_0.2.21             </span></span>
-<span><span class="co">## [87] htmlwidgets_1.6.4         memoise_2.0.1            </span></span>
-<span><span class="co">## [89] htmltools_0.5.7           pkgdown_2.0.7            </span></span>
-<span><span class="co">## [91] R.oo_1.25.0               lifecycle_1.0.4          </span></span>
-<span><span class="co">## [93] httr_1.4.7                statmod_1.5.0</span></span></code></pre>
+<span><span class="co">## [33] bslib_0.6.1               stringi_1.8.3            </span></span>
+<span><span class="co">## [35] limma_3.58.1              jquerylib_0.1.4          </span></span>
+<span><span class="co">## [37] Rcpp_1.0.12               bookdown_0.37            </span></span>
+<span><span class="co">## [39] knitr_1.45                R.utils_2.12.3           </span></span>
+<span><span class="co">## [41] Matrix_1.6-1.1            tidyselect_1.2.0         </span></span>
+<span><span class="co">## [43] abind_1.4-5               yaml_2.3.8               </span></span>
+<span><span class="co">## [45] codetools_0.2-19          lattice_0.21-9           </span></span>
+<span><span class="co">## [47] tibble_3.2.1              withr_2.5.2              </span></span>
+<span><span class="co">## [49] evaluate_0.23             desc_1.4.3               </span></span>
+<span><span class="co">## [51] pillar_1.9.0              BiocManager_1.30.22      </span></span>
+<span><span class="co">## [53] plotly_4.10.4             generics_0.1.3           </span></span>
+<span><span class="co">## [55] RCurl_1.98-1.14           sparseMatrixStats_1.14.0 </span></span>
+<span><span class="co">## [57] munsell_0.5.0             scales_1.3.0             </span></span>
+<span><span class="co">## [59] glue_1.7.0                lazyeval_0.2.2           </span></span>
+<span><span class="co">## [61] tools_4.3.2               data.table_1.14.10       </span></span>
+<span><span class="co">## [63] locfit_1.5-9.8            fs_1.6.3                 </span></span>
+<span><span class="co">## [65] rhdf5_2.46.1              grid_4.3.2               </span></span>
+<span><span class="co">## [67] DropletUtils_1.22.0       edgeR_4.0.9              </span></span>
+<span><span class="co">## [69] colorspace_2.1-0          GenomeInfoDbData_1.2.11  </span></span>
+<span><span class="co">## [71] HDF5Array_1.30.0          cli_3.6.2                </span></span>
+<span><span class="co">## [73] textshaping_0.3.7         fansi_1.0.6              </span></span>
+<span><span class="co">## [75] S4Arrays_1.2.0            viridisLite_0.4.2        </span></span>
+<span><span class="co">## [77] gtable_0.3.4              R.methodsS3_1.8.2        </span></span>
+<span><span class="co">## [79] sass_0.4.8                digest_0.6.34            </span></span>
+<span><span class="co">## [81] SparseArray_1.2.3         dqrng_0.3.2              </span></span>
+<span><span class="co">## [83] farver_2.1.1              rjson_0.2.21             </span></span>
+<span><span class="co">## [85] htmlwidgets_1.6.4         memoise_2.0.1            </span></span>
+<span><span class="co">## [87] htmltools_0.5.7           pkgdown_2.0.7            </span></span>
+<span><span class="co">## [89] R.oo_1.25.0               lifecycle_1.0.4          </span></span>
+<span><span class="co">## [91] httr_1.4.7                statmod_1.5.0</span></span></code></pre>
+</div>
 </div>
   </div>
 
