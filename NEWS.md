@@ -10,4 +10,14 @@
 
 # tidySpatialExperiment 0.99.11
 
-* Add rworkflow github actions to support continuous and collaborative development. 
+* Added rworkflow github actions to support continuous and collaborative development. 
+
+# tidySpatialExperiment 0.99.12
+
+* Moved pkgdown website deployment from docs directory to gh-pages branch.
+* Bug fixes.
+
+# tidySpatialExperiment 0.99.13
+
+* Removed unneeded dependencies. 
+* Updated README and vignette material.
