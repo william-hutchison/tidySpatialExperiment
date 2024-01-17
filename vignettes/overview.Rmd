@@ -366,3 +366,7 @@ spe |>
 spe |> 
   mutate(pxl_col_in_fullres)
 ```
+
+```{r}
+sessionInfo()
+```
