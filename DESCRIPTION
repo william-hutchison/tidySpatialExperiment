@@ -14,33 +14,32 @@ Description: tidySpatialExperiment provides a bridge between the SpatialExperime
 License: GPL-3
 Depends:
     R (>= 4.3.0),
-    SingleCellExperiment,
     SpatialExperiment,
-    tidySingleCellExperiment,
-    tidySummarizedExperiment
+    tidySingleCellExperiment
 Imports:
     ttservice,
     SummarizedExperiment,
+    SingleCellExperiment,
     BiocGenerics,
-    dplyr,
+    Matrix,
+    S4Vectors,
+    methods,
+    utils,
+    pkgconfig,
     tibble,
+    dplyr,
     tidyr,
     ggplot2,
     magrittr,
     rlang,
     purrr,
-    lifecycle,
-    utils,
-    S4Vectors,
-    tidyselect,
-    vctrs,
-    pillar,
     stringr,
+    vctrs,
+    tidyselect,
+    pillar,
     cli,
     fansi,
-    Matrix,
-    pkgconfig,
-    methods
+    lifecycle
 Suggests:
     BiocStyle,
     testthat,
@@ -50,16 +49,14 @@ Suggests:
     SingleR,
     scater,
     scran,
-    tidyHeatmap,
     igraph,
     GGally,
-    uwot,
     celldex,
     dittoSeq,
     cowplot, 
-    microbenchmark, 
     DropletUtils,
-    plotly
+    plotly,
+    tidySummarizedExperiment
 VignetteBuilder: 
     knitr
 Biarch: true
