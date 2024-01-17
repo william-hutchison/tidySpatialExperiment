@@ -21,3 +21,7 @@
 
 * Removed unneeded dependencies. 
 * Updated README and vignette material.
+
+# tidySpatialExperiment 0.99.14
+
+* Bug fixes.
