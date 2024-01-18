@@ -1,6 +1,6 @@
 name: rworkflows
 on:
-  push:
+  pull_request:
     branches:
 jobs:
   rworkflows:
