@@ -29,3 +29,7 @@
 # tidySpatialExperiment 0.99.15
 
 * Bug fixes.
+
+# tidySpatialExperiment 0.99.16
+
+* Bug fixes.
