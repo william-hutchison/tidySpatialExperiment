@@ -105,12 +105,6 @@ Here, we load an example SpatialExperiment object.
 ``` r
 # Load example SpatialExperiment object
 library(tidySpatialExperiment)
-#  Warning: package 'S4Vectors' was built under R version 4.3.2
-#  Warning: package 'GenomeInfoDb' was built under R version 4.3.2
-example(read10xVisium)
-#  Warning: no function found corresponding to methods exports from 'HDF5Array'
-#  for: 'extract_sparse_array'
-#  Warning: multiple methods tables found for 'sparsity'
 ```
 
 ## SpatialExperiment-tibble abstraction
@@ -131,7 +125,7 @@ The default view is now of the SpatialExperiment-tibble abstraction.
 ``` r
 spe
 #  # A SpatialExperiment-tibble abstraction: 99 × 7
-#  # [90mFeatures=50 | Cells=99 | Assays=counts[0m
+#  # [90mFeatures=50 | Cells=99 | Assays=counts[0m
 #    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres
 #    <chr>              <lgl>         <int>     <int> <chr>                  <int>
 #  1 AAACAACGAATAGTTC-1 FALSE             0        16 section1                2312
@@ -192,7 +186,7 @@ to select cells by a variable of interest.
 spe |>
   filter(array_col < 5)
 #  # A SpatialExperiment-tibble abstraction: 6 × 7
-#  # [90mFeatures=50 | Cells=6 | Assays=counts[0m
+#  # [90mFeatures=50 | Cells=6 | Assays=counts[0m
 #    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres
 #    <chr>              <lgl>         <int>     <int> <chr>                  <int>
 #  1 AAACATGGTGAGAGGA-1 FALSE            62         0 section1                1212
@@ -211,7 +205,7 @@ existing variable.
 spe |>
   mutate(in_region = c(in_tissue & array_row < 10))
 #  # A SpatialExperiment-tibble abstraction: 99 × 8
-#  # [90mFeatures=50 | Cells=99 | Assays=counts[0m
+#  # [90mFeatures=50 | Cells=99 | Assays=counts[0m
 #    .cell     in_tissue array_row array_col sample_id in_region pxl_col_in_fullres
 #    <chr>     <lgl>         <int>     <int> <chr>     <lgl>                  <int>
 #  1 AAACAACG… FALSE             0        16 section1  FALSE                   2312
@@ -246,7 +240,7 @@ spe_nested
 spe_nested |>
   unnest(data)
 #  # A SpatialExperiment-tibble abstraction: 99 × 7
-#  # [90mFeatures=50 | Cells=99 | Assays=counts[0m
+#  # [90mFeatures=50 | Cells=99 | Assays=counts[0m
 #    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres
 #    <chr>              <lgl>         <int>     <int> <chr>                  <int>
 #  1 AAACAACGAATAGTTC-1 FALSE             0        16 section1                2312
@@ -344,7 +338,7 @@ spe |>
   join_features(features = c("ENSMUSG00000025915", "ENSMUSG00000042501"), shape = "wide") |> 
   head()
 #  # A SpatialExperiment-tibble abstraction: 99 × 9
-#  # [90mFeatures=6 | Cells=99 | Assays=counts[0m
+#  # [90mFeatures=6 | Cells=99 | Assays=counts[0m
 #    .cell              in_tissue array_row array_col sample_id ENSMUSG00000025915
 #    <chr>              <lgl>         <int>     <int> <chr>                  <dbl>
 #  1 AAACAACGAATAGTTC-1 FALSE             0        16 section1                   0
@@ -384,7 +378,7 @@ Cell aggregation can be achieved using the `aggregate_cells` function.
 spe |>
   aggregate_cells(in_tissue, assays = "counts")
 #  # A SummarizedExperiment-tibble abstraction: 100 × 6
-#  # [90mFeatures=50 | Samples=2 | Assays=counts[0m
+#  # [90mFeatures=50 | Samples=2 | Assays=counts[0m
 #    .feature           .sample counts in_tissue .aggregated_cells feature         
 #    <chr>              <chr>    <dbl> <lgl>                 <int> <chr>           
 #  1 ENSMUSG00000002459 FALSE        2 FALSE                    55 ENSMUSG00000002…
@@ -442,7 +436,7 @@ can only be modified if the changes are accepted by SpatialExperiment’s
 spe |>
   select(-sample_id)
 #  # A SpatialExperiment-tibble abstraction: 99 × 7
-#  # [90mFeatures=50 | Cells=99 | Assays=counts[0m
+#  # [90mFeatures=50 | Cells=99 | Assays=counts[0m
 #    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres
 #    <chr>              <lgl>         <int>     <int> <chr>                  <int>
 #  1 AAACAACGAATAGTTC-1 FALSE             0        16 section1                2312
@@ -458,7 +452,7 @@ spe |>
   mutate(sample_id = stringr::str_c(sample_id, "_modified")) |>
   head()
 #  # A SpatialExperiment-tibble abstraction: 99 × 7
-#  # [90mFeatures=6 | Cells=99 | Assays=counts[0m
+#  # [90mFeatures=6 | Cells=99 | Assays=counts[0m
 #    .cell              in_tissue array_row array_col sample_id  pxl_col_in_fullres
 #    <chr>              <lgl>         <int>     <int> <chr>                   <int>
 #  1 AAACAACGAATAGTTC-1 FALSE             0        16 section1_…               2312

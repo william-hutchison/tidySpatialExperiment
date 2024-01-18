@@ -17,7 +17,7 @@ vignette: |
   %\VignetteEncoding{UTF-8}
 ---
 
-# tidySpatialExperiment - part of *tidyomics*
+# tidySpatialExperiment - part of *tidyomics* 
 
 Resources to help you get started with tidySpatialExperiment and
 *tidyomics*:
@@ -233,7 +233,7 @@ spe |>
   )
 ```
 
-![](man/figures/plotly_demo.png)
+![plotly demonstration](../man/figures/plotly_demo.png)
 
 # Integration with the *tidyomics* ecosystem
 
@@ -250,7 +250,7 @@ spe_regions <-
   mutate(region = tidygate::gate_chr(array_col, array_row))
 ```
 
-![](man/figures/tidygate_demo.gif)
+![tidygate demonstration](../man/figures/tidygate_demo.gif)
 
 ```{r, echo=FALSE}
 # Manually set gate information to match demonstration
