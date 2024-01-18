@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidySpatialExperiment</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.16</span>
       </span>
     </div>
 
@@ -485,7 +485,9 @@ from a SpatialExperiment object.</p>
 <span>    color <span class="op">=</span> <span class="op">~</span> <span class="va">in_tissue</span>, </span>
 <span>    type <span class="op">=</span> <span class="st">"scatter"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/plotly_demo.png"></p>
+<div class="figure">
+<img src="../reference/figures/plotly_demo.png" alt=""><p class="caption">plotly demonstration</p>
+</div>
 </div>
 </div>
 <div class="section level2">
@@ -502,7 +504,9 @@ on their array location.</p>
 <span>  <span class="va">spe</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sample_id</span> <span class="op">==</span> <span class="st">"section1"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/mutate.html">mutate</a></span><span class="op">(</span>region <span class="op">=</span> <span class="fu">tidygate</span><span class="fu">::</span><span class="fu">gate_chr</span><span class="op">(</span><span class="va">array_col</span>, <span class="va">array_row</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/tidygate_demo.gif"></p>
+<div class="figure">
+<img src="../reference/figures/tidygate_demo.gif" alt=""><p class="caption">tidygate demonstration</p>
+</div>
 <p>The gated cells can then be divided into pseudobulks within a
 SummarizedExperiment object using tidySpatialExperiment’s
 <code>aggregate_cells</code> utility function.</p>
@@ -710,7 +714,7 @@ of dimension reduction data in other <em>tidyomics</em> packages.</p>
 <span><span class="co">## [8] base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">##  [1] tidySpatialExperiment_0.99.14   ggplot2_3.4.4                  </span></span>
+<span><span class="co">##  [1] tidySpatialExperiment_0.99.16   ggplot2_3.4.4                  </span></span>
 <span><span class="co">##  [3] ttservice_0.4.0                 tidyr_1.3.0                    </span></span>
 <span><span class="co">##  [5] dplyr_1.1.4                     tidySingleCellExperiment_1.12.0</span></span>
 <span><span class="co">##  [7] SpatialExperiment_1.12.0        SingleCellExperiment_1.24.0    </span></span>
@@ -744,7 +748,7 @@ of dimension reduction data in other <em>tidyomics</em> packages.</p>
 <span><span class="co">## [41] Matrix_1.6-1.1            tidyselect_1.2.0         </span></span>
 <span><span class="co">## [43] abind_1.4-5               yaml_2.3.8               </span></span>
 <span><span class="co">## [45] codetools_0.2-19          lattice_0.21-9           </span></span>
-<span><span class="co">## [47] tibble_3.2.1              withr_2.5.2              </span></span>
+<span><span class="co">## [47] tibble_3.2.1              withr_3.0.0              </span></span>
 <span><span class="co">## [49] evaluate_0.23             desc_1.4.3               </span></span>
 <span><span class="co">## [51] pillar_1.9.0              BiocManager_1.30.22      </span></span>
 <span><span class="co">## [53] plotly_4.10.4             generics_0.1.3           </span></span>
