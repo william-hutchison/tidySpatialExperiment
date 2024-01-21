@@ -1,7 +1,7 @@
 Type: Package
 Package: tidySpatialExperiment
 Title: Brings SpatialExperiment to the tidyverse 
-Version: 0.99.18
+Version: 0.99.19
 Authors@R: c(
     person("William", "Hutchison", email = "hutchison.w@wehi.edu.au", role = c("aut", "cre"), 
            comment = c(ORCID = "0009-0001-6242-4269")),
@@ -62,7 +62,6 @@ VignetteBuilder:
 Biarch: true
 biocViews: Infrastructure, RNASeq, GeneExpression, Sequencing, Spatial, Transcriptomics, SingleCell
 Encoding: UTF-8
-LazyData: false
 RoxygenNote: 7.3.0
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/william-hutchison/tidySpatialExperiment, https://william-hutchison.github.io/tidySpatialExperiment/

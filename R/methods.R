@@ -63,10 +63,6 @@ setMethod("join_features", "SpatialExperiment",  function(.data,
                                                shape = "long", ...
                                                ) {
 
-        # CRAN Note
-        .cell <- NULL
-        .feature <- NULL
-
         # Shape is long
         if (shape == "long") {
             
@@ -145,7 +141,7 @@ aggregate_cells <- function(.data, .sample = NULL, slot = "data", assays = NULL,
     .sample <- enquo(.sample)
     
     # Subset only wanted assays
-    if (!is.null(assays) ) {
+    if (!is.null(assays)) {
         .data@assays@data <- .data@assays@data[assays]
     }
     
@@ -199,17 +195,19 @@ aggregate_cells <- function(.data, .sample = NULL, slot = "data", assays = NULL,
 #' @examples 
 #' example(read10xVisium)
 #' spe |>
-#'     mutate(in_rectangle = rectangle(array_col, array_row, center = c(50, 50), height = 20, width = 10))
+#'     mutate(in_rectangle = rectangle(
+#'       array_col, array_row, center = c(50, 50), height = 20, width = 10)
+#'       )
 #'
 #' @export
 rectangle <- function(spatial_coord1, spatial_coord2, center, height, width) {
-    x_min = center[1] - width / 2
-    x_max = center[1] + width / 2
-    y_min = center[2] - height / 2
-    y_max = center[2] + height / 2
+    x_min <- center[1] - width / 2
+    x_max <- center[1] + width / 2
+    y_min <- center[2] - height / 2
+    y_max <- center[2] + height / 2
 
-    within_x = spatial_coord1 >= x_min & spatial_coord1 <= x_max
-    within_y = spatial_coord2 >= y_min & spatial_coord2 <= y_max
+    within_x <- spatial_coord1 >= x_min & spatial_coord1 <= x_max
+    within_y <- spatial_coord2 >= y_min & spatial_coord2 <= y_max
 
     return(within_x & within_y)
 }
@@ -227,21 +225,24 @@ rectangle <- function(spatial_coord1, spatial_coord2, center, height, width) {
 #' @examples
 #' example(read10xVisium)
 #' spe |>
-#'   mutate(in_ellipse = ellipse(array_col, array_row, center = c(50, 50), axes_lengths = c(20, 10)))
+#'   mutate(in_ellipse = ellipse(
+#'     array_col, array_row, center = c(50, 50), axes_lengths = c(20, 10))
+#'     )
+#'     
 #' @export
 ellipse <- function(spatial_coord1, spatial_coord2, center, axes_lengths) {
     # axes_lengths should be a vector of length 2: [major_axis, minor_axis]
 
     # Scaling factor to normalize the ellipse to a unit circle
-    scale_x = 1 / axes_lengths[1]
-    scale_y = 1 / axes_lengths[2]
+    scale_x <- 1 / axes_lengths[1]
+    scale_y <- 1 / axes_lengths[2]
 
     # Normalized coordinates relative to ellipse center
-    normalized_x = (spatial_coord1 - center[1]) * scale_x
-    normalized_y = (spatial_coord2 - center[2]) * scale_y
+    normalized_x <- (spatial_coord1 - center[1]) * scale_x
+    normalized_y <- (spatial_coord2 - center[2]) * scale_y
 
     # Check if points are within the unit circle (ellipse after normalization)
-    within_ellipse = (normalized_x^2 + normalized_y^2) <= 1
+    within_ellipse <- (normalized_x^2 + normalized_y^2) <= 1
 
     return(within_ellipse)
 }

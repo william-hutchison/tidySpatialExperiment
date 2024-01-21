@@ -24,5 +24,8 @@ Function to create an ellipse gate in a SpatialExperiment object
 \examples{
 example(read10xVisium)
 spe |>
-  mutate(in_ellipse = ellipse(array_col, array_row, center = c(50, 50), axes_lengths = c(20, 10)))
+  mutate(in_ellipse = ellipse(
+    array_col, array_row, center = c(50, 50), axes_lengths = c(20, 10))
+    )
+    
 }

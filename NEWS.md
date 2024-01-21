@@ -32,4 +32,16 @@
 
 # tidySpatialExperiment 0.99.16
 
-* Bug fixes.
+* Version bump for Bioconductor.
+
+# tidySpatialExperiment 0.99.17
+
+* Version bump for Bioconductor.
+
+# tidySpatialExperiment 0.99.18
+
+* Version bump for Bioconductor.
+
+# tidySpatialExperiment 0.99.19
+
+* Improve code style.

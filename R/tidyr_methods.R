@@ -154,7 +154,7 @@ extract.SpatialExperiment <- function(data, col, into, regex = "([[:alnum:]]+)",
 #' @importFrom SummarizedExperiment colData
 #' @importFrom SummarizedExperiment colData<-
 #' @export
-unite.SpatialExperiment <- function(data, col, ..., sep="_", remove=TRUE, na.rm=FALSE) {
+unite.SpatialExperiment <- function(data, col, ..., sep = "_", remove = TRUE, na.rm = FALSE) {
 
     # Check that we are not modifying a key column
     cols <- enquo(col)
@@ -180,7 +180,7 @@ unite.SpatialExperiment <- function(data, col, ..., sep="_", remove=TRUE, na.rm=
         columns <-
             get_special_columns(data) %>%
             c(get_needed_columns(data)) %>%
-            paste(collapse=", ")
+            paste(collapse = ", ")
         stop(
             "tidySpatialExperiment says: you are trying to rename a column that is view only",
             columns, " ",
@@ -190,7 +190,7 @@ unite.SpatialExperiment <- function(data, col, ..., sep="_", remove=TRUE, na.rm=
 
     colData(data) <- data %>%
         as_tibble() %>%
-        tidyr::unite(!!cols, ..., sep=sep, remove=remove, na.rm=na.rm) %>%
+        tidyr::unite(!!cols, ..., sep = sep, remove = remove, na.rm = na.rm) %>%
         as_meta_data(data)
 
     data
