@@ -62,7 +62,6 @@ VignetteBuilder:
 Biarch: true
 biocViews: Infrastructure, RNASeq, GeneExpression, Sequencing, Spatial, Transcriptomics, SingleCell
 Encoding: UTF-8
-LazyData: false
 RoxygenNote: 7.3.0
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/william-hutchison/tidySpatialExperiment, https://william-hutchison.github.io/tidySpatialExperiment/
