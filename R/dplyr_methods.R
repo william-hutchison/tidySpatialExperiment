@@ -79,7 +79,7 @@ filter.SpatialExperiment <- function(.data, ..., .preserve = FALSE) {
     as_meta_data(.data)
   
   # Try to solve missing colnames
-  if (colnames(.data) %>% is.null() ) {
+  if (colnames(.data) %>% is.null()) {
     message("tidySpatialExperiment says: the input object does not have cell names (colnames(...)). \n Therefore, the cell column in the filtered tibble abstraction will still include an incremental integer vector.")
     new_meta <- new_meta %>% mutate(!!c_(.data)$symbol := as.integer(!!c_(.data)$symbol))
     
@@ -172,7 +172,7 @@ left_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x"
                                         ...) {
   
   # Deprecation of special column names
-  if (is_sample_feature_deprecated_used( x, when(by, !is.null(.) ~ by, ~ colnames(y))) ) {
+  if (is_sample_feature_deprecated_used(x, when(by, !is.null(.) ~ by, ~ colnames(y)))) {
     x <- ping_old_special_column_into_metadata(x)
   }
   
@@ -207,10 +207,10 @@ left_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x"
 #' @importFrom dplyr inner_join
 #' @importFrom dplyr pull
 #' @export
-inner_join.SpatialExperiment <- function(x, y, by=NULL, copy=FALSE, suffix=c(".x", ".y"), ...) {
+inner_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), ...) {
   
   # Deprecation of special column names
-  if (is_sample_feature_deprecated_used(x, when(by, !is.null(.) ~ by, ~ colnames(y))) ) {
+  if (is_sample_feature_deprecated_used(x, when(by, !is.null(.) ~ by, ~ colnames(y)))) {
     x <- ping_old_special_column_into_metadata(x)
   }
   
@@ -355,7 +355,7 @@ sample_n.SpatialExperiment <- function(tbl, size, replace=FALSE,
   count_cells <- new_meta %>% select(!!c_(tbl)$symbol) %>% count(!!c_(tbl)$symbol)
   
   # If repeated cells
-  if (count_cells$n %>% max() %>% gt(1) ) {
+  if (count_cells$n %>% max() %>% gt(1)) {
     message("tidySpatialExperiment says: When sampling with replacement a data frame is returned for independent data analysis.")
     new_meta
   } else {

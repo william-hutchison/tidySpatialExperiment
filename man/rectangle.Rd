@@ -26,6 +26,8 @@ Determines whether points specified by spatial coordinates are within a defined 
 \examples{
 example(read10xVisium)
 spe |>
-    mutate(in_rectangle = rectangle(array_col, array_row, center = c(50, 50), height = 20, width = 10))
+    mutate(in_rectangle = rectangle(
+      array_col, array_row, center = c(50, 50), height = 20, width = 10)
+      )
 
 }
