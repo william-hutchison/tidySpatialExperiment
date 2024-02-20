@@ -47,13 +47,6 @@ The *tidyomics* ecosystem includes packages for:
   - [tidytof](https://github.com/keyes-timothy/tidytof), for tidy
     manipulation of high-dimensional cytometry data.
 
-A few more tidy tools for data manipulation and plotting:
-
-- [tidyHeatmap](https://github.com/stemangiola/tidyHeatmap), for
-  producing heatmaps with tidy principles. analysis and manipulation
-- [tidygate](https://github.com/stemangiola/tidygate), for interactive
-  plotting and gating.
-
 # Introduction
 
 tidySpatialExperiment provides a bridge between the
@@ -68,7 +61,7 @@ of functions from [dplyr](https://github.com/tidyverse/dplyr),
 [plotly](https://github.com/plotly/plotly.R). But, underneath, your data
 remains a SpatialExperiment object.
 
-tidySpatialExperiment also provides three additional utility functions.
+tidySpatialExperiment also provides five additional utility functions.
 
 ## Functions and utilities
 
@@ -90,21 +83,35 @@ tidySpatialExperiment also provides three additional utility functions.
 
 ## Installation
 
+You can install the stable version of tidySpatialExperiment from
+Bioconductor with:
+
+``` r
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("tidySpatialExperiment")
+```
+
 You can install the development version of tidySpatialExperiment from
 GitHub with:
 
 ``` r
-install.packages("devtools")
+if (!requireNamespace("devtools", quietly=TRUE))
+    install.packages("devtools")
+
 devtools::install_github("william-hutchison/tidySpatialExperiment")
 ```
 
 ## Load data
 
-Here, we load an example SpatialExperiment object.
+Here, we attach tidySpatialExperiment and an example SpatialExperiment
+object.
 
 ``` r
 # Load example SpatialExperiment object
 library(tidySpatialExperiment)
+example(read10xVisium)
 ```
 
 ## SpatialExperiment-tibble abstraction
@@ -277,7 +284,7 @@ spe |>
   ggplot2::coord_flip()
 ```
 
-![](man/figures/unnamed-chunk-10-1.png)<!-- -->
+![](man/figures/unnamed-chunk-11-1.png)<!-- -->
 
 ## Plot with plotly
 
@@ -377,16 +384,15 @@ Cell aggregation can be achieved using the `aggregate_cells` function.
 ``` r
 spe |>
   aggregate_cells(in_tissue, assays = "counts")
-#  # A SummarizedExperiment-tibble abstraction: 100 × 6
-#  # [90mFeatures=50 | Samples=2 | Assays=counts[0m
-#    .feature           .sample counts in_tissue .aggregated_cells feature         
-#    <chr>              <chr>    <dbl> <lgl>                 <int> <chr>           
-#  1 ENSMUSG00000002459 FALSE        2 FALSE                    55 ENSMUSG00000002…
-#  2 ENSMUSG00000005886 FALSE        2 FALSE                    55 ENSMUSG00000005…
-#  3 ENSMUSG00000016918 FALSE        5 FALSE                    55 ENSMUSG00000016…
-#  4 ENSMUSG00000025900 FALSE        0 FALSE                    55 ENSMUSG00000025…
-#  5 ENSMUSG00000025902 FALSE        0 FALSE                    55 ENSMUSG00000025…
-#  # ℹ 45 more rows
+#  class: SummarizedExperiment 
+#  dim: 50 2 
+#  metadata(0):
+#  assays(1): counts
+#  rownames(50): ENSMUSG00000002459 ENSMUSG00000005886 ...
+#    ENSMUSG00000104217 ENSMUSG00000104328
+#  rowData names(1): feature
+#  colnames(2): FALSE TRUE
+#  colData names(2): in_tissue .aggregated_cells
 ```
 
 ## Elliptical and rectangular region selection
@@ -402,7 +408,7 @@ spe |>
   geom_point()
 ```
 
-![](man/figures/unnamed-chunk-17-1.png)<!-- -->
+![](man/figures/unnamed-chunk-18-1.png)<!-- -->
 
 # Important considerations
 
