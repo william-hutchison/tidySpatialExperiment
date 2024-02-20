@@ -45,3 +45,7 @@
 # tidySpatialExperiment 0.99.19
 
 * Improve code style.
+
+# tidySpatialExperiment 0.99.20
+
+* tidySpatialExperiment is now in Bioconductor. Documentation has been updated accordingly. 

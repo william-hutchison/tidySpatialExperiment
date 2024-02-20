@@ -62,13 +62,6 @@ The *tidyomics* ecosystem includes packages for:
     -   [tidytof](https://github.com/keyes-timothy/tidytof), for tidy
         manipulation of high-dimensional cytometry data.
 
-A few more tidy tools for data manipulation and plotting:
-
--   [tidyHeatmap](https://github.com/stemangiola/tidyHeatmap), for
-    producing heatmaps with tidy principles. analysis and manipulation
--   [tidygate](https://github.com/stemangiola/tidygate), for interactive
-    plotting and gating.
-
 # Introduction
 
 tidySpatialExperiment provides a bridge between the
@@ -83,7 +76,7 @@ of functions from [dplyr](https://github.com/tidyverse/dplyr),
 [plotly](https://github.com/plotly/plotly.R). But, underneath, your data
 remains a SpatialExperiment object.
 
-tidySpatialExperiment also provides three additional utility functions.
+tidySpatialExperiment also provides five additional utility functions.
 
 ## Functions and utilities
 
@@ -105,17 +98,27 @@ tidySpatialExperiment also provides three additional utility functions.
 
 ## Installation
 
+You can install the stable version of tidySpatialExperiment from Bioconductor with:
+```{r, eval=FALSE}
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("tidySpatialExperiment")
+```
+
 You can install the development version of tidySpatialExperiment from
 GitHub with:
 
 ```{r, eval=FALSE}
-install.packages("devtools")
+if (!requireNamespace("devtools", quietly=TRUE))
+    install.packages("devtools")
+
 devtools::install_github("william-hutchison/tidySpatialExperiment")
 ```
 
 ## Load data
 
-Here, we load an example SpatialExperiment object.
+Here, we attach tidySpatialExperiment and an example SpatialExperiment object.
 
 ```{r, message=FALSE, results=FALSE}
 # Load example SpatialExperiment object
