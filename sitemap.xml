@@ -61,7 +61,10 @@
     <loc>/reference/formatting.html</loc>
   </url>
   <url>
-    <loc>/reference/gate_spatial.html</loc>
+    <loc>/reference/gate_interactive.html</loc>
+  </url>
+  <url>
+    <loc>/reference/gate_programmatic.html</loc>
   </url>
   <url>
     <loc>/reference/ggplot.html</loc>
