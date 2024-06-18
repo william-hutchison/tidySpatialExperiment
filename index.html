@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">tidySpatialExperiment</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.3</span>
       </span>
     </div>
 
@@ -415,28 +415,13 @@
 </div>
 </div>
 <div class="section level1">
-<h1 id="integration-with-the-tidyomics-ecosystem">Integration with the <em>tidyomics</em> ecosystem<a class="anchor" aria-label="anchor" href="#integration-with-the-tidyomics-ecosystem"></a>
-</h1>
-<div class="section level2">
-<h2 id="interactively-select-cells-with-tidygate">Interactively select cells with tidygate<a class="anchor" aria-label="anchor" href="#interactively-select-cells-with-tidygate"></a>
-</h2>
-<p>Different packages from the <em>tidyomics</em> ecosystem are easy to use together. Here, tidygate is used to interactively gate cells based on their array location.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">spe_regions</span> <span class="op">&lt;-</span></span>
-<span>    <span class="va">spe</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu"><a href="reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sample_id</span> <span class="op">==</span> <span class="st">"section1"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>    <span class="fu"><a href="reference/mutate.html">mutate</a></span><span class="op">(</span>region <span class="op">=</span> <span class="fu">tidygate</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tidygate/man/gate_chr-methods.html" class="external-link">gate_chr</a></span><span class="op">(</span><span class="va">array_col</span>, <span class="va">array_row</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/tidygate_demo.gif"></p>
-</div>
-</div>
-<div class="section level1">
 <h1 id="utilities">Utilities<a class="anchor" aria-label="anchor" href="#utilities"></a>
 </h1>
 <div class="section level2">
 <h2 id="append-feature-data-to-cell-data">Append feature data to cell data<a class="anchor" aria-label="anchor" href="#append-feature-data-to-cell-data"></a>
 </h2>
 <p>The <em>tidyomics</em> ecosystem places an emphasis on interacting with cell data. To interact with feature data, the <code><a href="reference/join_features.html">join_features()</a></code> function can be used to append assay-feature values to cell data.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Join feature data in wide format, preserving the SpatialExperiment object</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/join_features.html">join_features</a></span><span class="op">(</span>features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ENSMUSG00000025915"</span>, <span class="st">"ENSMUSG00000042501"</span><span class="op">)</span>, shape <span class="op">=</span> <span class="st">"wide"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
@@ -453,7 +438,7 @@
 <span><span class="co">#  # ℹ 45 more rows</span></span>
 <span><span class="co">#  # ℹ 3 more variables: ENSMUSG00000042501 &lt;dbl&gt;, pxl_col_in_fullres &lt;int&gt;,</span></span>
 <span><span class="co">#  #   pxl_row_in_fullres &lt;int&gt;</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Join feature data in long format, discarding the SpatialExperiment object</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span></span>
@@ -476,7 +461,7 @@
 </h2>
 <p>Sometimes, it is necessary to aggregate the gene-transcript abundance from a group of cells into a single value. For example, when comparing groups of cells across different samples with fixed-effect models.</p>
 <p>The <code><a href="reference/aggregate_cells.html">aggregate_cells()</a></code> function can be used to aggregate cells by a specified variable and assay, returning a <code>SummarizedExperiment</code> object.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/aggregate_cells.html">aggregate_cells</a></span><span class="op">(</span><span class="va">in_tissue</span>, assays <span class="op">=</span> <span class="st">"counts"</span><span class="op">)</span></span>
 <span><span class="co">#  class: SummarizedExperiment </span></span>
@@ -493,92 +478,92 @@
 <h2 id="elliptical-and-rectangular-region-selection">Elliptical and rectangular region selection<a class="anchor" aria-label="anchor" href="#elliptical-and-rectangular-region-selection"></a>
 </h2>
 <p>The <code><a href="reference/ellipse.html">ellipse()</a></code> and <code><a href="reference/rectangle.html">rectangle()</a></code> functions can be used to select cells by their position in space.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sample_id</span> <span class="op">==</span> <span class="st">"section1"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/mutate.html">mutate</a></span><span class="op">(</span>in_ellipse <span class="op">=</span> <span class="fu"><a href="reference/ellipse.html">ellipse</a></span><span class="op">(</span><span class="va">array_col</span>, <span class="va">array_row</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">40</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">20</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">array_col</span>, y <span class="op">=</span> <span class="va">array_row</span>, colour <span class="op">=</span> <span class="va">in_ellipse</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/unnamed-chunk-17-1.png"><!-- --></p>
+<p><img src="reference/figures/unnamed-chunk-15-1.png"><!-- --></p>
 </div>
 <div class="section level2">
 <h2 id="interactive-gating">Interactive gating<a class="anchor" aria-label="anchor" href="#interactive-gating"></a>
 </h2>
 <p>For interactive selection of cells in space, tidySpatialExperiment experiment provides <code><a href="reference/gate_interactive.html">gate_interactive()</a></code>. This function uses <a href="https://github.com/stemangiola/tidygate" class="external-link">tidygate</a>, shiny and plotly to launch an interactive plot overlaying cells in position with image data. Additional parameters can be used to specify point colour and shape by column value, and define the size and alpha of all points. Note that this feature is currently only available in the development version of tidySpatialExperiment.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe_gated</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/gate_interactive.html">gate_interactive</a></span><span class="op">(</span>colour_column <span class="op">=</span> <span class="st">"in_tissue"</span>, alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/gate_interactive_demo.gif"></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="co">#  tidygate says: this feature is in early development and may undergo changes or contain bugs.</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co">#  Rows: 5 Columns: 4</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="co">#  ── Column specification ────────────────────────────────────────────────────────</span></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="co">#  Delimiter: ","</span></span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="co">#  dbl (4): x, y, key, .gate</span></span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="co">#  </span></span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a><span class="co">#  ℹ Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a><span class="co">#  ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="co">#  Rows: 30 Columns: 3</span></span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a><span class="co">#  ── Column specification ────────────────────────────────────────────────────────</span></span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a><span class="co">#  Delimiter: ","</span></span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a><span class="co">#  dbl (3): x, y, .gate</span></span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a><span class="co">#  </span></span>
+<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a><span class="co">#  ℹ Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a><span class="co">#  ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span>
+<span id="cb19-15"><a href="#cb19-15" tabindex="-1"></a><span class="co">#  tidygate says: this feature is in early development and may undergo changes or contain bugs.</span></span></code></pre></div>
 <p>A record of which points appear in which gates is appended to the SpatialExperiment object in the <code>.gate_interactive</code> column. To select cells which appear within any gates, the <code><a href="https://rdrr.io/r/base/lengths.html" class="external-link">lengths()</a></code> function can be used. To select cells which appear within a specific gate, <code>map_lgl()</code> can be used with <code><a href="https://rdrr.io/r/base/any.html" class="external-link">any()</a></code> to cehck each value in <code>.gate_interactive</code> for each cell.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Select cells within any gate</span></span>
 <span><span class="va">spe_gated</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lengths.html" class="external-link">lengths</a></span><span class="op">(</span><span class="va">.gate_interactive</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span></span>
-<span><span class="co">#  # A SpatialExperiment-tibble abstraction: 0 × 8</span></span>
-<span><span class="co">#  # Features = 50 | Cells = 0 | Assays = counts</span></span>
-<span><span class="co">#  # ℹ 8 variables: .cell &lt;chr&gt;, in_tissue &lt;lgl&gt;, array_row &lt;int&gt;,</span></span>
-<span><span class="co">#  #   array_col &lt;int&gt;, sample_id &lt;chr&gt;, .gate_interactive &lt;list&gt;,</span></span>
-<span><span class="co">#  #   pxl_col_in_fullres &lt;int&gt;, pxl_row_in_fullres &lt;int&gt;</span></span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<span><span class="co">#  # A SpatialExperiment-tibble abstraction: 4 × 8</span></span>
+<span><span class="co">#  # Features = 50 | Cells = 4 | Assays = counts</span></span>
+<span><span class="co">#    .cell              in_tissue array_row array_col sample_id .gate_interactive</span></span>
+<span><span class="co">#    &lt;chr&gt;              &lt;lgl&gt;         &lt;int&gt;     &lt;int&gt; &lt;chr&gt;     &lt;list&gt;           </span></span>
+<span><span class="co">#  1 AAACGAGACGGTTGAT-1 TRUE             35        79 section1  &lt;dbl [1]&gt;        </span></span>
+<span><span class="co">#  2 AAACTGCTGGCTCCAA-1 TRUE             45        67 section1  &lt;dbl [1]&gt;        </span></span>
+<span><span class="co">#  3 AAAGGGATGTAGCAAG-1 TRUE             24        62 section1  &lt;dbl [2]&gt;        </span></span>
+<span><span class="co">#  4 AAAGGGCAGCTTGAAT-1 TRUE             24        26 section1  &lt;dbl [1]&gt;        </span></span>
+<span><span class="co">#  # ℹ 2 more variables: pxl_col_in_fullres &lt;int&gt;, pxl_row_in_fullres &lt;int&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Select cells within gate 2</span></span>
 <span><span class="va">spe_gated</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/filter.html">filter</a></span><span class="op">(</span><span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_lgl</a></span><span class="op">(</span><span class="va">.gate_interactive</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/any.html" class="external-link">any</a></span><span class="op">(</span><span class="fl">2</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">.x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#  # A SpatialExperiment-tibble abstraction: 0 × 8</span></span>
-<span><span class="co">#  # Features = 50 | Cells = 0 | Assays = counts</span></span>
-<span><span class="co">#  # ℹ 8 variables: .cell &lt;chr&gt;, in_tissue &lt;lgl&gt;, array_row &lt;int&gt;,</span></span>
-<span><span class="co">#  #   array_col &lt;int&gt;, sample_id &lt;chr&gt;, .gate_interactive &lt;list&gt;,</span></span>
-<span><span class="co">#  #   pxl_col_in_fullres &lt;int&gt;, pxl_row_in_fullres &lt;int&gt;</span></span></code></pre></div>
+<span><span class="co">#  # A SpatialExperiment-tibble abstraction: 3 × 8</span></span>
+<span><span class="co">#  # Features = 50 | Cells = 3 | Assays = counts</span></span>
+<span><span class="co">#    .cell              in_tissue array_row array_col sample_id .gate_interactive</span></span>
+<span><span class="co">#    &lt;chr&gt;              &lt;lgl&gt;         &lt;int&gt;     &lt;int&gt; &lt;chr&gt;     &lt;list&gt;           </span></span>
+<span><span class="co">#  1 AAACGAGACGGTTGAT-1 TRUE             35        79 section1  &lt;dbl [1]&gt;        </span></span>
+<span><span class="co">#  2 AAACTGCTGGCTCCAA-1 TRUE             45        67 section1  &lt;dbl [1]&gt;        </span></span>
+<span><span class="co">#  3 AAAGGGATGTAGCAAG-1 TRUE             24        62 section1  &lt;dbl [2]&gt;        </span></span>
+<span><span class="co">#  # ℹ 2 more variables: pxl_col_in_fullres &lt;int&gt;, pxl_row_in_fullres &lt;int&gt;</span></span></code></pre></div>
 <p>Details of the gated points and lasso brush selection are stored within the <code>tidygate_env</code> environment. These variables are overwritten each time interactive gating is run, so save them right away if you would like to access them later.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Information about the gated points </span></span>
 <span><span class="va">tidygate_env</span><span class="op">$</span><span class="va">select_data</span></span>
-<span><span class="co">#    X    x    y key .gate</span></span>
-<span><span class="co">#  1 1 5477 4125  43     1</span></span>
-<span><span class="co">#  2 2 3000 4125  44     1</span></span>
-<span><span class="co">#  3 3 6647 5442  21     2</span></span>
-<span><span class="co">#  4 4 5821 6639  31     2</span></span>
-<span><span class="co">#  5 5 5477 4125  43     2</span></span></code></pre></div>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<span><span class="co">#  # A tibble: 5 × 4</span></span>
+<span><span class="co">#        x     y   key .gate</span></span>
+<span><span class="co">#    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#  1  5477  4125    43     1</span></span>
+<span><span class="co">#  2  3000  4125    44     1</span></span>
+<span><span class="co">#  3  6647  5442    21     2</span></span>
+<span><span class="co">#  4  5821  6639    31     2</span></span>
+<span><span class="co">#  5  5477  4125    43     2</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Information about the lasso brush path</span></span>
 <span><span class="va">tidygate_env</span><span class="op">$</span><span class="va">brush_data</span></span>
-<span><span class="co">#      X        x        y .gate</span></span>
-<span><span class="co">#  1   1 5576.396 3432.722     1</span></span>
-<span><span class="co">#  2   2 4902.921 3042.815     1</span></span>
-<span><span class="co">#  3   3 4123.107 2936.477     1</span></span>
-<span><span class="co">#  4   4 3024.279 3290.937     1</span></span>
-<span><span class="co">#  5   5 2811.603 3609.952     1</span></span>
-<span><span class="co">#  6   6 2882.495 4141.643     1</span></span>
-<span><span class="co">#  7   7 3307.848 4566.996     1</span></span>
-<span><span class="co">#  8   8 4335.783 4566.996     1</span></span>
-<span><span class="co">#  9   9 4548.460 4708.780     1</span></span>
-<span><span class="co">#  10 10 5540.950 5134.133     1</span></span>
-<span><span class="co">#  11 11 6143.533 5134.133     1</span></span>
-<span><span class="co">#  12 12 6320.763 4886.010     1</span></span>
-<span><span class="co">#  13 13 6320.763 4602.442     1</span></span>
-<span><span class="co">#  14 14 6143.533 4177.089     1</span></span>
-<span><span class="co">#  15 15 5930.856 3716.290     2</span></span>
-<span><span class="co">#  16 16 5470.058 3503.614     2</span></span>
-<span><span class="co">#  17 17 5080.151 3680.844     2</span></span>
-<span><span class="co">#  18 18 5080.151 4035.305     2</span></span>
-<span><span class="co">#  19 19 5611.842 4779.672     2</span></span>
-<span><span class="co">#  20 20 6249.871 5346.809     2</span></span>
-<span><span class="co">#  21 21 6178.979 5630.378     2</span></span>
-<span><span class="co">#  22 22 5682.734 6091.176     2</span></span>
-<span><span class="co">#  23 23 5505.504 6374.745     2</span></span>
-<span><span class="co">#  24 24 5611.842 6870.990     2</span></span>
-<span><span class="co">#  25 25 5895.410 7119.112     2</span></span>
-<span><span class="co">#  26 26 6320.763 7083.666     2</span></span>
-<span><span class="co">#  27 27 6746.116 6587.421     2</span></span>
-<span><span class="co">#  28 28 7029.684 5772.162     2</span></span>
-<span><span class="co">#  29 29 7029.684 5417.701     2</span></span>
-<span><span class="co">#  30 30 6817.008 4744.226     2</span></span>
-<span><span class="co">#  31 31 6817.008 4708.780     2</span></span></code></pre></div>
+<span><span class="co">#  # A tibble: 30 × 3</span></span>
+<span><span class="co">#        x     y .gate</span></span>
+<span><span class="co">#    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#  1 4310. 3125.     1</span></span>
+<span><span class="co">#  2 3734. 3161.     1</span></span>
+<span><span class="co">#  3 2942. 3521.     1</span></span>
+<span><span class="co">#  4 2834. 3665.     1</span></span>
+<span><span class="co">#  5 2834. 4385.     1</span></span>
+<span><span class="co">#  # ℹ 25 more rows</span></span></code></pre></div>
 <p><code>gate_programmatic</code> gates points programmatically by their spatial coordinates, and a predefined lasso brush path. This function can be used to make interactive gates reproducible. Here <code>gate_programmatic</code> reproduces the previous defined interactive gates exactly and appends results to the <code>.gate_programmatic</code> column.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe_gated</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/gate_programmatic.html">gate_programmatic</a></span><span class="op">(</span><span class="va">tidygate_env</span><span class="op">$</span><span class="va">brush_data</span><span class="op">)</span></span>
 <span><span class="co">#  tidygate says: this feature is in early development and may undergo changes or contain bugs.</span></span>
@@ -600,7 +585,7 @@
 <h1 id="special-column-behaviour">Special column behaviour<a class="anchor" aria-label="anchor" href="#special-column-behaviour"></a>
 </h1>
 <p>Removing the <code>.cell</code> column will return a tibble. This is consistent with the behaviour in other <em>tidyomics</em> packages.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">.cell</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -616,7 +601,7 @@
 <span><span class="co">#  5 TRUE             14        94 section1 </span></span>
 <span><span class="co">#  # ℹ 1 more row</span></span></code></pre></div>
 <p>The <code>sample_id</code> column cannot be removed with <em>tidyverse</em> functions, and can only be modified if the changes are accepted by SpatialExperiment’s <code>colData()</code> function.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># sample_id is not removed, despite the user's request</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">sample_id</span><span class="op">)</span></span>
@@ -631,7 +616,7 @@
 <span><span class="co">#  5 AAACAGAGCGACTCCT-1 TRUE             14        94 section1                7679</span></span>
 <span><span class="co">#  # ℹ 45 more rows</span></span>
 <span><span class="co">#  # ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></code></pre></div>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># This change maintains separation of sample_ids and is permitted</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span> </span>
@@ -648,7 +633,7 @@
 <span><span class="co">#  5 AAACAGAGCGACTCCT-1 TRUE             14        94 section1_…               7679</span></span>
 <span><span class="co">#  # ℹ 45 more rows</span></span>
 <span><span class="co">#  # ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></code></pre></div>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># This change does not maintain separation of sample_ids and produces an error</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span></span>
@@ -665,14 +650,14 @@
 <span><span class="co">#  # ℹ 45 more rows</span></span>
 <span><span class="co">#  # ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></code></pre></div>
 <p>The <code>pxl_col_in_fullres</code> and <code>px_row_in_fullres</code> columns cannot be removed or modified with <em>tidyverse</em> functions. This is consistent with the behaviour of dimension reduction data in other <em>tidyomics</em> packages.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Attempting to remove pxl_col_in_fullres produces an error</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">pxl_col_in_fullres</span><span class="op">)</span></span>
 <span><span class="co">#  Error in `select_helper()`:</span></span>
 <span><span class="co">#  ! Can't select columns that don't exist.</span></span>
 <span><span class="co">#  ✖ Column `pxl_col_in_fullres` doesn't exist.</span></span></code></pre></div>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Attempting to modify pxl_col_in_fullres produces an error</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span> </span>
