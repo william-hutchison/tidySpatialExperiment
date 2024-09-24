@@ -284,7 +284,7 @@ spe |>
     coord_flip()
 ```
 
-![](man/figures/unnamed-chunk-11-1.png)<!-- -->
+![](man/figures/unnamed-chunk-14-1.png)<!-- -->
 
 ## Plot with plotly
 
@@ -302,7 +302,7 @@ spe |>
     )
 ```
 
-![](man/figures/plotly_demo.png)
+![](../man/figures/plotly_demo.png)
 
 # Utilities
 
@@ -383,7 +383,7 @@ spe |>
     geom_point()
 ```
 
-![](man/figures/unnamed-chunk-15-1.png)<!-- -->
+![](man/figures/unnamed-chunk-18-1.png)<!-- -->
 
 ## Interactive gating
 
@@ -401,7 +401,7 @@ spe_gated <-
   gate(colour = "in_tissue", alpha = 0.8)
 ```
 
-![](man/figures/gate_interactive_demo.gif)
+![](../man/figures/gate_interactive_demo.gif)
 
 A record of which points appear in which gates is appended to the
 SpatialExperiment object in the `.gated` column. To select cells which
@@ -583,3 +583,81 @@ spe |>
 If you use tidySpatialExperiment in published research, please cite [The
 tidyomics ecosystem: enhancing omic data
 analyses](https://doi.org/10.1038/s41592-024-02299-2).
+
+``` r
+sessionInfo()
+#  R version 4.4.1 (2024-06-14)
+#  Platform: x86_64-apple-darwin20
+#  Running under: macOS Sonoma 14.6.1
+#  
+#  Matrix products: default
+#  BLAS:   /Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libRblas.0.dylib 
+#  LAPACK: /Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0
+#  
+#  locale:
+#  [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+#  
+#  time zone: Australia/Melbourne
+#  tzcode source: internal
+#  
+#  attached base packages:
+#  [1] stats4    stats     graphics  grDevices utils     datasets  methods  
+#  [8] base     
+#  
+#  other attached packages:
+#   [1] tidySpatialExperiment_1.1.4     ggplot2_3.5.1                  
+#   [3] ttservice_0.4.1                 tidyr_1.3.1                    
+#   [5] dplyr_1.1.4                     tidySingleCellExperiment_1.14.0
+#   [7] SpatialExperiment_1.14.0        SingleCellExperiment_1.26.0    
+#   [9] SummarizedExperiment_1.34.0     Biobase_2.64.0                 
+#  [11] GenomicRanges_1.56.1            GenomeInfoDb_1.40.1            
+#  [13] IRanges_2.38.1                  S4Vectors_0.42.1               
+#  [15] BiocGenerics_0.50.0             MatrixGenerics_1.16.0          
+#  [17] matrixStats_1.3.0              
+#  
+#  loaded via a namespace (and not attached):
+#   [1] gridExtra_2.3             rlang_1.1.4              
+#   [3] magrittr_2.0.3            compiler_4.4.1           
+#   [5] DelayedMatrixStats_1.26.0 vctrs_0.6.5              
+#   [7] stringr_1.5.1             pkgconfig_2.0.3          
+#   [9] crayon_1.5.3              fastmap_1.2.0            
+#  [11] magick_2.8.4              XVector_0.44.0           
+#  [13] ellipsis_0.3.2            labeling_0.4.3           
+#  [15] scuttle_1.14.0            utf8_1.2.4               
+#  [17] promises_1.3.0            rmarkdown_2.28           
+#  [19] UCSC.utils_1.0.0          purrr_1.0.2              
+#  [21] xfun_0.47                 zlibbioc_1.50.0          
+#  [23] beachmat_2.20.0           jsonlite_1.8.8           
+#  [25] highr_0.11                later_1.3.2              
+#  [27] rhdf5filters_1.16.0       DelayedArray_0.30.1      
+#  [29] Rhdf5lib_1.26.0           BiocParallel_1.38.0      
+#  [31] parallel_4.4.1            R6_2.5.1                 
+#  [33] stringi_1.8.4             RColorBrewer_1.1-3       
+#  [35] limma_3.60.4              Rcpp_1.0.13              
+#  [37] knitr_1.48                R.utils_2.12.3           
+#  [39] httpuv_1.6.15             Matrix_1.7-0             
+#  [41] tidyselect_1.2.1          abind_1.4-5              
+#  [43] yaml_2.3.10               viridis_0.6.5            
+#  [45] codetools_0.2-20          lattice_0.22-6           
+#  [47] tibble_3.2.1              shiny_1.9.1              
+#  [49] withr_3.0.1               evaluate_0.24.0          
+#  [51] pillar_1.9.0              plotly_4.10.4            
+#  [53] generics_0.1.3            sparseMatrixStats_1.16.0 
+#  [55] munsell_0.5.1             scales_1.3.0             
+#  [57] xtable_1.8-4              glue_1.7.0               
+#  [59] lazyeval_0.2.2            tools_4.4.1              
+#  [61] data.table_1.15.4         locfit_1.5-9.10          
+#  [63] rhdf5_2.48.0              grid_4.4.1               
+#  [65] DropletUtils_1.24.0       edgeR_4.2.1              
+#  [67] colorspace_2.1-1          GenomeInfoDbData_1.2.12  
+#  [69] HDF5Array_1.32.1          cli_3.6.3                
+#  [71] tidygate_1.0.13           fansi_1.0.6              
+#  [73] S4Arrays_1.4.1            viridisLite_0.4.2        
+#  [75] gtable_0.3.5              R.methodsS3_1.8.2        
+#  [77] digest_0.6.37             SparseArray_1.4.8        
+#  [79] dqrng_0.4.1               farver_2.1.2             
+#  [81] rjson_0.2.22              htmlwidgets_1.6.4        
+#  [83] htmltools_0.5.8.1         R.oo_1.26.0              
+#  [85] lifecycle_1.0.4           httr_1.4.7               
+#  [87] statmod_1.5.0             mime_0.12
+```
