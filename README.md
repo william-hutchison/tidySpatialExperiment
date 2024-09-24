@@ -24,7 +24,7 @@ functions from [dplyr](https://github.com/tidyverse/dplyr),
 [plotly](https://github.com/plotly/plotly.R). But, underneath, your data
 remains a `SpatialExperiment` object.
 
-tidySpatialExperiment also provides five additional utility functions.
+tidySpatialExperiment also provides six additional utility functions.
 
 ## Resources
 
@@ -79,15 +79,14 @@ The *tidyomics* ecosystem also includes packages for:
 | `ggplot2`           | `ggplot`                                                                                                                                                                                                           |
 | `plotly`            | `plot_ly`                                                                                                                                                                                                          |
 
-| Utility             | Description                                                                      |
-|---------------------|----------------------------------------------------------------------------------|
-| `as_tibble`         | Convert cell data to a `tbl_df`                                                  |
-| `join_features`     | Append feature data to cell data                                                 |
-| `aggregate_cells`   | Aggregate cell-feature abundance into a pseudobulk `SummarizedExperiment` object |
-| `rectangle`         | Select cells in a rectangular region of space                                    |
-| `ellipse`           | Select cells in an elliptical region of space                                    |
-| `gate_spatial`      |                                                                                  |
-| `gate_programmatic` |                                                                                  |
+| Utility           | Description                                                                      |
+|-------------------|----------------------------------------------------------------------------------|
+| `as_tibble`       | Convert cell data to a `tbl_df`                                                  |
+| `join_features`   | Append feature data to cell data                                                 |
+| `aggregate_cells` | Aggregate cell-feature abundance into a pseudobulk `SummarizedExperiment` object |
+| `rectangle`       | Select cells in a rectangular region of space                                    |
+| `ellipse`         | Select cells in an elliptical region of space                                    |
+| `gate`            | Interactively or programmatically select cells in an arbitrary region of space   |
 
 ## Installation
 
@@ -583,6 +582,8 @@ spe |>
 If you use tidySpatialExperiment in published research, please cite [The
 tidyomics ecosystem: enhancing omic data
 analyses](https://doi.org/10.1038/s41592-024-02299-2).
+
+# Session information
 
 ``` r
 sessionInfo()
