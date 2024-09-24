@@ -353,8 +353,8 @@ gate_interactive <-
 
     # Prepare spatial information
     image <- 
-      SpatialExperiment::imgData(spe)[1, ]@listData$data[[1]] |>
-      SpatialExperiment::imgSource() |>
+      spe |> 
+      SpatialExperiment::imgRaster() |> 
       magick::image_read()
     
     image_x_size <- 
