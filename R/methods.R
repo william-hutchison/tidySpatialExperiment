@@ -352,24 +352,25 @@ gate_interactive <-
     }
 
     # Prepare spatial information
-    image <- 
-      spe |> 
-      SpatialExperiment::imgRaster() |> 
-      magick::image_read()
+    image_info <- 
+      SpatialExperiment::imgData(spe)[image_index, ]@listData$data[[1]] |>
+      SpatialExperiment::imgRaster() |>
+      magick::image_read() |>
+      magick::image_info()
     
     image_x_size <- 
-      magick::image_info(image)$width /
+      image_info$width /
       SpatialExperiment::imgData(spe)[image_index, ]@listData$scaleFactor
     
     image_y_size <- 
-      magick::image_info(image)$height /
+      image_info$height /
       SpatialExperiment::imgData(spe)[image_index, ]@listData$scaleFactor
     
     image_uri <- 
       SpatialExperiment::imgData(spe)[image_index, ]@listData$data[[1]] |>
       SpatialExperiment::imgRaster() |>
       plotly::raster2uri()
-    
+
     # Create plot 
     plot <-
       data |>
