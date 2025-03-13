@@ -12,6 +12,7 @@ gate(
   alpha = 1,
   size = 2,
   hide_points = FALSE,
+  rasterise_points = FALSE,
   programmatic_gates = NULL
 )
 }
@@ -31,8 +32,12 @@ point shape, coercible to a factor of 6 or less levels.}
 
 \item{size}{A single ggplot2 size numeric ranging from 0 to 20.}
 
-\item{hide_points}{A logical. If TRUE, points are hidden during interactive gating. This can
-greatly improve performance with large SpatialExperiment objects.}
+\item{hide_points}{A logical. If TRUE, points are hidden during interactive gating, improving
+performance for large SpatialExperiment objects.}
+
+\item{rasterise_points}{A logical. If TRUE, points are rasterised to an image before interactive
+gating is launched, improving performance for large datasets. Some interactive features are
+unavailable with rasterisation enabled.}
 
 \item{programmatic_gates}{A \code{data.frame} of the gate brush data, as saved in
 \code{tidygate_env$gates}. The column \code{x} records X coordinates, the column \code{y} records Y coordinates

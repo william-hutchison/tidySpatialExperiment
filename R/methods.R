@@ -270,6 +270,7 @@ ellipse <- function(spatial_coord1, spatial_coord2, center, axes_lengths) {
 #' @importFrom dplyr mutate
 #' @importFrom magick image_read
 #' @importFrom magick image_info
+#' @importFrom xfun base64_uri
 #' @importFrom plotly raster2uri
 #' @importFrom plotly ggplotly
 #' @importFrom plotly layout
@@ -294,8 +295,11 @@ ellipse <- function(spatial_coord1, spatial_coord2, center, axes_lengths) {
 #' point shape, coercible to a factor of 6 or less levels.
 #' @param alpha A single ggplot2 alpha numeric ranging from 0 to 1.
 #' @param size A single ggplot2 size numeric ranging from 0 to 20.
-#' @param hide_points A logical. If TRUE, points are hidden during interactive gating. This can 
-#' greatly improve performance with large SpatialExperiment objects. 
+#' @param hide_points A logical. If TRUE, points are hidden during interactive gating, improving 
+#' performance for large SpatialExperiment objects. 
+#' @param rasterise_points A logical. If TRUE, points are rasterised to an image before interactive 
+#' gating is launched, improving performance for large datasets. Some interactive features are 
+#' unavailable with rasterisation enabled.
 #' @return The input SpatialExperiment object with a new column `.gated`, recording the 
 #' gates each X and Y coordinate pair is within. If gates are drawn interactively, they are 
 #' temporarily saved to `tidygate_env$gates`
@@ -309,7 +313,7 @@ ellipse <- function(spatial_coord1, spatial_coord2, center, axes_lengths) {
 #' }
 gate_interactive <-
   
-  function(spe, image_index, colour, shape, alpha, size, hide_points) {
+  function(spe, image_index, colour, shape, alpha, size, hide_points, rasterise_points) {
     
     available_columns <-
       spe |>
@@ -371,17 +375,17 @@ gate_interactive <-
       SpatialExperiment::imgRaster() |>
       plotly::raster2uri()
 
-    # Create plot 
+    # Create plot
     plot <-
       data |>
       ggplot2::ggplot(ggplot2::aes(x = x, y = y, key = .key)) +
       ggplot2::coord_fixed(
-        xlim =  c(0, image_x_size), 
-        ylim = rev(c(0, image_y_size)), 
+        xlim =  c(0, image_x_size),
+        ylim = rev(c(0, image_y_size)),
         expand = FALSE,
         ratio = 1
       )
-    
+
     # Add points to plot if not hidden
     if (hide_points == FALSE) {
       plot <-
@@ -440,24 +444,93 @@ gate_interactive <-
         ggplot2::guides(size = "none")
     }
 
-    # Convert to plotly and add background image
-    plot <-
-      plot |>
-      plotly::ggplotly(tooltip = NULL) |>
-      plotly::layout(images = list(
-        list(
-          source = image_uri,
-          xref = "x",
-          yref = "y",
-          x = 0,
-          y = 0,
-          sizex = image_x_size,
-          sizey = image_y_size,
-          sizing = "stretch",
-          opacity = 1,
-          layer = "below"
-        )
-      ))
+  # Create rasterised plot and convert to plotly
+  if (rasterise_points == TRUE) {
+
+    # Create version of plot with no borders, axis, margins or legends
+    plot_panel <-
+      plot +
+      ggplot2::theme_void() +
+      ggplot2::theme(
+        plot.margin = ggplot2::margin(0, 0, 0, 0), 
+        legend.position = "none"
+      )
+
+      # Save plot as image
+      temp_file <-
+        tempfile(fileext = ".png")
+
+      temp_file |>
+        ggplot2::ggsave(plot = plot_panel, width = 5, height = 5, dpi = 300)
+
+      # Create plot with only borders, axis, margins and legends
+      plot_border <-
+        data |>
+        ggplot2::ggplot(ggplot2::aes(x = x, y = y, key = .key)) +
+            ggplot2::coord_fixed(
+            xlim =  c(0, image_x_size), 
+            ylim = rev(c(0, image_y_size)), 
+            expand = FALSE,
+            ratio = 1
+          )  +
+        ggplot2::geom_point(alpha = 0) +
+        ggplot2::theme_bw()
+
+      plot <-
+        plot_border |>
+        plotly::ggplotly(tooltip = NULL) |>
+        plotly::layout(images = list(
+          list(
+            source = xfun::base64_uri(temp_file),
+            xref = "x",
+            yref = "y",
+            x = 0,
+            y = 0, 
+            sizex = image_x_size, 
+            sizey = image_y_size,
+            sizing = "stretch",
+            layer = "above"
+          ),
+          list(
+            source = image_uri,
+            xref = "x",
+            yref = "y",
+            x = 0,
+            y = 0,
+            sizex = image_x_size,
+            sizey = image_y_size,
+            sizing = "stretch",
+            layer = "below"
+          )
+          ),
+        dragmode = "lasso"
+        ) |>
+        # Prevent any actions which could disalign points and plot
+        plotly::config(modeBarButtonsToRemove = c("zoom2d", "zoomIn2d", "zoomOut2d", "pan2d", "autoScale2d", "resetScale2d", "hoverClosestCartesian", "hoverCompareCartesian", "select2d"))
+    
+    # Convert ggplot directly to plotly
+    } else {
+
+      # Convert to plotly and add background image
+      plot <-
+        plot |>
+        plotly::ggplotly(tooltip = NULL) |>
+        plotly::layout(images = list(
+          list(
+            source = image_uri,
+            xref = "x",
+            yref = "y",
+            x = 0,
+            y = 0,
+            sizex = image_x_size,
+            sizey = image_y_size,
+            sizing = "stretch",
+            layer = "below"
+          )),
+        dragmode = "lasso"
+        ) |>
+        plotly::config(modeBarButtonsToRemove = c("hoverClosestCartesian", "hoverCompareCartesian", "select2d"))
+    }
 
     # Create environment and save input variables
     tidygate_env <<- rlang::env()
@@ -546,8 +619,11 @@ gate_programmatic <-
 #' point shape, coercible to a factor of 6 or less levels.
 #' @param alpha A single ggplot2 alpha numeric ranging from 0 to 1.
 #' @param size A single ggplot2 size numeric ranging from 0 to 20.
-#' @param hide_points A logical. If TRUE, points are hidden during interactive gating. This can 
-#' greatly improve performance with large SpatialExperiment objects. 
+#' @param hide_points A logical. If TRUE, points are hidden during interactive gating, improving 
+#' performance for large SpatialExperiment objects. 
+#' @param rasterise_points A logical. If TRUE, points are rasterised to an image before interactive 
+#' gating is launched, improving performance for large datasets. Some interactive features are 
+#' unavailable with rasterisation enabled.
 #' @param programmatic_gates A `data.frame` of the gate brush data, as saved in 
 #' `tidygate_env$gates`. The column `x` records X coordinates, the column `y` records Y coordinates 
 #' and the column `.gate` records the gate number. When this argument is supplied, gates will be 
@@ -570,13 +646,14 @@ gate_programmatic <-
 #' @export
 gate <-
   function(spe, image_index = 1, colour = NULL, shape = NULL, alpha = 1, size = 2, 
-           hide_points = FALSE, programmatic_gates = NULL) {
+           hide_points = FALSE, rasterise_points = FALSE, programmatic_gates = NULL) {
     
     # Launch interactive gating
     if (is.null(programmatic_gates)) {
       gated_vector <- gate_interactive(spe = spe, image_index = image_index, colour = colour, 
                                        shape = shape, alpha = alpha, size = size, 
-                                       hide_points = hide_points)
+                                       hide_points = hide_points, 
+                                       rasterise_points = rasterise_points)
       
       # Then apply programmatic gating to select points if hidden
       if (hide_points == TRUE) {

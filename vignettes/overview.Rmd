@@ -110,10 +110,10 @@ Or, you can install the development version of tidySpatialExperiment
 from GitHub.
 
 ```{r, eval=FALSE}
-if (!requireNamespace("pak", quietly = TRUE))
-    install.packages("pak")
+if (!requireNamespace("devtools", quietly = TRUE))
+    install.packages("devtools")
 
-pak::pak("william-hutchison/tidySpatialExperiment")
+devtools::install_github("william-hutchison/tidySpatialExperiment")
 ```
 
 ## Load data
