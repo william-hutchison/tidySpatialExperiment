@@ -453,6 +453,7 @@ gate_interactive <-
           y = 0,
           sizex = image_x_size,
           sizey = image_y_size,
+          yanchor = "bottom",
           sizing = "stretch",
           opacity = 1,
           layer = "below"
