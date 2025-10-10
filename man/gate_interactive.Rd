@@ -4,7 +4,16 @@
 \alias{gate_interactive}
 \title{Gate interactive}
 \usage{
-gate_interactive(spe, image_index, colour, shape, alpha, size, hide_points)
+gate_interactive(
+  spe,
+  image_index,
+  colour,
+  shape,
+  alpha,
+  size,
+  hide_points,
+  rasterise_points
+)
 }
 \arguments{
 \item{spe}{A SpatialExperiment object.}
@@ -22,8 +31,12 @@ point shape, coercible to a factor of 6 or less levels.}
 
 \item{size}{A single ggplot2 size numeric ranging from 0 to 20.}
 
-\item{hide_points}{A logical. If TRUE, points are hidden during interactive gating. This can
-greatly improve performance with large SpatialExperiment objects.}
+\item{hide_points}{A logical. If TRUE, points are hidden during interactive gating, improving
+performance for large SpatialExperiment objects.}
+
+\item{rasterise_points}{A logical. If TRUE, points are rasterised to an image before interactive
+gating is launched, improving performance for large datasets. Some interactive features are
+unavailable with rasterisation enabled.}
 }
 \value{
 The input SpatialExperiment object with a new column \code{.gated}, recording the
