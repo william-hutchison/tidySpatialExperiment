@@ -380,7 +380,7 @@ gate_interactive <-
     plot <-
       data |>
       ggplot2::ggplot(ggplot2::aes(x = x, y = y, key = .key)) +
-      ggplot2::scale_y_reverse() +
+      ggplot2::scale_y_reverse() + # Reverse y axis for image coordinate format
       ggplot2::coord_fixed(
         xlim = c(0, image_x_size), 
         ylim = c(0, image_y_size), 
@@ -468,10 +468,11 @@ gate_interactive <-
       # Create plot with only borders, axis, margins and legends
       plot_border <-
         data |>
-        ggplot2::ggplot(ggplot2::aes(x = x, y = y, key = .key)) +
+            ggplot2::ggplot(ggplot2::aes(x = x, y = y, key = .key)) +
+            ggplot2::scale_y_reverse() + # Reverse y axis for image coordinate format
             ggplot2::coord_fixed(
-            xlim =  c(0, image_x_size), 
-            ylim = rev(c(0, image_y_size)), 
+            xlim = c(0, image_x_size), 
+            ylim = c(0, image_y_size), 
             expand = FALSE,
             ratio = 1
           )  +
@@ -490,6 +491,7 @@ gate_interactive <-
             y = 0, 
             sizex = image_x_size, 
             sizey = image_y_size,
+            yanchor = "top",
             sizing = "stretch",
             layer = "above"
           ),
@@ -501,6 +503,7 @@ gate_interactive <-
             y = 0,
             sizex = image_x_size,
             sizey = image_y_size,
+            yanchor = "top",
             sizing = "stretch",
             layer = "below"
           )
@@ -522,8 +525,8 @@ gate_interactive <-
             source = image_uri,
             xref = "x",
             yref = "y",
-            x = 1,
-            y = 1,
+            x = 0,
+            y = 0,
             sizex = image_x_size,
             sizey = image_y_size,
             yanchor = "top",
