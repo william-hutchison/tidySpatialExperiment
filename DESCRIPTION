@@ -29,7 +29,7 @@ Imports:
     tibble,
     dplyr,
     tidyr,
-    ggplot2,
+    ggplot2 (>= 4.0.0),
     plotly,
     rlang,
     purrr,
@@ -58,7 +58,7 @@ VignetteBuilder:
 Biarch: true
 biocViews: Infrastructure, RNASeq, GeneExpression, Sequencing, Spatial, Transcriptomics, SingleCell
 Encoding: UTF-8
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/william-hutchison/tidySpatialExperiment, https://william-hutchison.github.io/tidySpatialExperiment/
 BugReports: https://github.com/william-hutchison/tidySpatialExperiment/issues

@@ -278,6 +278,7 @@ ellipse <- function(spatial_coord1, spatial_coord2, center, axes_lengths) {
 #' @importFrom ggplot2 geom_point
 #' @importFrom ggplot2 coord_cartesian
 #' @importFrom ggplot2 labs
+#' @importFrom ggplot2 scale_y_reverse
 #' @importFrom SpatialExperiment imgData
 #' @importFrom SpatialExperiment imgRaster
 #' @importFrom SpatialExperiment imgSource
@@ -375,9 +376,10 @@ gate_interactive <-
     plot <-
       data |>
       ggplot2::ggplot(ggplot2::aes(x = x, y = y, key = .key)) +
+      ggplot2::scale_y_reverse() +
       ggplot2::coord_fixed(
-        xlim =  c(0, image_x_size), 
-        ylim = rev(c(0, image_y_size)), 
+        xlim = c(0, image_x_size), 
+        ylim = c(0, image_y_size), 
         expand = FALSE,
         ratio = 1
       )
@@ -449,11 +451,11 @@ gate_interactive <-
           source = image_uri,
           xref = "x",
           yref = "y",
-          x = 0,
-          y = 0,
+          x = 1,
+          y = 1,
           sizex = image_x_size,
           sizey = image_y_size,
-          yanchor = "bottom",
+          yanchor = "top",
           sizing = "stretch",
           opacity = 1,
           layer = "below"
