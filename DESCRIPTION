@@ -1,7 +1,7 @@
 Type: Package
 Package: tidySpatialExperiment
 Title: SpatialExperiment with tidy principles 
-Version: 1.1.5
+Version: 1.1.6
 Authors@R: c(
     person("William", "Hutchison", email = "hutchison.w@wehi.edu.au", role = c("aut", "cre"), 
            comment = c(ORCID = "0009-0001-6242-4269")),
@@ -29,7 +29,7 @@ Imports:
     tibble,
     dplyr,
     tidyr,
-    ggplot2,
+    ggplot2 (>= 4.0.0),
     plotly,
     rlang,
     purrr,
@@ -58,7 +58,7 @@ VignetteBuilder:
 Biarch: true
 biocViews: Infrastructure, RNASeq, GeneExpression, Sequencing, Spatial, Transcriptomics, SingleCell
 Encoding: UTF-8
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/william-hutchison/tidySpatialExperiment, https://william-hutchison.github.io/tidySpatialExperiment/
 BugReports: https://github.com/william-hutchison/tidySpatialExperiment/issues
