@@ -6,18 +6,7 @@
 #' example(read10xVisium)
 #' spe |>
 #'     bind_rows(spe)
-#'     
-#' @importFrom rlang flatten_if
-#' @importFrom rlang is_spliced
-#' @importFrom rlang dots_values
-#' @importFrom SingleCellExperiment cbind
-#' @importFrom ttservice bind_rows
-#' @export
-bind_rows.SpatialExperiment <- function(..., .id = NULL, add.cell.ids = NULL) {
-  
-    tts <- flatten_if(dots_values(...), is_spliced)
-    SingleCellExperiment::cbind(tts[[1]], tts[[2]], deparse.level = 0)
-}
+NULL
 
 #' @name bind_cols
 #' @rdname bind_cols
@@ -27,28 +16,7 @@ bind_rows.SpatialExperiment <- function(..., .id = NULL, add.cell.ids = NULL) {
 #' example(read10xVisium)
 #' spe |>
 #'     bind_cols(1:99)
-#' 
-#' @importFrom rlang flatten_if
-#' @importFrom rlang is_spliced
-#' @importFrom rlang dots_values
-#' @importFrom ttservice bind_cols
-#' @importFrom SummarizedExperiment colData
-#' @importFrom SummarizedExperiment colData<-
-#' @export
-bind_cols.SpatialExperiment <- function(..., .id = NULL) {
-  
-    tts <- flatten_if(dots_values(...), is_spliced)
-    colData(tts[[1]]) <- 
-        bind_cols(
-            colData(tts[[1]]) |> 
-                as.data.frame(),
-            tts[[2]], 
-            .id=.id
-        ) |> 
-        DataFrame()
-
-    tts[[1]]
-}
+NULL
 
 #' @name filter
 #' @rdname filter

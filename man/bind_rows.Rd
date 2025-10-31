@@ -2,35 +2,7 @@
 % Please edit documentation in R/dplyr_methods.R
 \name{bind_rows}
 \alias{bind_rows}
-\alias{bind_rows.SpatialExperiment}
 \title{Efficiently bind multiple data frames by row and column}
-\usage{
-\method{bind_rows}{SpatialExperiment}(..., .id = NULL, add.cell.ids = NULL)
-}
-\arguments{
-\item{...}{Data frames to combine.
-
-  Each argument can either be a data frame, a list that could be a data
-  frame, or a list of data frames.
-
-  When row-binding, columns are matched by name, and any missing
-  columns will be filled with NA.
-
-  When column-binding, rows are matched by position, so all data
-  frames must have the same number of rows. To match by value, not
-  position, see mutate-joins.}
-
-\item{.id}{Data frame identifier.
-
-  When `.id` is supplied, a new column of identifiers is
-  created to link each row to its original data frame. The labels
-  are taken from the named arguments to `bind_rows()`. When a
-  list of data frames is supplied, the labels are taken from the
-  names of the list. If no names are found a numeric sequence is
-  used instead.}
-
-\item{add.cell.ids}{from Seurat 3.0 A character vector of length(x = c(x, y)). Appends the corresponding values to the start of each objects' cell names.}
-}
 \value{
 `bind_rows()` and `bind_cols()` return the same type as
   the first input, either a data frame, `tbl_df`, or `grouped_df`.
@@ -58,5 +30,4 @@ appears in any of the inputs.
 example(read10xVisium)
 spe |>
     bind_rows(spe)
-    
 }
