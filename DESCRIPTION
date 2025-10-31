@@ -21,7 +21,6 @@ Imports:
     SummarizedExperiment,
     SingleCellExperiment,
     BiocGenerics,
-    Matrix,
     S4Vectors,
     methods,
     utils,
