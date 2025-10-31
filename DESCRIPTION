@@ -15,9 +15,9 @@ License: GPL (>= 3)
 Depends:
     R (>= 4.3.0),
     SpatialExperiment,
-    tidySingleCellExperiment
+    tidySingleCellExperiment,
+    ttservice
 Imports:
-    ttservice,
     SummarizedExperiment,
     SingleCellExperiment,
     BiocGenerics,
