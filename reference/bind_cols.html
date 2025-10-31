@@ -22,7 +22,7 @@ data frames into one."><meta property="og:image" content="/logo.png"><!-- mathja
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidySpatialExperiment</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.5.1</span>
       </span>
     </div>
 
@@ -142,6 +142,9 @@ appears in any of the inputs.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV&gt; (spe &lt;- read10xVisium(samples, sample_ids, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV+   type = "sparse", data = "raw", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV+   images = "lowres", load = FALSE))</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'read10xVisium' is deprecated.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Use 'VisiumIO::TENxVisium(List)' instead.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> See help("Deprecated")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A SpatialExperiment-tibble abstraction: 99 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># </span><span style="color: #555555;">Features = 50 | Cells = 99 | Assays = counts</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres</span>
@@ -165,6 +168,9 @@ appears in any of the inputs.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV&gt; (spe2 &lt;- read10xVisium(samples2, sample_ids, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV+   type = "sparse", data = "raw", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV+   images = "lowres", load = FALSE))</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'read10xVisium' is deprecated.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Use 'VisiumIO::TENxVisium(List)' instead.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> See help("Deprecated")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A SpatialExperiment-tibble abstraction: 99 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># </span><span style="color: #555555;">Features = 50 | Cells = 99 | Assays = counts</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres</span>
@@ -202,24 +208,7 @@ appears in any of the inputs.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    section2      lowres   ####   0.0510334</span>
 <span class="r-in"><span><span class="va">spe</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>    <span class="fu">bind_cols</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">99</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> New names:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `` -&gt; `...5`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A SpatialExperiment-tibble abstraction: 99 × 8</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># </span><span style="color: #555555;">Features = 50 | Cells = 99 | Assays = counts</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    .cell        in_tissue array_row array_col sample_id  ...5 pxl_col_in_fullres</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> AAACAACGAAT… FALSE             0        16 section1      1               <span style="text-decoration: underline;">2</span>312</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> AAACAAGTATC… TRUE             50       102 section1      2               <span style="text-decoration: underline;">8</span>230</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> AAACAATCTAC… TRUE              3        43 section1      3               <span style="text-decoration: underline;">4</span>170</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> AAACACCAATA… TRUE             59        19 section1      4               <span style="text-decoration: underline;">2</span>519</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> AAACAGAGCGA… TRUE             14        94 section1      5               <span style="text-decoration: underline;">7</span>679</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> AAACAGCTTTC… FALSE            43         9 section1      6               <span style="text-decoration: underline;">1</span>831</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> AAACAGGGTCT… FALSE            47        13 section1      7               <span style="text-decoration: underline;">2</span>106</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> AAACAGTGTTC… FALSE            73        43 section1      8               <span style="text-decoration: underline;">4</span>170</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> AAACATGGTGA… FALSE            62         0 section1      9               <span style="text-decoration: underline;">1</span>212</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> AAACATTTCCC… FALSE            61        97 section1     10               <span style="text-decoration: underline;">7</span>886</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 89 more rows</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in bind_cols(spe, 1:99):</span> `..1` must be a vector, not a &lt;SpatialExperiment&gt; object.</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

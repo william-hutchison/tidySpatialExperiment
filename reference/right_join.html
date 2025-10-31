@@ -43,7 +43,7 @@ A full_join() keeps all observations in x and y.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidySpatialExperiment</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.5.1</span>
       </span>
     </div>
 
@@ -267,6 +267,9 @@ individual methods for extra arguments and differences in behaviour.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV&gt; (spe &lt;- read10xVisium(samples, sample_ids, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV+   type = "sparse", data = "raw", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV+   images = "lowres", load = FALSE))</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'read10xVisium' is deprecated.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Use 'VisiumIO::TENxVisium(List)' instead.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> See help("Deprecated")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A SpatialExperiment-tibble abstraction: 99 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># </span><span style="color: #555555;">Features = 50 | Cells = 99 | Assays = counts</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres</span>
@@ -290,6 +293,9 @@ individual methods for extra arguments and differences in behaviour.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV&gt; (spe2 &lt;- read10xVisium(samples2, sample_ids, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV+   type = "sparse", data = "raw", </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV+   images = "lowres", load = FALSE))</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>'read10xVisium' is deprecated.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Use 'VisiumIO::TENxVisium(List)' instead.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> See help("Deprecated")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A SpatialExperiment-tibble abstraction: 99 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># </span><span style="color: #555555;">Features = 50 | Cells = 99 | Assays = counts</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres</span>
