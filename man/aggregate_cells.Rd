@@ -3,15 +3,6 @@
 \name{aggregate_cells}
 \alias{aggregate_cells}
 \title{Aggregate cells}
-\usage{
-aggregate_cells(
-  .data,
-  .sample = NULL,
-  slot = "data",
-  assays = NULL,
-  aggregation_function = rowSums
-)
-}
 \arguments{
 \item{.data}{A tidySpatialExperiment object}
 
