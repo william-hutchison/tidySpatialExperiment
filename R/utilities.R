@@ -120,6 +120,8 @@ setMethod("cbind", "SpatialExperiment", function(..., deparse.level = 1) {
 #' @importFrom tibble as_tibble
 #' @importFrom purrr when
 #' @importFrom purrr map2
+#' @importFrom purrr reduce
+#' @importFrom dplyr full_join
 #' @importFrom SummarizedExperiment assays
 #'
 #' @param .data A tidySpatialExperiment
@@ -179,7 +181,7 @@ get_abundance_sc_long <- function(.data, features = NULL, all = FALSE, exclude_z
         as.list() |>
         
         # Take active assay
-        map2(assay_names, function(x, y) {
+        purrr::map2(assay_names, function(x, y) {
             x <- 
                 x |>
                     when(
@@ -213,7 +215,7 @@ get_abundance_sc_long <- function(.data, features = NULL, all = FALSE, exclude_z
                     values_drop_na = TRUE
                 )
         }) |>
-        reduce(function(...) full_join(..., by = c(".feature", c_(.data)$name)))
+        purrr::reduce(function(...) dplyr::full_join(..., by = c(".feature", c_(.data)$name)))
 }
 
 #' @importFrom S4Vectors DataFrame
