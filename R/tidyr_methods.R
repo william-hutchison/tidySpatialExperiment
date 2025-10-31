@@ -10,19 +10,6 @@
 #'     unnest(data)
 #'
 #' @importFrom tidyr unnest
-#' @export
-unnest.tidySpatialExperiment_nested <- function(data, cols, ..., keep_empty = FALSE, ptype = NULL, 
-                                                names_sep = NULL, names_repair = "check_unique", 
-                                                .drop, .id, .sep, .preserve) {
-
-  cols <- enquo(cols)
-
-  unnest_single_cell_experiment(data, !!cols, ..., keep_empty = keep_empty, ptype = ptype,
-                                        names_sep = names_sep, names_repair = names_repair)
-}
-
-#' @rdname unnest
-#' @importFrom tidyr unnest
 #' @importFrom rlang quo_name 
 #' @importFrom rlang enquo 
 #' @importFrom purrr reduce
@@ -31,9 +18,11 @@ unnest.tidySpatialExperiment_nested <- function(data, cols, ..., keep_empty = FA
 #' @importFrom purrr pluck
 #' @importFrom methods is
 #' @export
-unnest_single_cell_experiment  <-  function(data, cols, ..., keep_empty = FALSE, ptype = NULL,
-                                            names_sep = NULL, names_repair = "check_unique", .drop, 
-                                            .id, .sep, .preserve) {
+unnest.tidySpatialExperiment_nested <- function(data, cols, ..., keep_empty = FALSE, ptype = NULL, 
+                                                names_sep = NULL, names_repair = "check_unique", 
+                                                .drop, .id, .sep, .preserve) {
+
+    cols <- enquo(cols)
 
     # Need this otherwise crashes map
     .data_ <- data
