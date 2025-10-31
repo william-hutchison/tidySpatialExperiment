@@ -17,6 +17,8 @@
 #' @importFrom purrr imap
 #' @importFrom purrr pluck
 #' @importFrom methods is
+#' @importFrom ttservice bind_rows
+#' 
 #' @export
 unnest.tidySpatialExperiment_nested <- function(data, cols, ..., keep_empty = FALSE, ptype = NULL, 
                                                 names_sep = NULL, names_repair = "check_unique", 
@@ -38,7 +40,7 @@ unnest.tidySpatialExperiment_nested <- function(data, cols, ..., keep_empty = FA
     ) {
         .data_ |>
             pull(!!cols) |>
-            reduce(bind_rows)
+            reduce(ttservice::bind_rows)
       
     # Otherwise perform a normal unnest
     } else {
