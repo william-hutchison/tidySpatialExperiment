@@ -1,7 +1,11 @@
 Type: Package
 Package: tidySpatialExperiment
 Title: SpatialExperiment with tidy principles 
+<<<<<<< HEAD
 Version: 1.5.4
+=======
+Version: 1.7.0
+>>>>>>> d6a75cf17df8c763e5c4c4a937b72e69d559e5cd
 Authors@R: c(
     person("William", "Hutchison", email = "hutchison.w@wehi.edu.au", role = c("aut", "cre"), 
            comment = c(ORCID = "0009-0001-6242-4269")),
