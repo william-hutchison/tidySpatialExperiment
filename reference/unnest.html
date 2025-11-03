@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidySpatialExperiment</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.5.4</span>
       </span>
     </div>
 
@@ -65,20 +65,6 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'tidySpatialExperiment_nested'</span></span>
 <span><span class="fu">unnest</span><span class="op">(</span></span>
-<span>  <span class="va">data</span>,</span>
-<span>  <span class="va">cols</span>,</span>
-<span>  <span class="va">...</span>,</span>
-<span>  keep_empty <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  ptype <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  names_sep <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  names_repair <span class="op">=</span> <span class="st">"check_unique"</span>,</span>
-<span>  <span class="va">.drop</span>,</span>
-<span>  <span class="va">.id</span>,</span>
-<span>  <span class="va">.sep</span>,</span>
-<span>  <span class="va">.preserve</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">unnest_single_cell_experiment</span><span class="op">(</span></span>
 <span>  <span class="va">data</span>,</span>
 <span>  <span class="va">cols</span>,</span>
 <span>  <span class="va">...</span>,</span>
@@ -286,6 +272,7 @@ behaviour using <code><a href="https://tidyr.tidyverse.org/reference/nest_legacy
 <span class="r-in"><span><span class="va">spe</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>    <span class="fu"><a href="nest.html">nest</a></span><span class="op">(</span>data <span class="op">=</span> <span class="op">-</span><span class="va">sample_id</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>    <span class="fu">unnest</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>tidySingleCellExperiment says: you have duplicated cell names; they will be made unique.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A SpatialExperiment-tibble abstraction: 99 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># </span><span style="color: #555555;">Features = 50 | Cells = 99 | Assays = counts</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres</span>

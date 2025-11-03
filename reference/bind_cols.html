@@ -22,7 +22,7 @@ data frames into one."><meta property="og:image" content="/logo.png"><!-- mathja
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidySpatialExperiment</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.5.4</span>
       </span>
     </div>
 
@@ -72,36 +72,7 @@ data frames into one.</p>
 data frames into one.</p>
     </div>
 
-    <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'SpatialExperiment'</span></span>
-<span><span class="fu">bind_cols</span><span class="op">(</span><span class="va">...</span>, .id <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-    </div>
 
-    <div id="arguments">
-    <h2>Arguments</h2>
-
-
-<dl><dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>Data frames to combine.</p>
-<p>Each argument can either be a data frame, a list that could be a data
-  frame, or a list of data frames.</p>
-<p>When row-binding, columns are matched by name, and any missing
-  columns will be filled with NA.</p>
-<p>When column-binding, rows are matched by position, so all data
-  frames must have the same number of rows. To match by value, not
-  position, see mutate-joins.</p></dd>
-
-
-<dt id="arg--id">.id<a class="anchor" aria-label="anchor" href="#arg--id"></a></dt>
-<dd><p>Data frame identifier.</p>
-<p>When `.id` is supplied, a new column of identifiers is
-  created to link each row to its original data frame. The labels
-  are taken from the named arguments to `bind_rows()`. When a
-  list of data frames is supplied, the labels are taken from the
-  names of the list. If no names are found a numeric sequence is
-  used instead.</p></dd>
-
-</dl></div>
     <div id="value">
     <h2>Value</h2>
     <p>`bind_rows()` and `bind_cols()` return the same type as
@@ -119,7 +90,11 @@ appears in any of the inputs.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/example.html" class="external-link">example</a></span><span class="op">(</span><span class="va">read10xVisium</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Note: "dplyr" does not provide a generic function for `bind_cols`. Therefore, the generic </span></span></span>
+<span class="r-in"><span><span class="co"># function `bind_cols` located in "ttservice" should be called explicitly with </span></span></span>
+<span class="r-in"><span><span class="co"># `ttservice::bind_cols` to avoid conflicts.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/example.html" class="external-link">example</a></span><span class="op">(</span><span class="va">read10xVisium</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV&gt; dir &lt;- system.file(</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV+   file.path("extdata", "10xVisium"), </span>
@@ -207,9 +182,25 @@ appears in any of the inputs.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    section1      lowres   ####   0.0510334</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    section2      lowres   ####   0.0510334</span>
 <span class="r-in"><span><span class="va">spe</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>    <span class="fu">bind_cols</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">99</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in bind_cols(spe, 1:99):</span> `..1` must be a vector, not a &lt;SpatialExperiment&gt; object.</span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span>    <span class="fu">ttservice</span><span class="fu">::</span><span class="fu">bind_cols</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">99</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> New names:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `` -&gt; `...5`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A SpatialExperiment-tibble abstraction: 99 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># </span><span style="color: #555555;">Features = 50 | Cells = 99 | Assays = counts</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    .cell        in_tissue array_row array_col sample_id  ...5 pxl_col_in_fullres</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> AAACAACGAAT… FALSE             0        16 section1      1               <span style="text-decoration: underline;">2</span>312</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> AAACAAGTATC… TRUE             50       102 section1      2               <span style="text-decoration: underline;">8</span>230</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> AAACAATCTAC… TRUE              3        43 section1      3               <span style="text-decoration: underline;">4</span>170</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> AAACACCAATA… TRUE             59        19 section1      4               <span style="text-decoration: underline;">2</span>519</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> AAACAGAGCGA… TRUE             14        94 section1      5               <span style="text-decoration: underline;">7</span>679</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> AAACAGCTTTC… FALSE            43         9 section1      6               <span style="text-decoration: underline;">1</span>831</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> AAACAGGGTCT… FALSE            47        13 section1      7               <span style="text-decoration: underline;">2</span>106</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> AAACAGTGTTC… FALSE            73        43 section1      8               <span style="text-decoration: underline;">4</span>170</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> AAACATGGTGA… FALSE            62         0 section1      9               <span style="text-decoration: underline;">1</span>212</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> AAACATTTCCC… FALSE            61        97 section1     10               <span style="text-decoration: underline;">7</span>886</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 89 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span>
 </code></pre></div>
     </div>
   </div>
