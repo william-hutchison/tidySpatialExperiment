@@ -3,24 +3,9 @@
 \name{unnest}
 \alias{unnest}
 \alias{unnest.tidySpatialExperiment_nested}
-\alias{unnest_single_cell_experiment}
 \title{Unnest a list-column of data frames into rows and columns}
 \usage{
 \method{unnest}{tidySpatialExperiment_nested}(
-  data,
-  cols,
-  ...,
-  keep_empty = FALSE,
-  ptype = NULL,
-  names_sep = NULL,
-  names_repair = "check_unique",
-  .drop,
-  .id,
-  .sep,
-  .preserve
-)
-
-unnest_single_cell_experiment(
   data,
   cols,
   ...,

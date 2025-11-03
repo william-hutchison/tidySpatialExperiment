@@ -16,14 +16,14 @@ test_that("arrange", {
 
 test_that("bind_rows", {
     spe |>
-        bind_rows(spe) |>
+        ttservice::bind_rows(spe) |>
         ncol() |>
         expect_equal(198)
 })
 
 test_that("bind_cols", {
     spe |>
-        bind_cols(
+        ttservice::bind_cols(
             spe |>
                 select(array_row)
             ) |>

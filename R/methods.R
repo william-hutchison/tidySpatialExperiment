@@ -118,11 +118,8 @@ setMethod("join_features", "SpatialExperiment", function(.data, features = NULL,
 #'
 #' @description Combine cells into groups based on shared variables and aggregate feature counts.
 #'
-#' @importFrom rlang enquo
-#' @importFrom tibble enframe
-#' @importFrom Matrix rowSums
-#' @importFrom dplyr full_join
-#'
+#' @importFrom ttservice aggregate_cells
+#' 
 #' @name aggregate_cells
 #' @rdname aggregate_cells
 #' 
@@ -140,54 +137,7 @@ setMethod("join_features", "SpatialExperiment", function(.data, features = NULL,
 #'     aggregate_cells(sample_id, assays = "counts")
 #'
 #' @export
-aggregate_cells <- function(.data, .sample = NULL, slot = "data", assays = NULL, 
-                            aggregation_function = rowSums) {
-  
-    # Declare unbound variables
-    feature <- NULL
-    .sample <- enquo(.sample)
-    
-    # Subset only wanted assays
-    if (!is.null(assays)) {
-        .data@assays@data <- .data@assays@data[assays]
-    }
-    
-    .data |>
-      
-        nest(data = -!!.sample) |>
-        mutate(.aggregated_cells = as.integer(map(data, ~ ncol(.x)))) |>
-        mutate(data = map(data, ~ 
-            
-            # loop over assays
-            map2(
-                as.list(assays(.x)), names(.x@assays),
-                
-                # Get counts
-                ~  .x |>
-                  aggregation_function(na.rm = TRUE) |>
-                  enframe(
-                      name  = "feature",
-                      value = sprintf("%s", .y)
-                  ) |>
-                  mutate(feature = as.character(feature)) 
-            ) |>
-            reduce(function(...) dplyr::full_join(..., by = c("feature")))
-
-        )) |>
-        left_join(
-            .data |> 
-            as_tibble() |> 
-            subset(!!.sample),
-        by = quo_names(.sample)
-        ) |>
-        unnest(data) |>
-    
-    drop_class("tidySpatialExperiment_nested") |> 
-    
-    as_SummarizedExperiment(
-        .sample = !!.sample, .transcript = feature, .abundance = !!as.symbol(names(.data@assays))
-    )
-}
+NULL
 
 #' Rectangle Gating Function
 #'

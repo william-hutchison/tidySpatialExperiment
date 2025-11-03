@@ -1,7 +1,7 @@
 Type: Package
 Package: tidySpatialExperiment
 Title: SpatialExperiment with tidy principles 
-Version: 1.5.1
+Version: 1.5.4
 Authors@R: c(
     person("William", "Hutchison", email = "hutchison.w@wehi.edu.au", role = c("aut", "cre"), 
            comment = c(ORCID = "0009-0001-6242-4269")),
@@ -15,13 +15,12 @@ License: GPL (>= 3)
 Depends:
     R (>= 4.3.0),
     SpatialExperiment,
-    tidySingleCellExperiment
+    tidySingleCellExperiment,
+    ttservice
 Imports:
-    ttservice,
     SummarizedExperiment,
     SingleCellExperiment,
     BiocGenerics,
-    Matrix,
     S4Vectors,
     methods,
     utils,

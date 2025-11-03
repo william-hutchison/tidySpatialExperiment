@@ -2,33 +2,7 @@
 % Please edit documentation in R/dplyr_methods.R
 \name{bind_cols}
 \alias{bind_cols}
-\alias{bind_cols.SpatialExperiment}
 \title{Efficiently bind multiple data frames by row and column}
-\usage{
-\method{bind_cols}{SpatialExperiment}(..., .id = NULL)
-}
-\arguments{
-\item{...}{Data frames to combine.
-
-  Each argument can either be a data frame, a list that could be a data
-  frame, or a list of data frames.
-
-  When row-binding, columns are matched by name, and any missing
-  columns will be filled with NA.
-
-  When column-binding, rows are matched by position, so all data
-  frames must have the same number of rows. To match by value, not
-  position, see mutate-joins.}
-
-\item{.id}{Data frame identifier.
-
-  When `.id` is supplied, a new column of identifiers is
-  created to link each row to its original data frame. The labels
-  are taken from the named arguments to `bind_rows()`. When a
-  list of data frames is supplied, the labels are taken from the
-  names of the list. If no names are found a numeric sequence is
-  used instead.}
-}
 \value{
 `bind_rows()` and `bind_cols()` return the same type as
   the first input, either a data frame, `tbl_df`, or `grouped_df`.
@@ -53,8 +27,11 @@ The output of `bind_rows()` will contain a column if that column
 appears in any of the inputs.
 }
 \examples{
+# Note: "dplyr" does not provide a generic function for `bind_cols`. Therefore, the generic 
+# function `bind_cols` located in "ttservice" should be called explicitly with 
+# `ttservice::bind_cols` to avoid conflicts.
+
 example(read10xVisium)
 spe |>
-    bind_cols(1:99)
-
+    ttservice::bind_cols(1:99)
 }

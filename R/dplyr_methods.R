@@ -3,52 +3,28 @@
 #' @inherit ttservice::bind_rows
 #' 
 #' @examples
+#' # Note: "dplyr" does not provide a generic function for `bind_rows`. Therefore, the generic 
+#' # function `bind_rows` located in "ttservice" should be called explicitly with 
+#' # `ttservice::bind_rows` to avoid conflicts.
+#' 
 #' example(read10xVisium)
 #' spe |>
-#'     bind_rows(spe)
-#'     
-#' @importFrom rlang flatten_if
-#' @importFrom rlang is_spliced
-#' @importFrom rlang dots_values
-#' @importFrom SingleCellExperiment cbind
-#' @importFrom ttservice bind_rows
-#' @export
-bind_rows.SpatialExperiment <- function(..., .id = NULL, add.cell.ids = NULL) {
-  
-    tts <- flatten_if(dots_values(...), is_spliced)
-    SingleCellExperiment::cbind(tts[[1]], tts[[2]], deparse.level = 0)
-}
+#'     ttservice::bind_rows(spe)
+NULL
 
 #' @name bind_cols
 #' @rdname bind_cols
 #' @inherit ttservice::bind_cols
 #' 
 #' @examples 
+#' # Note: "dplyr" does not provide a generic function for `bind_cols`. Therefore, the generic 
+#' # function `bind_cols` located in "ttservice" should be called explicitly with 
+#' # `ttservice::bind_cols` to avoid conflicts.
+#' 
 #' example(read10xVisium)
 #' spe |>
-#'     bind_cols(1:99)
-#' 
-#' @importFrom rlang flatten_if
-#' @importFrom rlang is_spliced
-#' @importFrom rlang dots_values
-#' @importFrom ttservice bind_cols
-#' @importFrom SummarizedExperiment colData
-#' @importFrom SummarizedExperiment colData<-
-#' @export
-bind_cols.SpatialExperiment <- function(..., .id = NULL) {
-  
-    tts <- flatten_if(dots_values(...), is_spliced)
-    colData(tts[[1]]) <- 
-        bind_cols(
-            colData(tts[[1]]) |> 
-                as.data.frame(),
-            tts[[2]], 
-            .id=.id
-        ) |> 
-        DataFrame()
-
-    tts[[1]]
-}
+#'     ttservice::bind_cols(1:99)
+NULL
 
 #' @name filter
 #' @rdname filter
