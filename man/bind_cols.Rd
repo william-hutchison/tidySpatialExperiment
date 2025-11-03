@@ -27,7 +27,11 @@ The output of `bind_rows()` will contain a column if that column
 appears in any of the inputs.
 }
 \examples{
+# Note: "dplyr" does not provide a generic function for `bind_cols`. Therefore, the generic 
+# function `bind_cols` located in "ttservice" should be called explicitly with 
+# `ttservice::bind_cols` to avoid conflicts.
+
 example(read10xVisium)
 spe |>
-    bind_cols(1:99)
+    ttservice::bind_cols(1:99)
 }

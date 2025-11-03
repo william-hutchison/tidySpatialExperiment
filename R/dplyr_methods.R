@@ -3,9 +3,13 @@
 #' @inherit ttservice::bind_rows
 #' 
 #' @examples
+#' # Note: "dplyr" does not provide a generic function for `bind_rows`. Therefore, the generic 
+#' # function `bind_rows` located in "ttservice" should be called explicitly with 
+#' # `ttservice::bind_rows` to avoid conflicts.
+#' 
 #' example(read10xVisium)
 #' spe |>
-#'     bind_rows(spe)
+#'     ttservice::bind_rows(spe)
 NULL
 
 #' @name bind_cols
@@ -13,9 +17,13 @@ NULL
 #' @inherit ttservice::bind_cols
 #' 
 #' @examples 
+#' # Note: "dplyr" does not provide a generic function for `bind_cols`. Therefore, the generic 
+#' # function `bind_cols` located in "ttservice" should be called explicitly with 
+#' # `ttservice::bind_cols` to avoid conflicts.
+#' 
 #' example(read10xVisium)
 #' spe |>
-#'     bind_cols(1:99)
+#'     ttservice::bind_cols(1:99)
 NULL
 
 #' @name filter
