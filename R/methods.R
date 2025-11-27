@@ -595,12 +595,15 @@ gate_programmatic <-
           spe |>
           pull(pxl_row_in_fullres)
       ) |>
-      
+        
+      # Flip y axis
+      dplyr::mutate(dimension_y = - dimension_y) |>
+    
       # Pass data to tidygate
       dplyr::mutate(.gate_programmatic = tidygate::gate(
        x = dimension_x, y = dimension_y, programmatic_gates = programmatic_gates
       ))
-
+      
     return(data$.gate_programmatic)
   }
 
