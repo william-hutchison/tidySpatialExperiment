@@ -148,35 +148,35 @@
 </h2>
 <table class="table">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col width="9%">
+<col width="90%">
 </colgroup>
-<thead><tr>
+<thead><tr class="header">
 <th>Package</th>
 <th>Functions available</th>
 </tr></thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>SpatialExperiment</code></td>
 <td>All</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>dplyr</code></td>
 <td>
 <code>arrange</code>,<code>bind_rows</code>, <code>bind_cols</code>, <code>distinct</code>, <code>filter</code>, <code>group_by</code>, <code>summarise</code>, <code>select</code>, <code>mutate</code>, <code>rename</code>, <code>left_join</code>, <code>right_join</code>, <code>inner_join</code>, <code>slice</code>, <code>sample_n</code>, <code>sample_frac</code>, <code>count</code>, <code>add_count</code>
 </td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>tidyr</code></td>
 <td>
 <code>nest</code>, <code>unnest</code>, <code>unite</code>, <code>separate</code>, <code>extract</code>, <code>pivot_longer</code>
 </td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>ggplot2</code></td>
 <td><code>ggplot</code></td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>plotly</code></td>
 <td><code>plot_ly</code></td>
 </tr>
@@ -184,36 +184,36 @@
 </table>
 <table class="table">
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col width="18%">
+<col width="81%">
 </colgroup>
-<thead><tr>
+<thead><tr class="header">
 <th>Utility</th>
 <th>Description</th>
 </tr></thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><code>as_tibble</code></td>
 <td>Convert cell data to a <code>tbl_df</code>
 </td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>join_features</code></td>
 <td>Append feature data to cell data</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>aggregate_cells</code></td>
 <td>Aggregate cell-feature abundance into a pseudobulk <code>SummarizedExperiment</code> object</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>rectangle</code></td>
 <td>Select cells in a rectangular region of space</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><code>ellipse</code></td>
 <td>Select cells in an elliptical region of space</td>
 </tr>
-<tr>
+<tr class="even">
 <td><code>gate</code></td>
 <td>Interactively or programmatically select cells in an arbitrary region of space</td>
 </tr>
@@ -234,7 +234,7 @@
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"pak"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu">pak</span><span class="op">(</span><span class="st">"william-hutchison/tidySpatialExperiment"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"william-hutchison/tidySpatialExperiment"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="load-data">Load data<a class="anchor" aria-label="anchor" href="#load-data"></a>
@@ -243,21 +243,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load example SpatialExperiment object</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/william-hutchison/tidySpatialExperiment" class="external-link">tidySpatialExperiment</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/example.html" class="external-link">example</a></span><span class="op">(</span><span class="va">read10xVisium</span><span class="op">)</span></span>
-<span><span class="co">#  Warning in read10xVisium(samples, sample_ids, type = "sparse", data = "raw", : 'read10xVisium' is deprecated.</span></span>
-<span><span class="co">#  Use 'VisiumIO::TENxVisium(List)' instead.</span></span>
-<span><span class="co">#  See help("Deprecated")</span></span>
-<span><span class="co">#  Warning: `when()` was deprecated in purrr 1.0.0.</span></span>
-<span><span class="co">#  <span style="color: #00BBBB;">ℹ</span> Please use `if` instead.</span></span>
-<span><span class="co">#  <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">tidySpatialExperiment</span> package.</span></span>
-<span><span class="co">#    Please report the issue at</span></span>
-<span><span class="co">#    <span style="color: #0000BB; font-style: italic;">&lt;https://github.com/william-hutchison/tidySpatialExperiment/issues&gt;</span>.</span></span>
-<span><span class="co">#  <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
-<span><span class="co">#  <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
-<span><span class="co">#  <span style="color: #555555;">generated.</span></span></span>
-<span><span class="co">#  Warning in read10xVisium(samples2, sample_ids, type = "sparse", data = "raw", : 'read10xVisium' is deprecated.</span></span>
-<span><span class="co">#  Use 'VisiumIO::TENxVisium(List)' instead.</span></span>
-<span><span class="co">#  See help("Deprecated")</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/example.html" class="external-link">example</a></span><span class="op">(</span><span class="va">read10xVisium</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="spatialexperiment-tibble-abstraction">SpatialExperiment-tibble abstraction<a class="anchor" aria-label="anchor" href="#spatialexperiment-tibble-abstraction"></a>
@@ -267,17 +253,17 @@
 <p>The default view is now of the SpatialExperiment-tibble abstraction.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe</span></span>
-<span><span class="co">#  <span style="color: #555555;"># A SpatialExperiment-tibble abstraction: 50 × 7</span></span></span>
-<span><span class="co">#  <span style="color: #555555;"># Features = 50 | Cells = 50 | Assays = counts</span></span></span>
+<span><span class="co">#  # A SpatialExperiment-tibble abstraction: 50 × 7</span></span>
+<span><span class="co">#  # Features = 50 | Cells = 50 | Assays = counts</span></span>
 <span><span class="co">#    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres</span></span>
-<span><span class="co">#    <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #555555; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #555555; font-style: italic;">&lt;int&gt;</span>     <span style="color: #555555; font-style: italic;">&lt;int&gt;</span> <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #555555; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#  <span style="color: #555555;">1</span> AAACAACGAATAGTTC-1 FALSE             0        16 section1                <span style="text-decoration: underline;">2</span>312</span></span>
-<span><span class="co">#  <span style="color: #555555;">2</span> AAACAAGTATCTCCCA-1 TRUE             50       102 section1                <span style="text-decoration: underline;">8</span>230</span></span>
-<span><span class="co">#  <span style="color: #555555;">3</span> AAACAATCTACTAGCA-1 TRUE              3        43 section1                <span style="text-decoration: underline;">4</span>170</span></span>
-<span><span class="co">#  <span style="color: #555555;">4</span> AAACACCAATAACTGC-1 TRUE             59        19 section1                <span style="text-decoration: underline;">2</span>519</span></span>
-<span><span class="co">#  <span style="color: #555555;">5</span> AAACAGAGCGACTCCT-1 TRUE             14        94 section1                <span style="text-decoration: underline;">7</span>679</span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 45 more rows</span></span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></span></code></pre></div>
+<span><span class="co">#    &lt;chr&gt;              &lt;lgl&gt;         &lt;int&gt;     &lt;int&gt; &lt;chr&gt;                  &lt;int&gt;</span></span>
+<span><span class="co">#  1 AAACAACGAATAGTTC-1 FALSE             0        16 section1                2312</span></span>
+<span><span class="co">#  2 AAACAAGTATCTCCCA-1 TRUE             50       102 section1                8230</span></span>
+<span><span class="co">#  3 AAACAATCTACTAGCA-1 TRUE              3        43 section1                4170</span></span>
+<span><span class="co">#  4 AAACACCAATAACTGC-1 TRUE             59        19 section1                2519</span></span>
+<span><span class="co">#  5 AAACAGAGCGACTCCT-1 TRUE             14        94 section1                7679</span></span>
+<span><span class="co">#  # ℹ 45 more rows</span></span>
+<span><span class="co">#  # ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></code></pre></div>
 <p>But, our data maintains its status as a <code>SpatialExperiment</code> object. Therefore, we have access to all <code>SpatialExperiment</code> functions.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe</span> <span class="op">|&gt;</span></span>
@@ -322,29 +308,29 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>   <span class="fu"><a href="reference/filter.html">filter</a></span><span class="op">(</span><span class="va">array_col</span> <span class="op">&lt;</span> <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="co">#  <span style="color: #555555;"># A SpatialExperiment-tibble abstraction: 3 × 7</span></span></span>
-<span><span class="co">#  <span style="color: #555555;"># Features = 50 | Cells = 3 | Assays = counts</span></span></span>
+<span><span class="co">#  # A SpatialExperiment-tibble abstraction: 3 × 7</span></span>
+<span><span class="co">#  # Features = 50 | Cells = 3 | Assays = counts</span></span>
 <span><span class="co">#    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres</span></span>
-<span><span class="co">#    <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #555555; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #555555; font-style: italic;">&lt;int&gt;</span>     <span style="color: #555555; font-style: italic;">&lt;int&gt;</span> <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #555555; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#  <span style="color: #555555;">1</span> AAACATGGTGAGAGGA-1 FALSE            62         0 section1                <span style="text-decoration: underline;">1</span>212</span></span>
-<span><span class="co">#  <span style="color: #555555;">2</span> AAACGAAGATGGAGTA-1 FALSE            58         4 section1                <span style="text-decoration: underline;">1</span>487</span></span>
-<span><span class="co">#  <span style="color: #555555;">3</span> AAAGAATGACCTTAGA-1 FALSE            64         2 section1                <span style="text-decoration: underline;">1</span>349</span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></span></code></pre></div>
+<span><span class="co">#    &lt;chr&gt;              &lt;lgl&gt;         &lt;int&gt;     &lt;int&gt; &lt;chr&gt;                  &lt;int&gt;</span></span>
+<span><span class="co">#  1 AAACATGGTGAGAGGA-1 FALSE            62         0 section1                1212</span></span>
+<span><span class="co">#  2 AAACGAAGATGGAGTA-1 FALSE            58         4 section1                1487</span></span>
+<span><span class="co">#  3 AAAGAATGACCTTAGA-1 FALSE            64         2 section1                1349</span></span>
+<span><span class="co">#  # ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></code></pre></div>
 <p>And <code>mutate</code> can be used to add new variables, or modify the value of an existing variable.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/mutate.html">mutate</a></span><span class="op">(</span>in_region <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">in_tissue</span> <span class="op">&amp;</span> <span class="va">array_row</span> <span class="op">&lt;</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#  <span style="color: #555555;"># A SpatialExperiment-tibble abstraction: 50 × 8</span></span></span>
-<span><span class="co">#  <span style="color: #555555;"># Features = 50 | Cells = 50 | Assays = counts</span></span></span>
+<span><span class="co">#  # A SpatialExperiment-tibble abstraction: 50 × 8</span></span>
+<span><span class="co">#  # Features = 50 | Cells = 50 | Assays = counts</span></span>
 <span><span class="co">#    .cell     in_tissue array_row array_col sample_id in_region pxl_col_in_fullres</span></span>
-<span><span class="co">#    <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #555555; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #555555; font-style: italic;">&lt;int&gt;</span>     <span style="color: #555555; font-style: italic;">&lt;int&gt;</span> <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #555555; font-style: italic;">&lt;lgl&gt;</span>                  <span style="color: #555555; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#  <span style="color: #555555;">1</span> AAACAACG… FALSE             0        16 section1  FALSE                   <span style="text-decoration: underline;">2</span>312</span></span>
-<span><span class="co">#  <span style="color: #555555;">2</span> AAACAAGT… TRUE             50       102 section1  FALSE                   <span style="text-decoration: underline;">8</span>230</span></span>
-<span><span class="co">#  <span style="color: #555555;">3</span> AAACAATC… TRUE              3        43 section1  TRUE                    <span style="text-decoration: underline;">4</span>170</span></span>
-<span><span class="co">#  <span style="color: #555555;">4</span> AAACACCA… TRUE             59        19 section1  FALSE                   <span style="text-decoration: underline;">2</span>519</span></span>
-<span><span class="co">#  <span style="color: #555555;">5</span> AAACAGAG… TRUE             14        94 section1  FALSE                   <span style="text-decoration: underline;">7</span>679</span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 45 more rows</span></span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></span></code></pre></div>
+<span><span class="co">#    &lt;chr&gt;     &lt;lgl&gt;         &lt;int&gt;     &lt;int&gt; &lt;chr&gt;     &lt;lgl&gt;                  &lt;int&gt;</span></span>
+<span><span class="co">#  1 AAACAACG… FALSE             0        16 section1  FALSE                   2312</span></span>
+<span><span class="co">#  2 AAACAAGT… TRUE             50       102 section1  FALSE                   8230</span></span>
+<span><span class="co">#  3 AAACAATC… TRUE              3        43 section1  TRUE                    4170</span></span>
+<span><span class="co">#  4 AAACACCA… TRUE             59        19 section1  FALSE                   2519</span></span>
+<span><span class="co">#  5 AAACAGAG… TRUE             14        94 section1  FALSE                   7679</span></span>
+<span><span class="co">#  # ℹ 45 more rows</span></span>
+<span><span class="co">#  # ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="tidy-with-tidyr">Tidy with tidyr<a class="anchor" aria-label="anchor" href="#tidy-with-tidyr"></a>
@@ -358,25 +344,25 @@
 <span></span>
 <span><span class="co"># View the nested SpatialExperiment object</span></span>
 <span><span class="va">spe_nested</span></span>
-<span><span class="co">#  <span style="color: #555555;"># A tibble: 1 × 2</span></span></span>
+<span><span class="co">#  # A tibble: 1 × 2</span></span>
 <span><span class="co">#    sample_id data           </span></span>
-<span><span class="co">#    <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #555555; font-style: italic;">&lt;list&gt;</span>         </span></span>
-<span><span class="co">#  <span style="color: #555555;">1</span> section1  <span style="color: #555555;">&lt;SptlExpr[,50]&gt;</span></span></span>
+<span><span class="co">#    &lt;chr&gt;     &lt;list&gt;         </span></span>
+<span><span class="co">#  1 section1  &lt;SptlExpr[,50]&gt;</span></span>
 <span></span>
 <span><span class="co"># Unnest the nested SpatialExperiment objects</span></span>
 <span><span class="va">spe_nested</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
-<span><span class="co">#  <span style="color: #555555;"># A SpatialExperiment-tibble abstraction: 50 × 7</span></span></span>
-<span><span class="co">#  <span style="color: #555555;"># Features = 50 | Cells = 50 | Assays = counts</span></span></span>
+<span><span class="co">#  # A SpatialExperiment-tibble abstraction: 50 × 7</span></span>
+<span><span class="co">#  # Features = 50 | Cells = 50 | Assays = counts</span></span>
 <span><span class="co">#    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres</span></span>
-<span><span class="co">#    <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #555555; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #555555; font-style: italic;">&lt;int&gt;</span>     <span style="color: #555555; font-style: italic;">&lt;int&gt;</span> <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #555555; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#  <span style="color: #555555;">1</span> AAACAACGAATAGTTC-1 FALSE             0        16 section1                <span style="text-decoration: underline;">2</span>312</span></span>
-<span><span class="co">#  <span style="color: #555555;">2</span> AAACAAGTATCTCCCA-1 TRUE             50       102 section1                <span style="text-decoration: underline;">8</span>230</span></span>
-<span><span class="co">#  <span style="color: #555555;">3</span> AAACAATCTACTAGCA-1 TRUE              3        43 section1                <span style="text-decoration: underline;">4</span>170</span></span>
-<span><span class="co">#  <span style="color: #555555;">4</span> AAACACCAATAACTGC-1 TRUE             59        19 section1                <span style="text-decoration: underline;">2</span>519</span></span>
-<span><span class="co">#  <span style="color: #555555;">5</span> AAACAGAGCGACTCCT-1 TRUE             14        94 section1                <span style="text-decoration: underline;">7</span>679</span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 45 more rows</span></span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></span></code></pre></div>
+<span><span class="co">#    &lt;chr&gt;              &lt;lgl&gt;         &lt;int&gt;     &lt;int&gt; &lt;chr&gt;                  &lt;int&gt;</span></span>
+<span><span class="co">#  1 AAACAACGAATAGTTC-1 FALSE             0        16 section1                2312</span></span>
+<span><span class="co">#  2 AAACAAGTATCTCCCA-1 TRUE             50       102 section1                8230</span></span>
+<span><span class="co">#  3 AAACAATCTACTAGCA-1 TRUE              3        43 section1                4170</span></span>
+<span><span class="co">#  4 AAACACCAATAACTGC-1 TRUE             59        19 section1                2519</span></span>
+<span><span class="co">#  5 AAACAGAGCGACTCCT-1 TRUE             14        94 section1                7679</span></span>
+<span><span class="co">#  # ℹ 45 more rows</span></span>
+<span><span class="co">#  # ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="plot-with-ggplot2">Plot with ggplot2<a class="anchor" aria-label="anchor" href="#plot-with-ggplot2"></a>
@@ -427,18 +413,18 @@
 <span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/join_features.html">join_features</a></span><span class="op">(</span>features <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ENSMUSG00000025915"</span>, <span class="st">"ENSMUSG00000042501"</span><span class="op">)</span>, shape <span class="op">=</span> <span class="st">"wide"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#  <span style="color: #555555;"># A SpatialExperiment-tibble abstraction: 50 × 9</span></span></span>
-<span><span class="co">#  <span style="color: #555555;"># Features = 6 | Cells = 50 | Assays = counts</span></span></span>
+<span><span class="co">#  # A SpatialExperiment-tibble abstraction: 50 × 9</span></span>
+<span><span class="co">#  # Features = 6 | Cells = 50 | Assays = counts</span></span>
 <span><span class="co">#    .cell              in_tissue array_row array_col sample_id ENSMUSG00000025915</span></span>
-<span><span class="co">#    <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #555555; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #555555; font-style: italic;">&lt;int&gt;</span>     <span style="color: #555555; font-style: italic;">&lt;int&gt;</span> <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #555555; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#  <span style="color: #555555;">1</span> AAACAACGAATAGTTC-1 FALSE             0        16 section1                   0</span></span>
-<span><span class="co">#  <span style="color: #555555;">2</span> AAACAAGTATCTCCCA-1 TRUE             50       102 section1                   0</span></span>
-<span><span class="co">#  <span style="color: #555555;">3</span> AAACAATCTACTAGCA-1 TRUE              3        43 section1                   0</span></span>
-<span><span class="co">#  <span style="color: #555555;">4</span> AAACACCAATAACTGC-1 TRUE             59        19 section1                   0</span></span>
-<span><span class="co">#  <span style="color: #555555;">5</span> AAACAGAGCGACTCCT-1 TRUE             14        94 section1                   0</span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 45 more rows</span></span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 3 more variables: ENSMUSG00000042501 &lt;dbl&gt;, pxl_col_in_fullres &lt;int&gt;,</span></span></span>
-<span><span class="co">#  <span style="color: #555555;">#   pxl_row_in_fullres &lt;int&gt;</span></span></span>
+<span><span class="co">#    &lt;chr&gt;              &lt;lgl&gt;         &lt;int&gt;     &lt;int&gt; &lt;chr&gt;                  &lt;dbl&gt;</span></span>
+<span><span class="co">#  1 AAACAACGAATAGTTC-1 FALSE             0        16 section1                   0</span></span>
+<span><span class="co">#  2 AAACAAGTATCTCCCA-1 TRUE             50       102 section1                   0</span></span>
+<span><span class="co">#  3 AAACAATCTACTAGCA-1 TRUE              3        43 section1                   0</span></span>
+<span><span class="co">#  4 AAACACCAATAACTGC-1 TRUE             59        19 section1                   0</span></span>
+<span><span class="co">#  5 AAACAGAGCGACTCCT-1 TRUE             14        94 section1                   0</span></span>
+<span><span class="co">#  # ℹ 45 more rows</span></span>
+<span><span class="co">#  # ℹ 3 more variables: ENSMUSG00000042501 &lt;dbl&gt;, pxl_col_in_fullres &lt;int&gt;,</span></span>
+<span><span class="co">#  #   pxl_row_in_fullres &lt;int&gt;</span></span>
 <span></span>
 <span><span class="co"># Join feature data in long format, discarding the SpatialExperiment object</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span></span>
@@ -446,15 +432,15 @@
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#  tidySpatialExperiment says: A data frame is returned for independent data </span></span>
 <span><span class="co">#                analysis.</span></span>
-<span><span class="co">#  <span style="color: #555555;"># A tibble: 6 × 7</span></span></span>
+<span><span class="co">#  # A tibble: 6 × 7</span></span>
 <span><span class="co">#    .cell       in_tissue array_row array_col sample_id .feature .abundance_counts</span></span>
-<span><span class="co">#    <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #555555; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #555555; font-style: italic;">&lt;int&gt;</span>     <span style="color: #555555; font-style: italic;">&lt;int&gt;</span> <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #555555; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#  <span style="color: #555555;">1</span> AAACAACGAA… FALSE             0        16 section1  ENSMUSG…                 0</span></span>
-<span><span class="co">#  <span style="color: #555555;">2</span> AAACAACGAA… FALSE             0        16 section1  ENSMUSG…                 0</span></span>
-<span><span class="co">#  <span style="color: #555555;">3</span> AAACAAGTAT… TRUE             50       102 section1  ENSMUSG…                 0</span></span>
-<span><span class="co">#  <span style="color: #555555;">4</span> AAACAAGTAT… TRUE             50       102 section1  ENSMUSG…                 1</span></span>
-<span><span class="co">#  <span style="color: #555555;">5</span> AAACAATCTA… TRUE              3        43 section1  ENSMUSG…                 0</span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 1 more row</span></span></span></code></pre></div>
+<span><span class="co">#    &lt;chr&gt;       &lt;lgl&gt;         &lt;int&gt;     &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;                &lt;dbl&gt;</span></span>
+<span><span class="co">#  1 AAACAACGAA… FALSE             0        16 section1  ENSMUSG…                 0</span></span>
+<span><span class="co">#  2 AAACAACGAA… FALSE             0        16 section1  ENSMUSG…                 0</span></span>
+<span><span class="co">#  3 AAACAAGTAT… TRUE             50       102 section1  ENSMUSG…                 0</span></span>
+<span><span class="co">#  4 AAACAAGTAT… TRUE             50       102 section1  ENSMUSG…                 1</span></span>
+<span><span class="co">#  5 AAACAATCTA… TRUE              3        43 section1  ENSMUSG…                 0</span></span>
+<span><span class="co">#  # ℹ 1 more row</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="aggregate-cells">Aggregate cells<a class="anchor" aria-label="anchor" href="#aggregate-cells"></a>
@@ -470,9 +456,9 @@
 <span><span class="co">#  assays(1): counts</span></span>
 <span><span class="co">#  rownames(50): ENSMUSG00000002459 ENSMUSG00000005886 ...</span></span>
 <span><span class="co">#    ENSMUSG00000104217 ENSMUSG00000104328</span></span>
-<span><span class="co">#  rowData names(1): symbol</span></span>
+<span><span class="co">#  rowData names(1): feature</span></span>
 <span><span class="co">#  colnames(2): FALSE TRUE</span></span>
-<span><span class="co">#  colData names(3): .aggregated_cells in_tissue sample_id</span></span></code></pre></div>
+<span><span class="co">#  colData names(3): in_tissue .aggregated_cells sample_id</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="elliptical-and-rectangular-region-selection">Elliptical and rectangular region selection<a class="anchor" aria-label="anchor" href="#elliptical-and-rectangular-region-selection"></a>
@@ -500,40 +486,40 @@
 <code class="sourceCode R"><span><span class="co"># Select cells within any gate</span></span>
 <span><span class="va">spe_gated</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">.gated</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#  <span style="color: #555555;"># A SpatialExperiment-tibble abstraction: 4 × 8</span></span></span>
-<span><span class="co">#  <span style="color: #555555;"># Features = 50 | Cells = 4 | Assays = counts</span></span></span>
+<span><span class="co">#  # A SpatialExperiment-tibble abstraction: 4 × 8</span></span>
+<span><span class="co">#  # Features = 50 | Cells = 4 | Assays = counts</span></span>
 <span><span class="co">#    .cell        in_tissue array_row array_col sample_id .gated pxl_col_in_fullres</span></span>
-<span><span class="co">#    <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #555555; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #555555; font-style: italic;">&lt;int&gt;</span>     <span style="color: #555555; font-style: italic;">&lt;int&gt;</span> <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #555555; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#  <span style="color: #555555;">1</span> AAACGAGACGG… TRUE             35        79 section1  2                    <span style="text-decoration: underline;">6</span>647</span></span>
-<span><span class="co">#  <span style="color: #555555;">2</span> AAACTGCTGGC… TRUE             45        67 section1  2                    <span style="text-decoration: underline;">5</span>821</span></span>
-<span><span class="co">#  <span style="color: #555555;">3</span> AAAGGGATGTA… TRUE             24        62 section1  1,2                  <span style="text-decoration: underline;">5</span>477</span></span>
-<span><span class="co">#  <span style="color: #555555;">4</span> AAAGGGCAGCT… TRUE             24        26 section1  1                    <span style="text-decoration: underline;">3</span>000</span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></span>
+<span><span class="co">#    &lt;chr&gt;        &lt;lgl&gt;         &lt;int&gt;     &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;               &lt;int&gt;</span></span>
+<span><span class="co">#  1 AAACGAGACGG… TRUE             35        79 section1  2                    6647</span></span>
+<span><span class="co">#  2 AAACTGCTGGC… TRUE             45        67 section1  2                    5821</span></span>
+<span><span class="co">#  3 AAAGGGATGTA… TRUE             24        62 section1  1,2                  5477</span></span>
+<span><span class="co">#  4 AAAGGGCAGCT… TRUE             24        26 section1  1                    3000</span></span>
+<span><span class="co">#  # ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span>
 <span><span class="co"># Select cells within gate 2</span></span>
 <span><span class="va">spe_gated</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/filter.html">filter</a></span><span class="op">(</span><span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="va">.gated</span>, <span class="st">"2"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#  <span style="color: #555555;"># A SpatialExperiment-tibble abstraction: 3 × 8</span></span></span>
-<span><span class="co">#  <span style="color: #555555;"># Features = 50 | Cells = 3 | Assays = counts</span></span></span>
+<span><span class="co">#  # A SpatialExperiment-tibble abstraction: 3 × 8</span></span>
+<span><span class="co">#  # Features = 50 | Cells = 3 | Assays = counts</span></span>
 <span><span class="co">#    .cell        in_tissue array_row array_col sample_id .gated pxl_col_in_fullres</span></span>
-<span><span class="co">#    <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #555555; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #555555; font-style: italic;">&lt;int&gt;</span>     <span style="color: #555555; font-style: italic;">&lt;int&gt;</span> <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #555555; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#  <span style="color: #555555;">1</span> AAACGAGACGG… TRUE             35        79 section1  2                    <span style="text-decoration: underline;">6</span>647</span></span>
-<span><span class="co">#  <span style="color: #555555;">2</span> AAACTGCTGGC… TRUE             45        67 section1  2                    <span style="text-decoration: underline;">5</span>821</span></span>
-<span><span class="co">#  <span style="color: #555555;">3</span> AAAGGGATGTA… TRUE             24        62 section1  1,2                  <span style="text-decoration: underline;">5</span>477</span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></span></code></pre></div>
+<span><span class="co">#    &lt;chr&gt;        &lt;lgl&gt;         &lt;int&gt;     &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;               &lt;int&gt;</span></span>
+<span><span class="co">#  1 AAACGAGACGG… TRUE             35        79 section1  2                    6647</span></span>
+<span><span class="co">#  2 AAACTGCTGGC… TRUE             45        67 section1  2                    5821</span></span>
+<span><span class="co">#  3 AAAGGGATGTA… TRUE             24        62 section1  1,2                  5477</span></span>
+<span><span class="co">#  # ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></code></pre></div>
 <p>Details of the interactively drawn gates are saved to <code>tidygate_env$gates</code>. This variable is overwritten each time interactive gates are drawn, so save it right away if you would like to access it later.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Inspect previously drawn gates</span></span>
 <span><span class="va">tidygate_env</span><span class="op">$</span><span class="va">gates</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#  <span style="color: #555555;"># A tibble: 6 × 3</span></span></span>
+<span><span class="co">#  # A tibble: 6 × 3</span></span>
 <span><span class="co">#        x     y .gate</span></span>
-<span><span class="co">#    <span style="color: #555555; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #555555; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #555555; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#  <span style="color: #555555;">1</span> <span style="text-decoration: underline;">4</span>310. <span style="text-decoration: underline;">3</span>125.     1</span></span>
-<span><span class="co">#  <span style="color: #555555;">2</span> <span style="text-decoration: underline;">3</span>734. <span style="text-decoration: underline;">3</span>161.     1</span></span>
-<span><span class="co">#  <span style="color: #555555;">3</span> <span style="text-decoration: underline;">2</span>942. <span style="text-decoration: underline;">3</span>521.     1</span></span>
-<span><span class="co">#  <span style="color: #555555;">4</span> <span style="text-decoration: underline;">2</span>834. <span style="text-decoration: underline;">3</span>665.     1</span></span>
-<span><span class="co">#  <span style="color: #555555;">5</span> <span style="text-decoration: underline;">2</span>834. <span style="text-decoration: underline;">4</span>385.     1</span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 1 more row</span></span></span></code></pre></div>
+<span><span class="co">#    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#  1 4310. 3125.     1</span></span>
+<span><span class="co">#  2 3734. 3161.     1</span></span>
+<span><span class="co">#  3 2942. 3521.     1</span></span>
+<span><span class="co">#  4 2834. 3665.     1</span></span>
+<span><span class="co">#  5 2834. 4385.     1</span></span>
+<span><span class="co">#  # ℹ 1 more row</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Save if needed</span></span>
 <span><span class="va">tidygate_env</span><span class="op">$</span><span class="va">gates</span> <span class="op">|&gt;</span></span>
@@ -545,15 +531,15 @@
 <span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>spe <span class="sc">|&gt;</span></span>
 <span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>  <span class="fu">gate</span>(<span class="at">programmatic_gates =</span> important_gates)<span class="er">)</span> <span class="sc">|&gt;</span></span>
 <span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(.gated))</span></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co">#   [90m# A SpatialExperiment-tibble abstraction: 4 × 8 [39m</span></span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="co">#   [90m#  [90mFeatures = 50 | Cells = 4 | Assays = counts [0m [39m</span></span>
+<div class="sourceCode" id="cb19"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co">#  # A SpatialExperiment-tibble abstraction: 4 × 8</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="co">#  # Features = 50 | Cells = 4 | Assays = counts</span></span>
 <span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="co">#    .cell        in_tissue array_row array_col sample_id .gated pxl_col_in_fullres</span></span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="co">#     [3m [90m&lt;chr&gt; [39m [23m         [3m [90m&lt;lgl&gt; [39m [23m          [3m [90m&lt;int&gt; [39m [23m      [3m [90m&lt;int&gt; [39m [23m  [3m [90m&lt;chr&gt; [39m [23m      [3m [90m&lt;chr&gt; [39m [23m                [3m [90m&lt;int&gt; [39m [23m</span></span>
-<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="co">#   [90m1 [39m AAACGAGACGG… TRUE             35        79 section1  2                     [4m6 [24m647</span></span>
-<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a><span class="co">#   [90m2 [39m AAACTGCTGGC… TRUE             45        67 section1  2                     [4m5 [24m821</span></span>
-<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a><span class="co">#   [90m3 [39m AAAGGGATGTA… TRUE             24        62 section1  1,2                   [4m5 [24m477</span></span>
-<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="co">#   [90m4 [39m AAAGGGCAGCT… TRUE             24        26 section1  1                     [4m3 [24m000</span></span>
-<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a><span class="co">#   [90m# ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt; [39m</span></span></code></pre></div>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="co">#    &lt;chr&gt;        &lt;lgl&gt;         &lt;int&gt;     &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;               &lt;int&gt;</span></span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="co">#  1 AAACGAGACGG… TRUE             35        79 section1  2                    6647</span></span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a><span class="co">#  2 AAACTGCTGGC… TRUE             45        67 section1  2                    5821</span></span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a><span class="co">#  3 AAAGGGATGTA… TRUE             24        62 section1  1,2                  5477</span></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="co">#  4 AAAGGGCAGCT… TRUE             24        26 section1  1                    3000</span></span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a><span class="co">#  # ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level1">
@@ -566,78 +552,78 @@
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#  tidySpatialExperiment says: Key columns are missing. A data frame is </span></span>
 <span><span class="co">#                          returned for independent data analysis.</span></span>
-<span><span class="co">#  <span style="color: #555555;"># A tibble: 6 × 4</span></span></span>
+<span><span class="co">#  # A tibble: 6 × 4</span></span>
 <span><span class="co">#    in_tissue array_row array_col sample_id</span></span>
-<span><span class="co">#    <span style="color: #555555; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #555555; font-style: italic;">&lt;int&gt;</span>     <span style="color: #555555; font-style: italic;">&lt;int&gt;</span> <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>    </span></span>
-<span><span class="co">#  <span style="color: #555555;">1</span> FALSE             0        16 section1 </span></span>
-<span><span class="co">#  <span style="color: #555555;">2</span> TRUE             50       102 section1 </span></span>
-<span><span class="co">#  <span style="color: #555555;">3</span> TRUE              3        43 section1 </span></span>
-<span><span class="co">#  <span style="color: #555555;">4</span> TRUE             59        19 section1 </span></span>
-<span><span class="co">#  <span style="color: #555555;">5</span> TRUE             14        94 section1 </span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 1 more row</span></span></span></code></pre></div>
+<span><span class="co">#    &lt;lgl&gt;         &lt;int&gt;     &lt;int&gt; &lt;chr&gt;    </span></span>
+<span><span class="co">#  1 FALSE             0        16 section1 </span></span>
+<span><span class="co">#  2 TRUE             50       102 section1 </span></span>
+<span><span class="co">#  3 TRUE              3        43 section1 </span></span>
+<span><span class="co">#  4 TRUE             59        19 section1 </span></span>
+<span><span class="co">#  5 TRUE             14        94 section1 </span></span>
+<span><span class="co">#  # ℹ 1 more row</span></span></code></pre></div>
 <p>The <code>sample_id</code> column cannot be removed with <em>tidyverse</em> functions, and can only be modified if the changes are accepted by SpatialExperiment’s <code>colData()</code> function.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># sample_id is not removed, despite the user's request</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">sample_id</span><span class="op">)</span></span>
-<span><span class="co">#  <span style="color: #555555;"># A SpatialExperiment-tibble abstraction: 50 × 7</span></span></span>
-<span><span class="co">#  <span style="color: #555555;"># Features = 50 | Cells = 50 | Assays = counts</span></span></span>
+<span><span class="co">#  # A SpatialExperiment-tibble abstraction: 50 × 7</span></span>
+<span><span class="co">#  # Features = 50 | Cells = 50 | Assays = counts</span></span>
 <span><span class="co">#    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres</span></span>
-<span><span class="co">#    <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #555555; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #555555; font-style: italic;">&lt;int&gt;</span>     <span style="color: #555555; font-style: italic;">&lt;int&gt;</span> <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #555555; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#  <span style="color: #555555;">1</span> AAACAACGAATAGTTC-1 FALSE             0        16 section1                <span style="text-decoration: underline;">2</span>312</span></span>
-<span><span class="co">#  <span style="color: #555555;">2</span> AAACAAGTATCTCCCA-1 TRUE             50       102 section1                <span style="text-decoration: underline;">8</span>230</span></span>
-<span><span class="co">#  <span style="color: #555555;">3</span> AAACAATCTACTAGCA-1 TRUE              3        43 section1                <span style="text-decoration: underline;">4</span>170</span></span>
-<span><span class="co">#  <span style="color: #555555;">4</span> AAACACCAATAACTGC-1 TRUE             59        19 section1                <span style="text-decoration: underline;">2</span>519</span></span>
-<span><span class="co">#  <span style="color: #555555;">5</span> AAACAGAGCGACTCCT-1 TRUE             14        94 section1                <span style="text-decoration: underline;">7</span>679</span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 45 more rows</span></span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></span>
+<span><span class="co">#    &lt;chr&gt;              &lt;lgl&gt;         &lt;int&gt;     &lt;int&gt; &lt;chr&gt;                  &lt;int&gt;</span></span>
+<span><span class="co">#  1 AAACAACGAATAGTTC-1 FALSE             0        16 section1                2312</span></span>
+<span><span class="co">#  2 AAACAAGTATCTCCCA-1 TRUE             50       102 section1                8230</span></span>
+<span><span class="co">#  3 AAACAATCTACTAGCA-1 TRUE              3        43 section1                4170</span></span>
+<span><span class="co">#  4 AAACACCAATAACTGC-1 TRUE             59        19 section1                2519</span></span>
+<span><span class="co">#  5 AAACAGAGCGACTCCT-1 TRUE             14        94 section1                7679</span></span>
+<span><span class="co">#  # ℹ 45 more rows</span></span>
+<span><span class="co">#  # ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span>
 <span></span>
 <span><span class="co"># This change maintains separation of sample_ids and is permitted</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="reference/mutate.html">mutate</a></span><span class="op">(</span>sample_id <span class="op">=</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_c.html" class="external-link">str_c</a></span><span class="op">(</span><span class="va">sample_id</span>, <span class="st">"_modified"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#  <span style="color: #555555;"># A SpatialExperiment-tibble abstraction: 50 × 7</span></span></span>
-<span><span class="co">#  <span style="color: #555555;"># Features = 6 | Cells = 50 | Assays = counts</span></span></span>
+<span><span class="co">#  # A SpatialExperiment-tibble abstraction: 50 × 7</span></span>
+<span><span class="co">#  # Features = 6 | Cells = 50 | Assays = counts</span></span>
 <span><span class="co">#    .cell              in_tissue array_row array_col sample_id  pxl_col_in_fullres</span></span>
-<span><span class="co">#    <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #555555; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #555555; font-style: italic;">&lt;int&gt;</span>     <span style="color: #555555; font-style: italic;">&lt;int&gt;</span> <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #555555; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#  <span style="color: #555555;">1</span> AAACAACGAATAGTTC-1 FALSE             0        16 section1_…               <span style="text-decoration: underline;">2</span>312</span></span>
-<span><span class="co">#  <span style="color: #555555;">2</span> AAACAAGTATCTCCCA-1 TRUE             50       102 section1_…               <span style="text-decoration: underline;">8</span>230</span></span>
-<span><span class="co">#  <span style="color: #555555;">3</span> AAACAATCTACTAGCA-1 TRUE              3        43 section1_…               <span style="text-decoration: underline;">4</span>170</span></span>
-<span><span class="co">#  <span style="color: #555555;">4</span> AAACACCAATAACTGC-1 TRUE             59        19 section1_…               <span style="text-decoration: underline;">2</span>519</span></span>
-<span><span class="co">#  <span style="color: #555555;">5</span> AAACAGAGCGACTCCT-1 TRUE             14        94 section1_…               <span style="text-decoration: underline;">7</span>679</span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 45 more rows</span></span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></span>
+<span><span class="co">#    &lt;chr&gt;              &lt;lgl&gt;         &lt;int&gt;     &lt;int&gt; &lt;chr&gt;                   &lt;int&gt;</span></span>
+<span><span class="co">#  1 AAACAACGAATAGTTC-1 FALSE             0        16 section1_…               2312</span></span>
+<span><span class="co">#  2 AAACAAGTATCTCCCA-1 TRUE             50       102 section1_…               8230</span></span>
+<span><span class="co">#  3 AAACAATCTACTAGCA-1 TRUE              3        43 section1_…               4170</span></span>
+<span><span class="co">#  4 AAACACCAATAACTGC-1 TRUE             59        19 section1_…               2519</span></span>
+<span><span class="co">#  5 AAACAGAGCGACTCCT-1 TRUE             14        94 section1_…               7679</span></span>
+<span><span class="co">#  # ℹ 45 more rows</span></span>
+<span><span class="co">#  # ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span>
 <span></span>
 <span><span class="co"># This change does not maintain separation of sample_ids and produces an error</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/mutate.html">mutate</a></span><span class="op">(</span>sample_id <span class="op">=</span> <span class="st">"new_sample"</span><span class="op">)</span></span>
-<span><span class="co">#  <span style="color: #555555;"># A SpatialExperiment-tibble abstraction: 50 × 7</span></span></span>
-<span><span class="co">#  <span style="color: #555555;"># Features = 50 | Cells = 50 | Assays = counts</span></span></span>
+<span><span class="co">#  # A SpatialExperiment-tibble abstraction: 50 × 7</span></span>
+<span><span class="co">#  # Features = 50 | Cells = 50 | Assays = counts</span></span>
 <span><span class="co">#    .cell              in_tissue array_row array_col sample_id  pxl_col_in_fullres</span></span>
-<span><span class="co">#    <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #555555; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #555555; font-style: italic;">&lt;int&gt;</span>     <span style="color: #555555; font-style: italic;">&lt;int&gt;</span> <span style="color: #555555; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #555555; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#  <span style="color: #555555;">1</span> AAACAACGAATAGTTC-1 FALSE             0        16 new_sample               <span style="text-decoration: underline;">2</span>312</span></span>
-<span><span class="co">#  <span style="color: #555555;">2</span> AAACAAGTATCTCCCA-1 TRUE             50       102 new_sample               <span style="text-decoration: underline;">8</span>230</span></span>
-<span><span class="co">#  <span style="color: #555555;">3</span> AAACAATCTACTAGCA-1 TRUE              3        43 new_sample               <span style="text-decoration: underline;">4</span>170</span></span>
-<span><span class="co">#  <span style="color: #555555;">4</span> AAACACCAATAACTGC-1 TRUE             59        19 new_sample               <span style="text-decoration: underline;">2</span>519</span></span>
-<span><span class="co">#  <span style="color: #555555;">5</span> AAACAGAGCGACTCCT-1 TRUE             14        94 new_sample               <span style="text-decoration: underline;">7</span>679</span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 45 more rows</span></span></span>
-<span><span class="co">#  <span style="color: #555555;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></span></code></pre></div>
+<span><span class="co">#    &lt;chr&gt;              &lt;lgl&gt;         &lt;int&gt;     &lt;int&gt; &lt;chr&gt;                   &lt;int&gt;</span></span>
+<span><span class="co">#  1 AAACAACGAATAGTTC-1 FALSE             0        16 new_sample               2312</span></span>
+<span><span class="co">#  2 AAACAAGTATCTCCCA-1 TRUE             50       102 new_sample               8230</span></span>
+<span><span class="co">#  3 AAACAATCTACTAGCA-1 TRUE              3        43 new_sample               4170</span></span>
+<span><span class="co">#  4 AAACACCAATAACTGC-1 TRUE             59        19 new_sample               2519</span></span>
+<span><span class="co">#  5 AAACAGAGCGACTCCT-1 TRUE             14        94 new_sample               7679</span></span>
+<span><span class="co">#  # ℹ 45 more rows</span></span>
+<span><span class="co">#  # ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span></code></pre></div>
 <p>The <code>pxl_col_in_fullres</code> and <code>px_row_in_fullres</code> columns cannot be removed or modified with <em>tidyverse</em> functions. This is consistent with the behaviour of dimension reduction data in other <em>tidyomics</em> packages.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Attempting to remove pxl_col_in_fullres produces an error</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">pxl_col_in_fullres</span><span class="op">)</span></span>
-<span><span class="co">#  <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `select_helper()`:</span></span></span>
-<span><span class="co">#  <span style="color: #BBBB00;">!</span> Can't select columns that don't exist.</span></span>
-<span><span class="co">#  <span style="color: #BB0000;">✖</span> Column `pxl_col_in_fullres` doesn't exist.</span></span>
+<span><span class="co">#  Error in `select_helper()`:</span></span>
+<span><span class="co">#  ! Can't select columns that don't exist.</span></span>
+<span><span class="co">#  ✖ Column `pxl_col_in_fullres` doesn't exist.</span></span>
 <span></span>
 <span><span class="co"># Attempting to modify pxl_col_in_fullres produces an error</span></span>
 <span><span class="va">spe</span> <span class="op">|&gt;</span> </span>
 <span>    <span class="fu"><a href="reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">pxl_col_in_fullres</span><span class="op">)</span></span>
-<span><span class="co">#  <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `dplyr::mutate()`:</span></span></span>
-<span><span class="co">#  <span style="color: #00BBBB;">ℹ</span> In argument: `pxl_col_in_fullres`.</span></span>
-<span><span class="co">#  <span style="font-weight: bold;">Caused by error:</span></span></span>
-<span><span class="co">#  <span style="color: #BBBB00;">!</span> object 'pxl_col_in_fullres' not found</span></span></code></pre></div>
+<span><span class="co">#  Error in `dplyr::mutate()`:</span></span>
+<span><span class="co">#  ℹ In argument: `pxl_col_in_fullres`.</span></span>
+<span><span class="co">#  Caused by error:</span></span>
+<span><span class="co">#  ! object 'pxl_col_in_fullres' not found</span></span></code></pre></div>
 </div>
 <div class="section level1">
 <h1 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
@@ -649,84 +635,80 @@
 </h1>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#  R Under development (unstable) (2025-11-26 r89066)</span></span>
-<span><span class="co">#  Platform: x86_64-pc-linux-gnu</span></span>
-<span><span class="co">#  Running under: Ubuntu 24.04.3 LTS</span></span>
+<span><span class="co">#  R version 4.4.1 (2024-06-14)</span></span>
+<span><span class="co">#  Platform: x86_64-apple-darwin20</span></span>
+<span><span class="co">#  Running under: macOS Sonoma 14.6.1</span></span>
 <span><span class="co">#  </span></span>
 <span><span class="co">#  Matrix products: default</span></span>
-<span><span class="co">#  BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
-<span><span class="co">#  LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0</span></span>
+<span><span class="co">#  BLAS:   /Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libRblas.0.dylib </span></span>
+<span><span class="co">#  LAPACK: /Library/Frameworks/R.framework/Versions/4.4-x86_64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.0</span></span>
 <span><span class="co">#  </span></span>
 <span><span class="co">#  locale:</span></span>
-<span><span class="co">#   [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              </span></span>
-<span><span class="co">#   [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    </span></span>
-<span><span class="co">#   [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   </span></span>
-<span><span class="co">#   [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 </span></span>
-<span><span class="co">#   [9] LC_ADDRESS=C               LC_TELEPHONE=C            </span></span>
-<span><span class="co">#  [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       </span></span>
+<span><span class="co">#  [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8</span></span>
 <span><span class="co">#  </span></span>
-<span><span class="co">#  time zone: UTC</span></span>
-<span><span class="co">#  tzcode source: system (glibc)</span></span>
+<span><span class="co">#  time zone: Australia/Melbourne</span></span>
+<span><span class="co">#  tzcode source: internal</span></span>
 <span><span class="co">#  </span></span>
 <span><span class="co">#  attached base packages:</span></span>
 <span><span class="co">#  [1] stats4    stats     graphics  grDevices utils     datasets  methods  </span></span>
 <span><span class="co">#  [8] base     </span></span>
 <span><span class="co">#  </span></span>
 <span><span class="co">#  other attached packages:</span></span>
-<span><span class="co">#   [1] tidySpatialExperiment_1.7.2     ggplot2_4.0.1                  </span></span>
-<span><span class="co">#   [3] tidyr_1.3.1                     dplyr_1.1.4                    </span></span>
-<span><span class="co">#   [5] tidySingleCellExperiment_1.21.0 ttservice_0.5.3                </span></span>
-<span><span class="co">#   [7] SpatialExperiment_1.21.0        SingleCellExperiment_1.33.0    </span></span>
-<span><span class="co">#   [9] SummarizedExperiment_1.41.0     Biobase_2.71.0                 </span></span>
-<span><span class="co">#  [11] GenomicRanges_1.63.0            Seqinfo_1.1.0                  </span></span>
-<span><span class="co">#  [13] IRanges_2.45.0                  S4Vectors_0.49.0               </span></span>
-<span><span class="co">#  [15] BiocGenerics_0.57.0             generics_0.1.4                 </span></span>
-<span><span class="co">#  [17] MatrixGenerics_1.23.0           matrixStats_1.5.0              </span></span>
-<span><span class="co">#  [19] rmarkdown_2.30                 </span></span>
+<span><span class="co">#   [1] tidySpatialExperiment_1.1.4     ggplot2_3.5.1                  </span></span>
+<span><span class="co">#   [3] ttservice_0.4.1                 tidyr_1.3.1                    </span></span>
+<span><span class="co">#   [5] dplyr_1.1.4                     tidySingleCellExperiment_1.14.0</span></span>
+<span><span class="co">#   [7] SpatialExperiment_1.14.0        SingleCellExperiment_1.26.0    </span></span>
+<span><span class="co">#   [9] SummarizedExperiment_1.34.0     Biobase_2.64.0                 </span></span>
+<span><span class="co">#  [11] GenomicRanges_1.56.1            GenomeInfoDb_1.40.1            </span></span>
+<span><span class="co">#  [13] IRanges_2.38.1                  S4Vectors_0.42.1               </span></span>
+<span><span class="co">#  [15] BiocGenerics_0.50.0             MatrixGenerics_1.16.0          </span></span>
+<span><span class="co">#  [17] matrixStats_1.3.0              </span></span>
 <span><span class="co">#  </span></span>
 <span><span class="co">#  loaded via a namespace (and not attached):</span></span>
-<span><span class="co">#   [1] gridExtra_2.3             rlang_1.1.6              </span></span>
-<span><span class="co">#   [3] magrittr_2.0.4            otel_0.2.0               </span></span>
-<span><span class="co">#   [5] compiler_4.6.0            DelayedMatrixStats_1.33.0</span></span>
-<span><span class="co">#   [7] vctrs_0.6.5               stringr_1.6.0            </span></span>
-<span><span class="co">#   [9] crayon_1.5.3              pkgconfig_2.0.3          </span></span>
-<span><span class="co">#  [11] fastmap_1.2.0             magick_2.9.0             </span></span>
-<span><span class="co">#  [13] XVector_0.51.0            ellipsis_0.3.2           </span></span>
-<span><span class="co">#  [15] labeling_0.4.3            scuttle_1.21.0           </span></span>
-<span><span class="co">#  [17] utf8_1.2.6                promises_1.5.0           </span></span>
-<span><span class="co">#  [19] purrr_1.2.0               xfun_0.54                </span></span>
-<span><span class="co">#  [21] beachmat_2.27.0           jsonlite_2.0.0           </span></span>
-<span><span class="co">#  [23] later_1.4.4               rhdf5filters_1.23.1      </span></span>
-<span><span class="co">#  [25] DelayedArray_0.37.0       Rhdf5lib_1.33.0          </span></span>
-<span><span class="co">#  [27] BiocParallel_1.45.0       parallel_4.6.0           </span></span>
-<span><span class="co">#  [29] R6_2.6.1                  stringi_1.8.7            </span></span>
-<span><span class="co">#  [31] RColorBrewer_1.1-3        limma_3.67.0             </span></span>
-<span><span class="co">#  [33] Rcpp_1.1.0                knitr_1.50               </span></span>
-<span><span class="co">#  [35] R.utils_2.13.0            httpuv_1.6.16            </span></span>
-<span><span class="co">#  [37] Matrix_1.7-4              tidyselect_1.2.1         </span></span>
-<span><span class="co">#  [39] abind_1.4-8               yaml_2.3.11              </span></span>
-<span><span class="co">#  [41] viridis_0.6.5             codetools_0.2-20         </span></span>
-<span><span class="co">#  [43] lattice_0.22-7            tibble_3.3.0             </span></span>
-<span><span class="co">#  [45] shiny_1.11.1              withr_3.0.2              </span></span>
-<span><span class="co">#  [47] S7_0.2.1                  evaluate_1.0.5           </span></span>
-<span><span class="co">#  [49] pillar_1.11.1             plotly_4.11.0            </span></span>
-<span><span class="co">#  [51] sparseMatrixStats_1.23.0  scales_1.4.0             </span></span>
-<span><span class="co">#  [53] xtable_1.8-4              glue_1.8.0               </span></span>
-<span><span class="co">#  [55] lazyeval_0.2.2            tools_4.6.0              </span></span>
-<span><span class="co">#  [57] data.table_1.17.8         locfit_1.5-9.12          </span></span>
-<span><span class="co">#  [59] rhdf5_2.55.11             grid_4.6.0               </span></span>
-<span><span class="co">#  [61] DropletUtils_1.31.0       edgeR_4.9.0              </span></span>
-<span><span class="co">#  [63] HDF5Array_1.39.0          cli_3.6.5                </span></span>
-<span><span class="co">#  [65] tidygate_1.0.14           fansi_1.0.7              </span></span>
-<span><span class="co">#  [67] S4Arrays_1.11.1           viridisLite_0.4.2        </span></span>
-<span><span class="co">#  [69] gtable_0.3.6              R.methodsS3_1.8.2        </span></span>
-<span><span class="co">#  [71] digest_0.6.39             SparseArray_1.11.6       </span></span>
-<span><span class="co">#  [73] dqrng_0.4.1               rjson_0.2.23             </span></span>
-<span><span class="co">#  [75] htmlwidgets_1.6.4         farver_2.1.2             </span></span>
-<span><span class="co">#  [77] htmltools_0.5.8.1         R.oo_1.27.1              </span></span>
-<span><span class="co">#  [79] lifecycle_1.0.4           h5mread_1.3.1            </span></span>
-<span><span class="co">#  [81] httr_1.4.7                statmod_1.5.1            </span></span>
-<span><span class="co">#  [83] mime_0.13</span></span></code></pre></div>
+<span><span class="co">#   [1] gridExtra_2.3             rlang_1.1.4              </span></span>
+<span><span class="co">#   [3] magrittr_2.0.3            compiler_4.4.1           </span></span>
+<span><span class="co">#   [5] DelayedMatrixStats_1.26.0 vctrs_0.6.5              </span></span>
+<span><span class="co">#   [7] stringr_1.5.1             pkgconfig_2.0.3          </span></span>
+<span><span class="co">#   [9] crayon_1.5.3              fastmap_1.2.0            </span></span>
+<span><span class="co">#  [11] magick_2.8.4              XVector_0.44.0           </span></span>
+<span><span class="co">#  [13] ellipsis_0.3.2            labeling_0.4.3           </span></span>
+<span><span class="co">#  [15] scuttle_1.14.0            utf8_1.2.4               </span></span>
+<span><span class="co">#  [17] promises_1.3.0            rmarkdown_2.28           </span></span>
+<span><span class="co">#  [19] UCSC.utils_1.0.0          purrr_1.0.2              </span></span>
+<span><span class="co">#  [21] xfun_0.47                 zlibbioc_1.50.0          </span></span>
+<span><span class="co">#  [23] beachmat_2.20.0           jsonlite_1.8.8           </span></span>
+<span><span class="co">#  [25] highr_0.11                later_1.3.2              </span></span>
+<span><span class="co">#  [27] rhdf5filters_1.16.0       DelayedArray_0.30.1      </span></span>
+<span><span class="co">#  [29] Rhdf5lib_1.26.0           BiocParallel_1.38.0      </span></span>
+<span><span class="co">#  [31] parallel_4.4.1            R6_2.5.1                 </span></span>
+<span><span class="co">#  [33] stringi_1.8.4             RColorBrewer_1.1-3       </span></span>
+<span><span class="co">#  [35] limma_3.60.4              Rcpp_1.0.13              </span></span>
+<span><span class="co">#  [37] knitr_1.48                R.utils_2.12.3           </span></span>
+<span><span class="co">#  [39] httpuv_1.6.15             Matrix_1.7-0             </span></span>
+<span><span class="co">#  [41] tidyselect_1.2.1          abind_1.4-5              </span></span>
+<span><span class="co">#  [43] yaml_2.3.10               viridis_0.6.5            </span></span>
+<span><span class="co">#  [45] codetools_0.2-20          lattice_0.22-6           </span></span>
+<span><span class="co">#  [47] tibble_3.2.1              shiny_1.9.1              </span></span>
+<span><span class="co">#  [49] withr_3.0.1               evaluate_0.24.0          </span></span>
+<span><span class="co">#  [51] pillar_1.9.0              plotly_4.10.4            </span></span>
+<span><span class="co">#  [53] generics_0.1.3            sparseMatrixStats_1.16.0 </span></span>
+<span><span class="co">#  [55] munsell_0.5.1             scales_1.3.0             </span></span>
+<span><span class="co">#  [57] xtable_1.8-4              glue_1.7.0               </span></span>
+<span><span class="co">#  [59] lazyeval_0.2.2            tools_4.4.1              </span></span>
+<span><span class="co">#  [61] data.table_1.15.4         locfit_1.5-9.10          </span></span>
+<span><span class="co">#  [63] rhdf5_2.48.0              grid_4.4.1               </span></span>
+<span><span class="co">#  [65] DropletUtils_1.24.0       edgeR_4.2.1              </span></span>
+<span><span class="co">#  [67] colorspace_2.1-1          GenomeInfoDbData_1.2.12  </span></span>
+<span><span class="co">#  [69] HDF5Array_1.32.1          cli_3.6.3                </span></span>
+<span><span class="co">#  [71] tidygate_1.0.13           fansi_1.0.6              </span></span>
+<span><span class="co">#  [73] S4Arrays_1.4.1            viridisLite_0.4.2        </span></span>
+<span><span class="co">#  [75] gtable_0.3.5              R.methodsS3_1.8.2        </span></span>
+<span><span class="co">#  [77] digest_0.6.37             SparseArray_1.4.8        </span></span>
+<span><span class="co">#  [79] dqrng_0.4.1               farver_2.1.2             </span></span>
+<span><span class="co">#  [81] rjson_0.2.22              htmlwidgets_1.6.4        </span></span>
+<span><span class="co">#  [83] htmltools_0.5.8.1         R.oo_1.26.0              </span></span>
+<span><span class="co">#  [85] lifecycle_1.0.4           httr_1.4.7               </span></span>
+<span><span class="co">#  [87] statmod_1.5.0             mime_0.12</span></span></code></pre></div>
 </div>
 
   </div>
