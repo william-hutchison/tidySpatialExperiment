@@ -428,7 +428,12 @@ gate_interactive <-
     # Set to NULL if no gates drawn
     if (nrow(tidygate_env$gates) == 0) {
       tidygate_env$gates <- NULL
+    
+    # Flip y axis to account for inverted plot and alter user to saved gates
     } else {
+      tidygate_env$gates <-
+        tidygate_env$gates |>
+        mutate(y = -y)
       message("tidySpatialExperiment says: interactively drawn gates are temporarily saved to tidygate_env$gates")
     }
     
