@@ -159,7 +159,6 @@ Methods available in currently loaded packages:
 
 \examples{
 example(read10xVisium)
-
 spe |>
     right_join(
         spe |>

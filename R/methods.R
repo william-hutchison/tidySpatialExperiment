@@ -1,5 +1,5 @@
 # Define otherwise undefined global variables for R CMD check
-utils::globalVariables(c("x", "y", "dimension_x", "dimension_y", "pxl_col_in_fullres", 
+utils::globalVariables(c("x", "y", ".idx", "dimension_x", "dimension_y", "pxl_col_in_fullres", 
                          "pxl_row_in_fullres", ".key", "tidygate_env"))
 
 #' Show

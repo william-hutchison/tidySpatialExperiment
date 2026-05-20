@@ -16,8 +16,7 @@ Depends:
     R (>= 4.3.0),
     SpatialExperiment,
     tidySingleCellExperiment,
-    ttservice,
-    tidyverse
+    ttservice  
 Imports:
     SummarizedExperiment,
     SingleCellExperiment,

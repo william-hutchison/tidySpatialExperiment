@@ -170,8 +170,13 @@ left_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix = 
         y <-
             y |>
             colData() |>
-            tibble::as_tibble(rownames = c_(y)$name)
+            tibble::as_tibble() |>
+            tibble::add_column(
+                .cell = rownames(colData(y)),
+                .before = 1
+            )
     }
+    
     if (! inherits(y, "tbl_df")) {
         stop(
             "tidySpatialExperiment says: `y` must be a tibble, a SpatialExperiment object or a 
@@ -209,7 +214,9 @@ left_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix = 
 #' @importFrom SummarizedExperiment colData
 #' @importFrom tibble as_tibble
 #' @importFrom tibble add_column
+#' @importFrom dplyr inner_join
 #' @importFrom dplyr left_join
+#' @importFrom dplyr semi_join
 #' @importFrom dplyr pull
 #' @export
 inner_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), 
@@ -225,8 +232,13 @@ inner_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
         y <-
             y |>
             colData() |>
-            tibble::as_tibble(rownames = c_(y)$name)
+            tibble::as_tibble() |>
+            tibble::add_column(
+                .cell = rownames(colData(y)),
+                .before = 1
+            )
     }
+
     if (! inherits(y, "tbl_df")) {
         stop(
             "tidySpatialExperiment says: `y` must be a tibble, a SpatialExperiment object or a 
@@ -234,10 +246,21 @@ inner_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
         )
     }
 
-    # Filter x to overlapping rows with y in by column
-    x <-
+    # Filter x to overlapping rows with y, using semi_join to handle `by` naturally
+    keep_idx <- 
         x |>
-        dplyr::filter(!!sym(by) %in% y[[by]])
+        colData() |>
+        tibble::as_tibble() |>
+         tibble::add_column(
+            .cell = rownames(colData(x)),
+            .before = 1
+        ) |>
+        tibble::add_column(.idx = seq_len(ncol(x))) |>
+        dplyr::semi_join(y, by = by) |>
+        dplyr::pull(.idx)
+    
+    x <-
+        x[, keep_idx]
 
     # Join data and assign to the returned SpatialExperiment object's colData
     colData(x) <-
@@ -269,9 +292,10 @@ inner_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
 #' @importFrom SummarizedExperiment colData
 #' @importFrom tibble as_tibble
 #' @importFrom tibble add_column
+#' @importFrom dplyr right_join
 #' @importFrom dplyr left_join
+#' @importFrom dplyr semi_join
 #' @importFrom dplyr pull
-#' @importFrom dplyr filter
 #' @export
 right_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"),
                                          ...) {
@@ -286,8 +310,13 @@ right_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
         y <-
             y |>
             colData() |>
-            tibble::as_tibble(rownames = c_(y)$name)
+            tibble::as_tibble() |>
+            tibble::add_column(
+                .cell = rownames(colData(y)),
+                .before = 1
+            )
     }
+
     if (! inherits(y, "tbl_df")) {
         stop(
             "tidySpatialExperiment says: `y` must be a tibble, a SpatialExperiment object or a 
@@ -295,10 +324,21 @@ right_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
         )
     }
 
-    # Filter x to overlapping rows with y in by column
-    x <-
+    # Filter x to overlapping rows with y, using semi_join to handle `by` naturally
+    keep_idx <- 
         x |>
-        dplyr::filter(!!sym(by) %in% y[[by]])
+        colData() |>
+        tibble::as_tibble() |>
+         tibble::add_column(
+            .cell = rownames(colData(x)),
+            .before = 1
+        ) |>
+        tibble::add_column(.idx = seq_len(ncol(x))) |>
+        dplyr::semi_join(y, by = by) |>
+        dplyr::pull(.idx)
+    
+    x <-
+        x[, keep_idx]
 
     # Join data and assign to the returned SpatialExperiment object's colData
     colData(x) <-
