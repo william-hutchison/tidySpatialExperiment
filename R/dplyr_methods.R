@@ -146,10 +146,11 @@ mutate.SpatialExperiment <- function(.data, ...) {
 #' example(read10xVisium)
 #' spe |>
 #'     left_join(
-#'         spe |>
-#'             filter(in_tissue == TRUE) |>
-#'             mutate(new_column = 1)
-#'         )
+#'          tibble(
+#'              .cell = "AAACAACGAATAGTTC-1", 
+#'              new_colum = "test"
+#'          )
+#'      )
 #' 
 #' @importFrom SummarizedExperiment colData
 #' @importFrom tibble as_tibble
@@ -206,10 +207,11 @@ left_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix = 
 #' example(read10xVisium)
 #' spe |>
 #'     inner_join(
-#'         spe |>
-#'             filter(in_tissue == TRUE) |>
-#'             mutate(new_column = 1)
-#'         )
+#'          tibble(
+#'              .cell = "AAACAACGAATAGTTC-1", 
+#'              new_colum = "test"
+#'          )
+#'      )
 #' 
 #' @importFrom SummarizedExperiment colData
 #' @importFrom tibble as_tibble
@@ -284,10 +286,11 @@ inner_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
 #' example(read10xVisium)
 #' spe |>
 #'     right_join(
-#'         spe |>
-#'             filter(in_tissue == TRUE) |>
-#'             mutate(new_column = 1)
-#'         )
+#'          tibble(
+#'              .cell = "AAACAACGAATAGTTC-1", 
+#'              new_colum = "test"
+#'          )
+#'      )
 #'
 #' @importFrom SummarizedExperiment colData
 #' @importFrom tibble as_tibble
