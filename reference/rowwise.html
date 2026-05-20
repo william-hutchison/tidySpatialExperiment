@@ -21,7 +21,7 @@ or as_tibble(), or convert to a grouped_df with group_by()."><meta property="og:
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidySpatialExperiment</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.3</span>
       </span>
     </div>
 
@@ -58,7 +58,7 @@ or as_tibble(), or convert to a grouped_df with group_by()."><meta property="og:
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Group input by rows</h1>
-    <small class="dont-index">Source: <a href="https://github.com/william-hutchison/tidySpatialExperiment/blob/devel/R/dplyr_methods.R" class="external-link"><code>R/dplyr_methods.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/william-hutchison/tidySpatialExperiment/blob/fix-tibble-joining/R/dplyr_methods.R" class="external-link"><code>R/dplyr_methods.R</code></a></small>
     <div class="hidden name"><code>rowwise.Rd</code></div>
     </div>
 
@@ -114,7 +114,7 @@ with nested data.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3] "tissue_positions_list.csv"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV&gt; file.path(samples[1], "raw_feature_bc_matrix")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/home/runner/work/_temp/Library/SpatialExperiment/extdata/10xVisium/section1/outs/raw_feature_bc_matrix"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/__w/_temp/Library/SpatialExperiment/extdata/10xVisium/section1/outs/raw_feature_bc_matrix"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV&gt; (spe &lt;- read10xVisium(samples, sample_ids, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV+   type = "sparse", data = "raw", </span>

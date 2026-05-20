@@ -22,7 +22,7 @@ Learn more in vignette("nest").'><meta property="og:image" content="/logo.png"><
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidySpatialExperiment</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.3</span>
       </span>
     </div>
 
@@ -59,7 +59,7 @@ Learn more in vignette("nest").'><meta property="og:image" content="/logo.png"><
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Nest rows into a list-column of data frames</h1>
-    <small class="dont-index">Source: <a href="https://github.com/william-hutchison/tidySpatialExperiment/blob/devel/R/tidyr_methods.R" class="external-link"><code>R/tidyr_methods.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/william-hutchison/tidySpatialExperiment/blob/fix-tibble-joining/R/tidyr_methods.R" class="external-link"><code>R/tidyr_methods.R</code></a></small>
     <div class="hidden name"><code>nest.Rd</code></div>
     </div>
 
@@ -94,8 +94,8 @@ tidyselect expression.</p>
 <p>If not supplied, then <code>...</code> is derived as all columns <em>not</em> selected by
 <code>.by</code>, and will use the column name from <code>.key</code>.</p>
 <p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>:
-previously you could write <code>df %&gt;% nest(x, y, z)</code>.
-Convert to <code>df %&gt;% nest(data = c(x, y, z))</code>.</p></dd>
+previously you could write <code>df |&gt; nest(x, y, z)</code>.
+Convert to <code>df |&gt; nest(data = c(x, y, z))</code>.</p></dd>
 
 
 <dt id="arg--names-sep">.names_sep<a class="anchor" aria-label="anchor" href="#arg--names-sep"></a></dt>
@@ -133,15 +133,15 @@ behaviour using <code><a href="https://tidyr.tidyverse.org/reference/nest_legacy
 
 
 
-<p><code>df %&gt;% nest(data = c(x, y))</code> specifies the columns to be nested; i.e. the
-columns that will appear in the inner data frame. <code>df %&gt;% nest(.by = c(x, y))</code> specifies the columns to nest <em>by</em>; i.e. the columns that will remain in
+<p><code>df |&gt; nest(data = c(x, y))</code> specifies the columns to be nested; i.e. the
+columns that will appear in the inner data frame. <code>df |&gt; nest(.by = c(x, y))</code> specifies the columns to nest <em>by</em>; i.e. the columns that will remain in
 the outer data frame. An alternative way to achieve the latter is to <code>nest()</code>
 a grouped data frame created by <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">dplyr::group_by()</a></code>. The grouping variables
 remain in the outer data frame and the others are nested. The result
 preserves the grouping of the input.</p>
 <p>Variables supplied to <code>nest()</code> will override grouping variables so that
-<code>df %&gt;% group_by(x, y) %&gt;% nest(data = !z)</code> will be equivalent to
-<code>df %&gt;% nest(data = !z)</code>.</p>
+<code>df |&gt; group_by(x, y) |&gt; nest(data = !z)</code> will be equivalent to
+<code>df |&gt; nest(data = !z)</code>.</p>
 <p>You can't supply <code>.by</code> with a grouped data frame, as the groups already
 represent what you are nesting by.</p>
     </div>
@@ -166,7 +166,7 @@ represent what you are nesting by.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3] "tissue_positions_list.csv"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV&gt; file.path(samples[1], "raw_feature_bc_matrix")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/home/runner/work/_temp/Library/SpatialExperiment/extdata/10xVisium/section1/outs/raw_feature_bc_matrix"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/__w/_temp/Library/SpatialExperiment/extdata/10xVisium/section1/outs/raw_feature_bc_matrix"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV&gt; (spe &lt;- read10xVisium(samples, sample_ids, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV+   type = "sparse", data = "raw", </span>

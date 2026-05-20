@@ -34,7 +34,7 @@ It was easier to remove the deprecated .env argument.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidySpatialExperiment</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.3</span>
       </span>
     </div>
 
@@ -71,7 +71,7 @@ It was easier to remove the deprecated .env argument.
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Sample n rows from a table</h1>
-    <small class="dont-index">Source: <a href="https://github.com/william-hutchison/tidySpatialExperiment/blob/devel/R/dplyr_methods.R" class="external-link"><code>R/dplyr_methods.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/william-hutchison/tidySpatialExperiment/blob/fix-tibble-joining/R/dplyr_methods.R" class="external-link"><code>R/dplyr_methods.R</code></a></small>
     <div class="hidden name"><code>sample_n.Rd</code></div>
     </div>
 
@@ -159,7 +159,7 @@ the input. Weights are automatically standardised to sum to 1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3] "tissue_positions_list.csv"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV&gt; file.path(samples[1], "raw_feature_bc_matrix")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/home/runner/work/_temp/Library/SpatialExperiment/extdata/10xVisium/section1/outs/raw_feature_bc_matrix"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/__w/_temp/Library/SpatialExperiment/extdata/10xVisium/section1/outs/raw_feature_bc_matrix"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV&gt; (spe &lt;- read10xVisium(samples, sample_ids, </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rd10xV+   type = "sparse", data = "raw", </span>
@@ -234,44 +234,33 @@ the input. Weights are automatically standardised to sum to 1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># </span><span style="color: #555555;">Features = 50 | Cells = 10 | Assays = counts</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> AAACCTAAGCAGCCGG-1 FALSE            65        83 section1                <span style="text-decoration: underline;">6</span>922</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> AAACGGGTTGGTATCC-1 FALSE             1        23 section1                <span style="text-decoration: underline;">2</span>794</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> AAAGACCCAAGTCGCG-1 TRUE             10        48 section1                <span style="text-decoration: underline;">4</span>514</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> AAACAGTGTTCCTGGG-1 FALSE            73        43 section1                <span style="text-decoration: underline;">4</span>170</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> AAACTTGCAAACGTAT-1 TRUE             45        19 section1                <span style="text-decoration: underline;">2</span>519</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> AAAGAATGACCTTAGA-1 FALSE            64         2 section1                <span style="text-decoration: underline;">1</span>349</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> AAAGGGATGTAGCAAG-1 TRUE             24        62 section1                <span style="text-decoration: underline;">5</span>477</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> AAACTAACGTGGCGAC-1 FALSE             8       110 section1                <span style="text-decoration: underline;">8</span>780</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> AAAGTCACTGATGTAA-1 TRUE             10        52 section1                <span style="text-decoration: underline;">4</span>789</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> AAACGGTTGCGAACTG-1 TRUE             67        59 section1                <span style="text-decoration: underline;">5</span>271</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> AAAGGTAAGCTGTACC-1 FALSE            10       106 section1                <span style="text-decoration: underline;">8</span>504</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> AAACGCTGGGCACGAC-1 FALSE            70       126 section1                <span style="text-decoration: underline;">9</span>881</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> AAACGTGTTCGCCCTA-1 FALSE            14       118 section1                <span style="text-decoration: underline;">9</span>330</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> AAACCGGGTAGGTACC-1 TRUE             42        28 section1                <span style="text-decoration: underline;">3</span>138</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> AAAGTAGCATTGCTCA-1 TRUE             51        27 section1                <span style="text-decoration: underline;">3</span>069</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> AAACTGCTGGCTCCAA-1 TRUE             45        67 section1                <span style="text-decoration: underline;">5</span>821</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> AAACGAAGATGGAGTA-1 FALSE            58         4 section1                <span style="text-decoration: underline;">1</span>487</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> AAACGGGCGTACGGGT-1 FALSE            65        91 section1                <span style="text-decoration: underline;">7</span>473</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> AAACGACAGTCTTGCC-1 FALSE             2       118 section1                <span style="text-decoration: underline;">9</span>330</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> AAACAGAGCGACTCCT-1 TRUE             14        94 section1                <span style="text-decoration: underline;">7</span>679</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span>
 <span class="r-in"><span><span class="va">spe</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>    <span class="fu">sample_frac</span><span class="op">(</span><span class="fl">0.1</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> tidySpatialExperiment says: When sampling with replacement a data frame is returned </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>             for independent data analysis.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 20 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A SpatialExperiment-tibble abstraction: 10 × 7</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># </span><span style="color: #555555;">Features = 50 | Cells = 10 | Assays = counts</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    .cell              in_tissue array_row array_col sample_id pxl_col_in_fullres</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> AAACAAGTATCTCCCA-1 TRUE             50       102 section1                <span style="text-decoration: underline;">8</span>230</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> AAACAATCTACTAGCA-1 TRUE              3        43 section1                <span style="text-decoration: underline;">4</span>170</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> AAACAGCTTTCAGAAG-1 FALSE            43         9 section1                <span style="text-decoration: underline;">1</span>831</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> AAACCTAAGCAGCCGG-1 FALSE            65        83 section1                <span style="text-decoration: underline;">6</span>922</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> AAACGAAGATGGAGTA-1 FALSE            58         4 section1                <span style="text-decoration: underline;">1</span>487</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> AAACGCCCGAGATCGG-1 FALSE             4       108 section1                <span style="text-decoration: underline;">8</span>642</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> AAAGAATGTGGACTAA-1 FALSE            71       105 section1                <span style="text-decoration: underline;">8</span>436</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> AAAGACTGGGCGCTTT-1 FALSE            29        15 section1                <span style="text-decoration: underline;">2</span>243</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> AAAGACTGGGCGCTTT-1 FALSE            29        15 section1                <span style="text-decoration: underline;">2</span>243</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> AAAGGCTACGGACCAT-1 TRUE             62        54 section1                <span style="text-decoration: underline;">4</span>927</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> AAACAAGTATCTCCCA-1 TRUE             50       102 section2                <span style="text-decoration: underline;">8</span>230</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> AAACAATCTACTAGCA-1 TRUE              3        43 section2                <span style="text-decoration: underline;">4</span>170</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> AAACAGCTTTCAGAAG-1 FALSE            43         9 section2                <span style="text-decoration: underline;">1</span>831</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> AAACCTAAGCAGCCGG-1 FALSE            65        83 section2                <span style="text-decoration: underline;">6</span>922</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> AAACGAAGATGGAGTA-1 FALSE            58         4 section2                <span style="text-decoration: underline;">1</span>487</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> AAACGCCCGAGATCGG-1 FALSE             4       108 section2                <span style="text-decoration: underline;">8</span>642</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> AAAGAATGTGGACTAA-1 FALSE            71       105 section2                <span style="text-decoration: underline;">8</span>436</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> AAAGACTGGGCGCTTT-1 FALSE            29        15 section2                <span style="text-decoration: underline;">2</span>243</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> AAAGACTGGGCGCTTT-1 FALSE            29        15 section2                <span style="text-decoration: underline;">2</span>243</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">20</span> AAAGGCTACGGACCAT-1 TRUE             62        54 section2                <span style="text-decoration: underline;">4</span>927</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> AAACGGGCGTACGGGT-1 FALSE            65        91 section1                <span style="text-decoration: underline;">7</span>473</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> AAACTCGTGATATAAG-1 FALSE            23       113 section1                <span style="text-decoration: underline;">8</span>986</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> AAACTAACGTGGCGAC-1 FALSE             8       110 section1                <span style="text-decoration: underline;">8</span>780</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> AAACAAGTATCTCCCA-1 TRUE             50       102 section1                <span style="text-decoration: underline;">8</span>230</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> AAACCGGAAATGTTAA-1 FALSE            54       124 section1                <span style="text-decoration: underline;">9</span>743</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> AAACAGCTTTCAGAAG-1 FALSE            43         9 section1                <span style="text-decoration: underline;">1</span>831</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> AAAGGGATGTAGCAAG-1 TRUE             24        62 section1                <span style="text-decoration: underline;">5</span>477</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> AAAGGTCAACGACATG-1 FALSE             0       112 section1                <span style="text-decoration: underline;">8</span>917</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> AAAGGGCAGCTTGAAT-1 TRUE             24        26 section1                <span style="text-decoration: underline;">3</span>000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> AAACAGAGCGACTCCT-1 TRUE             14        94 section1                <span style="text-decoration: underline;">7</span>679</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span>
 <span class="r-in"><span> </span></span>
 </code></pre></div>
