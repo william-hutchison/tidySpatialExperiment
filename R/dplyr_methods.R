@@ -153,6 +153,7 @@ mutate.SpatialExperiment <- function(.data, ...) {
 #' 
 #' @importFrom SummarizedExperiment colData
 #' @importFrom tibble as_tibble
+#' @importFrom tibble add_column
 #' @importFrom dplyr left_join
 #' @importFrom dplyr count
 #' @export
@@ -182,7 +183,11 @@ left_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix = 
     colData(x) <-
         x |>
         colData() |>
-        tibble::as_tibble(rownames = c_(x)$name) |>
+        tibble::as_tibble() |>
+        tibble::add_column(
+            .cell = rownames(colData(x)),
+            .before = 1
+        ) |>
         dplyr::left_join(y, by = by, copy = copy, suffix = suffix, ...) |>
         as_meta_data(x)
     x
@@ -203,6 +208,7 @@ left_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix = 
 #' 
 #' @importFrom SummarizedExperiment colData
 #' @importFrom tibble as_tibble
+#' @importFrom tibble add_column
 #' @importFrom dplyr left_join
 #' @importFrom dplyr pull
 #' @export
@@ -237,7 +243,11 @@ inner_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
     colData(x) <-
         x |>
         colData() |>
-        tibble::as_tibble(rownames = c_(x)$name) |>
+        tibble::as_tibble() |>
+        tibble::add_column(
+            .cell = rownames(colData(x)),
+            .before = 1
+        ) |>
         dplyr::left_join(y, by = by, copy = copy, suffix = suffix, ...) |>
         as_meta_data(x)
     x
@@ -249,7 +259,6 @@ inner_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
 #'
 #' @examples
 #' example(read10xVisium)
-#' 
 #' spe |>
 #'     right_join(
 #'         spe |>
@@ -259,6 +268,7 @@ inner_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
 #'
 #' @importFrom SummarizedExperiment colData
 #' @importFrom tibble as_tibble
+#' @importFrom tibble add_column
 #' @importFrom dplyr left_join
 #' @importFrom dplyr pull
 #' @importFrom dplyr filter
@@ -294,7 +304,11 @@ right_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
     colData(x) <-
         x |>
         colData() |>
-        tibble::as_tibble(rownames = c_(x)$name) |>
+        tibble::as_tibble() |>
+        tibble::add_column(
+            .cell = rownames(colData(x)),
+            .before = 1
+        ) |>
         dplyr::left_join(y, by = by, copy = copy, suffix = suffix, ...) |>
         as_meta_data(x)
     x
