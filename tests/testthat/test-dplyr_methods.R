@@ -89,50 +89,74 @@ test_that("rename", {
   
 test_that("left_join", {
     spe |>
-        left_join(spe |>
-            filter(in_tissue == TRUE) |>
-            mutate(new_column = 1)) |>
+        left_join(
+            spe |>
+                filter(.cell == "AAACAACGAATAGTTC-1") |>
+                mutate(new_column = "test")
+        ) |>
+        colData() |>
         ncol() |>
-        expect_equal(99)
+        expect_equal(5)
   
     spe |>
-        filter(in_tissue == TRUE) |>
-        mutate(new_column = 1) |>
-        left_join(spe) |>
+        left_join(tribble(~ .cell, ~ new_column, "AAACAACGAATAGTTC-1", "test")) |>
+        colData() |>
         ncol() |>
-        expect_equal(44)
+        expect_equal(5)
+
+    spe |>
+        left_join(tribble(~ .cell, ~ new_column, "AAACAACGAATAGTTC-1", "test")) |>
+        colData() |>
+        nrow() |>
+        expect_equal(99)
 })
 
 test_that("right_join", {
-  spe |>
-      right_join(spe |>
-          filter(in_tissue == TRUE) |>
-          mutate(new_column = 1)) |>
-      ncol() |>
-      expect_equal(44)
+    spe |>
+        right_join(
+            spe |>
+                filter(.cell == "AAACAACGAATAGTTC-1") |>
+                mutate(new_column = "test")
+        ) |>
+        colData() |>
+        ncol() |>
+        expect_equal(5)
+  
+    spe |>
+        right_join(tribble(~ .cell, ~ new_column, "AAACAACGAATAGTTC-1", "test")) |>
+        colData() |>
+        ncol() |>
+        expect_equal(5)
 
-  spe |>
-      filter(in_tissue == TRUE) |>
-      mutate(new_column = 1) |>
-      right_join(spe) |>
-      ncol() |>
-      expect_equal(99)
+    spe |>
+        right_join(tribble(~ .cell, ~ new_column, "AAACAACGAATAGTTC-1", "test")) |>
+        colData() |>
+        nrow() |>
+        expect_equal(1)
 })
 
 test_that("inner_join", {
-  spe |>
-    inner_join(spe |>
-        filter(in_tissue == TRUE) |>
-        mutate(new_column = 1)) |>
-    ncol() |>
-    expect_equal(44)
+    spe |>
+        inner_join(
+            spe |>
+                filter(.cell == "AAACAACGAATAGTTC-1") |>
+                mutate(new_column = "test")
+        ) |>
+        colData() |>
+        ncol() |>
+        expect_equal(5)
   
-  spe |>
-    filter(in_tissue == TRUE) |>
-    mutate(new_column = 1) |>
-    inner_join(spe) |>
-    ncol() |>
-    expect_equal(44)
+    spe |>
+        inner_join(tribble(~ .cell, ~ new_column, "AAACAACGAATAGTTC-1", "test")) |>
+        colData() |>
+        ncol() |>
+        expect_equal(5)
+
+    spe |>
+        inner_join(tribble(~ .cell, ~ new_column, "AAACAACGAATAGTTC-1", "test")) |>
+        colData() |>
+        nrow() |>
+        expect_equal(1)
 })
 
 test_that("slice", {
