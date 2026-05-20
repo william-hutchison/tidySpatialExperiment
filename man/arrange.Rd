@@ -51,10 +51,10 @@ spe |>
     arrange(array_row)
 }
 \seealso{
-Other single table verbs: 
-\code{\link{mutate}()},
-\code{\link{rename}()},
-\code{\link{slice}()},
-\code{\link{summarise}()}
+Other single table verbs:
+\code{\link{mutate}},
+\code{\link{rename}},
+\code{\link{slice}},
+\code{\link{summarise}}
 }
 \concept{single table verbs}

@@ -16,7 +16,8 @@ Depends:
     R (>= 4.3.0),
     SpatialExperiment,
     tidySingleCellExperiment,
-    ttservice
+    ttservice,
+    tidyverse
 Imports:
     SummarizedExperiment,
     SingleCellExperiment,
@@ -57,8 +58,8 @@ VignetteBuilder:
 Biarch: true
 biocViews: Infrastructure, RNASeq, GeneExpression, Sequencing, Spatial, Transcriptomics, SingleCell
 Encoding: UTF-8
-RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/william-hutchison/tidySpatialExperiment, https://william-hutchison.github.io/tidySpatialExperiment/
 BugReports: https://github.com/william-hutchison/tidySpatialExperiment/issues
 LazyData: true
+Config/roxygen2/version: 8.0.0

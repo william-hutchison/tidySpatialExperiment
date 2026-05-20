@@ -152,6 +152,7 @@ mutate.SpatialExperiment <- function(.data, ...) {
 #'         )
 #' 
 #' @importFrom SummarizedExperiment colData
+#' @importFrom tibble as_tibble
 #' @importFrom dplyr left_join
 #' @importFrom dplyr count
 #' @export
@@ -162,18 +163,27 @@ left_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix = 
     if (is_sample_feature_deprecated_used(x, when(by, !is.null(.) ~ by, ~ colnames(y)))) {
         x <- ping_old_special_column_into_metadata(x)
     }
-    
-    # Join colData and assign to the returned SpatialExperiment object's colData
+
+    # Convert y colData to tibble format, return error message or continue with supplied tibble
+    if (inherits(y, "SingleCellExperiment") | inherits(y, "SpatialExperiment")) {
+        y <-
+            y |>
+            colData() |>
+            tibble::as_tibble(rownames = c_(y)$name)
+    }
+    if (! inherits(y, "tbl_df")) {
+        stop(
+            "tidySpatialExperiment says: `y` must be a tibble, a SpatialExperiment object or a 
+            SingleCellExperiment object."
+        )
+    }
+
+    # Join data and assign to the returned SpatialExperiment object's colData
     colData(x) <-
         x |>
         colData() |>
         tibble::as_tibble(rownames = c_(x)$name) |>
-        dplyr::left_join(
-            y |>
-                colData() |>
-                tibble::as_tibble(rownames = c_(y)$name),
-            by = by, copy = copy, suffix = suffix, ...
-        ) |>
+        dplyr::left_join(y, by = by, copy = copy, suffix = suffix, ...) |>
         as_meta_data(x)
     x
 }
@@ -192,46 +202,45 @@ left_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix = 
 #'         )
 #' 
 #' @importFrom SummarizedExperiment colData
-#' @importFrom dplyr inner_join
+#' @importFrom tibble as_tibble
+#' @importFrom dplyr left_join
 #' @importFrom dplyr pull
 #' @export
 inner_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), 
                                          ...) {
   
     # Deprecation of special column names
-    if (is_sample_feature_deprecated_used(x, when(by, !is.null(.) ~ by, ~ colnames(y)))) {
-       x <- ping_old_special_column_into_metadata(x)
-    }
-    
-    # Join colData and attach to the smaller SpatialExperimemt object's colData
-    if (ncol(x) < ncol(y)) {
-        colData(x) <-
-            x |>
-            colData() |>
-            tibble::as_tibble(rownames = c_(x)$name) |>
-            dplyr::left_join(
-                y |>
-                    colData() |>
-                    tibble::as_tibble(rownames = c_(y)$name),
-                by = by, copy = copy, suffix = suffix, ...
-            ) |>
-            as_meta_data(x)
-        x
-      
-    } else {
-        colData(y) <-
+    if (is_sample_feature_deprecated_used(x, when(by, !is.null(.) ~ by, ~ colnames(y))) ) {
+        x <- ping_old_special_column_into_metadata(x)
+    }        
+
+    # Convert y colData to tibble format, return error message or continue with supplied tibble
+    if (inherits(y, "SingleCellExperiment") | inherits(y, "SpatialExperiment")) {
+        y <-
             y |>
             colData() |>
-            tibble::as_tibble(rownames = c_(y)$name) |>
-            dplyr::left_join(
-                x |>
-                    colData() |>
-                    tibble::as_tibble(rownames = c_(x)$name),
-                by = by, copy = copy, suffix = suffix, ...
-            ) |>
-            as_meta_data(y)
-        y
+            tibble::as_tibble(rownames = c_(y)$name)
     }
+    if (! inherits(y, "tbl_df")) {
+        stop(
+            "tidySpatialExperiment says: `y` must be a tibble, a SpatialExperiment object or a 
+            SingleCellExperiment object."
+        )
+    }
+
+    # Filter x to overlapping rows with y in by column
+    x <-
+        x |>
+        dplyr::filter(!!sym(by) %in% y[[by]])
+
+    # Join data and assign to the returned SpatialExperiment object's colData
+    colData(x) <-
+        x |>
+        colData() |>
+        tibble::as_tibble(rownames = c_(x)$name) |>
+        dplyr::left_join(y, by = by, copy = copy, suffix = suffix, ...) |>
+        as_meta_data(x)
+    x
 }
 
 #' @name right_join
@@ -249,8 +258,10 @@ inner_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
 #'         )
 #'
 #' @importFrom SummarizedExperiment colData
-#' @importFrom dplyr right_join
+#' @importFrom tibble as_tibble
+#' @importFrom dplyr left_join
 #' @importFrom dplyr pull
+#' @importFrom dplyr filter
 #' @export
 right_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"),
                                          ...) {
@@ -258,21 +269,35 @@ right_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
     # Deprecation of special column names
     if (is_sample_feature_deprecated_used(x, when(by, !is.null(.) ~ by, ~ colnames(y))) ) {
         x <- ping_old_special_column_into_metadata(x)
+    }        
+
+    # Convert y colData to tibble format, return error message or continue with supplied tibble
+    if (inherits(y, "SingleCellExperiment") | inherits(y, "SpatialExperiment")) {
+        y <-
+            y |>
+            colData() |>
+            tibble::as_tibble(rownames = c_(y)$name)
     }
-    
-    # Join colData and assign to the returned SpatialExperiment object's colData
-    colData(y) <-
-        y |>
+    if (! inherits(y, "tbl_df")) {
+        stop(
+            "tidySpatialExperiment says: `y` must be a tibble, a SpatialExperiment object or a 
+            SingleCellExperiment object."
+        )
+    }
+
+    # Filter x to overlapping rows with y in by column
+    x <-
+        x |>
+        dplyr::filter(!!sym(by) %in% y[[by]])
+
+    # Join data and assign to the returned SpatialExperiment object's colData
+    colData(x) <-
+        x |>
         colData() |>
-        tibble::as_tibble(rownames = c_(y)$name) |>
-        dplyr::left_join(
-            x |>
-                colData() |>
-                tibble::as_tibble(rownames = c_(x)$name),
-            by = by, copy = copy, suffix = suffix, ...
-        ) |>
-        as_meta_data(y)
-    y
+        tibble::as_tibble(rownames = c_(x)$name) |>
+        dplyr::left_join(y, by = by, copy = copy, suffix = suffix, ...) |>
+        as_meta_data(x)
+    x
 }
 
 #' @name select

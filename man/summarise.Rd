@@ -74,10 +74,10 @@ spe |>
     summarise(mean(array_row))
 }
 \seealso{
-Other single table verbs: 
-\code{\link{arrange}()},
-\code{\link{mutate}()},
-\code{\link{rename}()},
-\code{\link{slice}()}
+Other single table verbs:
+\code{\link{arrange}},
+\code{\link{mutate}},
+\code{\link{rename}},
+\code{\link{slice}}
 }
 \concept{single table verbs}

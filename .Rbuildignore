@@ -1,3 +1,5 @@
 ^\.github$
 ^LICENSE\.md$
 ^NEWS\.md$
+^.*\.Rproj$
+^\.Rproj\.user$
