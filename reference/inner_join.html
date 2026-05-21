@@ -43,7 +43,7 @@ A full_join() keeps all observations in x and y.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">tidySpatialExperiment</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.4</span>
       </span>
     </div>
 
@@ -333,27 +333,18 @@ individual methods for extra arguments and differences in behaviour.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    section2      lowres   ####   0.0510334</span>
 <span class="r-in"><span><span class="va">spe</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>    <span class="fu">inner_join</span><span class="op">(</span></span></span>
-<span class="r-in"><span>        <span class="va">spe</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>            <span class="fu"><a href="filter.html">filter</a></span><span class="op">(</span><span class="va">in_tissue</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>            <span class="fu"><a href="mutate.html">mutate</a></span><span class="op">(</span>new_column <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-in"><span>        <span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(.cell, in_tissue, array_row, array_col, sample_id)`</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(.cell, in_tissue, array_row, array_col, sample_id)`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A SpatialExperiment-tibble abstraction: 22 × 8</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># </span><span style="color: #555555;">Features = 50 | Cells = 22 | Assays = counts</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    .cell   in_tissue array_row array_col sample_id new_column pxl_col_in_fullres</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> AAACAA… TRUE             50       102 section1           1               <span style="text-decoration: underline;">8</span>230</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> AAACAA… TRUE              3        43 section1           1               <span style="text-decoration: underline;">4</span>170</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> AAACAC… TRUE             59        19 section1           1               <span style="text-decoration: underline;">2</span>519</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> AAACAG… TRUE             14        94 section1           1               <span style="text-decoration: underline;">7</span>679</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> AAACCG… TRUE             42        28 section1           1               <span style="text-decoration: underline;">3</span>138</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> AAACCG… TRUE             52        42 section1           1               <span style="text-decoration: underline;">4</span>101</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> AAACCT… TRUE             37        19 section1           1               <span style="text-decoration: underline;">2</span>519</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> AAACGA… TRUE              6        64 section1           1               <span style="text-decoration: underline;">5</span>615</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> AAACGA… TRUE             35        79 section1           1               <span style="text-decoration: underline;">6</span>647</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> AAACGG… TRUE             67        59 section1           1               <span style="text-decoration: underline;">5</span>271</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 12 more rows</span></span>
+<span class="r-in"><span>         <span class="fu">tibble</span><span class="op">(</span></span></span>
+<span class="r-in"><span>             .cell <span class="op">=</span> <span class="st">"AAACAACGAATAGTTC-1"</span>, </span></span>
+<span class="r-in"><span>             new_colum <span class="op">=</span> <span class="st">"test"</span></span></span>
+<span class="r-in"><span>         <span class="op">)</span></span></span>
+<span class="r-in"><span>     <span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(.cell)`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Joining with `by = join_by(.cell)`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A SpatialExperiment-tibble abstraction: 1 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># </span><span style="color: #555555;">Features = 50 | Cells = 1 | Assays = counts</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .cell     in_tissue array_row array_col sample_id new_colum pxl_col_in_fullres</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> AAACAACG… FALSE             0        16 section1  test                    <span style="text-decoration: underline;">2</span>312</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 1 more variable: pxl_row_in_fullres &lt;int&gt;</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
