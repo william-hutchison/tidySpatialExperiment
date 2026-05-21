@@ -1,7 +1,7 @@
 Type: Package
 Package: tidySpatialExperiment
 Title: SpatialExperiment with tidy principles 
-Version: 1.7.2
+Version: 1.7.4
 Authors@R: c(
     person("William", "Hutchison", email = "hutchison.w@wehi.edu.au", role = c("aut", "cre"), 
            comment = c(ORCID = "0009-0001-6242-4269")),
@@ -16,7 +16,7 @@ Depends:
     R (>= 4.3.0),
     SpatialExperiment,
     tidySingleCellExperiment,
-    ttservice
+    ttservice  
 Imports:
     SummarizedExperiment,
     SingleCellExperiment,
@@ -57,8 +57,8 @@ VignetteBuilder:
 Biarch: true
 biocViews: Infrastructure, RNASeq, GeneExpression, Sequencing, Spatial, Transcriptomics, SingleCell
 Encoding: UTF-8
-RoxygenNote: 7.3.3
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/william-hutchison/tidySpatialExperiment, https://william-hutchison.github.io/tidySpatialExperiment/
 BugReports: https://github.com/william-hutchison/tidySpatialExperiment/issues
 LazyData: true
+Config/roxygen2/version: 8.0.0

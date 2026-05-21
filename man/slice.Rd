@@ -37,6 +37,12 @@ each group.
 Slice does not work with relational databases because they have no
 intrinsic notion of row order. If you want to perform the equivalent
 operation, use \code{\link[dplyr:filter]{filter()}} and \code{\link[dplyr:row_number]{row_number()}}.
+
+For \code{slice_sample()}, note that the weights provided in \code{weight_by} are
+passed through to the \code{prob} argument of \code{\link[base:sample]{base::sample.int()}}. This means
+they cannot be used to reconstruct summary statistics from the underlying
+population. See \href{https://stats.stackexchange.com/q/639211/}{this discussion}
+for more details.
 }
 \section{Methods}{
 
@@ -63,10 +69,10 @@ spe |>
    slice(1)
 }
 \seealso{
-Other single table verbs: 
-\code{\link{arrange}()},
-\code{\link{mutate}()},
-\code{\link{rename}()},
-\code{\link{summarise}()}
+Other single table verbs:
+\code{\link{arrange}},
+\code{\link{mutate}},
+\code{\link{rename}},
+\code{\link{summarise}}
 }
 \concept{single table verbs}

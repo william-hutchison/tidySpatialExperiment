@@ -159,13 +159,13 @@ Methods available in currently loaded packages:
 
 \examples{
 example(read10xVisium)
-
 spe |>
     right_join(
-        spe |>
-            filter(in_tissue == TRUE) |>
-            mutate(new_column = 1)
-        )
+         tibble(
+             .cell = "AAACAACGAATAGTTC-1", 
+             new_colum = "test"
+         )
+     )
 
 }
 \seealso{

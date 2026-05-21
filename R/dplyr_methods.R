@@ -146,12 +146,15 @@ mutate.SpatialExperiment <- function(.data, ...) {
 #' example(read10xVisium)
 #' spe |>
 #'     left_join(
-#'         spe |>
-#'             filter(in_tissue == TRUE) |>
-#'             mutate(new_column = 1)
-#'         )
+#'          tibble(
+#'              .cell = "AAACAACGAATAGTTC-1", 
+#'              new_colum = "test"
+#'          )
+#'      )
 #' 
 #' @importFrom SummarizedExperiment colData
+#' @importFrom tibble as_tibble
+#' @importFrom tibble add_column
 #' @importFrom dplyr left_join
 #' @importFrom dplyr count
 #' @export
@@ -162,18 +165,35 @@ left_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix = 
     if (is_sample_feature_deprecated_used(x, when(by, !is.null(.) ~ by, ~ colnames(y)))) {
         x <- ping_old_special_column_into_metadata(x)
     }
+
+    # Convert y colData to tibble format, return error message or continue with supplied tibble
+    if (inherits(y, "SpatialExperiment")) {
+        y <-
+            y |>
+            colData() |>
+            tibble::as_tibble() |>
+            tibble::add_column(
+                .cell = rownames(colData(y)),
+                .before = 1
+            )
+    }
     
-    # Join colData and assign to the returned SpatialExperiment object's colData
+    if (! inherits(y, "tbl_df")) {
+        stop(
+            "tidySpatialExperiment says: `y` must be a tibble or a SpatialExperiment object."
+        )
+    }
+
+    # Join data and assign to the returned SpatialExperiment object's colData
     colData(x) <-
         x |>
         colData() |>
-        tibble::as_tibble(rownames = c_(x)$name) |>
-        dplyr::left_join(
-            y |>
-                colData() |>
-                tibble::as_tibble(rownames = c_(y)$name),
-            by = by, copy = copy, suffix = suffix, ...
+        tibble::as_tibble() |>
+        tibble::add_column(
+            .cell = rownames(colData(x)),
+            .before = 1
         ) |>
+        dplyr::left_join(y, by = by, copy = copy, suffix = suffix, ...) |>
         as_meta_data(x)
     x
 }
@@ -186,52 +206,74 @@ left_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix = 
 #' example(read10xVisium)
 #' spe |>
 #'     inner_join(
-#'         spe |>
-#'             filter(in_tissue == TRUE) |>
-#'             mutate(new_column = 1)
-#'         )
+#'          tibble(
+#'              .cell = "AAACAACGAATAGTTC-1", 
+#'              new_colum = "test"
+#'          )
+#'      )
 #' 
 #' @importFrom SummarizedExperiment colData
+#' @importFrom tibble as_tibble
+#' @importFrom tibble add_column
 #' @importFrom dplyr inner_join
+#' @importFrom dplyr left_join
+#' @importFrom dplyr semi_join
 #' @importFrom dplyr pull
 #' @export
 inner_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"), 
                                          ...) {
   
     # Deprecation of special column names
-    if (is_sample_feature_deprecated_used(x, when(by, !is.null(.) ~ by, ~ colnames(y)))) {
-       x <- ping_old_special_column_into_metadata(x)
-    }
-    
-    # Join colData and attach to the smaller SpatialExperimemt object's colData
-    if (ncol(x) < ncol(y)) {
-        colData(x) <-
-            x |>
-            colData() |>
-            tibble::as_tibble(rownames = c_(x)$name) |>
-            dplyr::left_join(
-                y |>
-                    colData() |>
-                    tibble::as_tibble(rownames = c_(y)$name),
-                by = by, copy = copy, suffix = suffix, ...
-            ) |>
-            as_meta_data(x)
-        x
-      
-    } else {
-        colData(y) <-
+    if (is_sample_feature_deprecated_used(x, when(by, !is.null(.) ~ by, ~ colnames(y))) ) {
+        x <- ping_old_special_column_into_metadata(x)
+    }        
+
+    # Convert y colData to tibble format, return error message or continue with supplied tibble
+    if (inherits(y, "SpatialExperiment")) {
+        y <-
             y |>
             colData() |>
-            tibble::as_tibble(rownames = c_(y)$name) |>
-            dplyr::left_join(
-                x |>
-                    colData() |>
-                    tibble::as_tibble(rownames = c_(x)$name),
-                by = by, copy = copy, suffix = suffix, ...
-            ) |>
-            as_meta_data(y)
-        y
+            tibble::as_tibble() |>
+            tibble::add_column(
+                .cell = rownames(colData(y)),
+                .before = 1
+            )
     }
+
+    if (! inherits(y, "tbl_df")) {
+        stop(
+            "tidySpatialExperiment says: `y` must be a tibble or a SpatialExperiment object."
+        )
+    }
+
+    # Filter x to overlapping rows with y, using semi_join to handle `by` naturally
+    keep_idx <- 
+        x |>
+        colData() |>
+        tibble::as_tibble() |>
+         tibble::add_column(
+            .cell = rownames(colData(x)),
+            .before = 1
+        ) |>
+        tibble::add_column(.idx = seq_len(ncol(x))) |>
+        dplyr::semi_join(y, by = by) |>
+        dplyr::pull(.idx)
+    
+    x <-
+        x[, keep_idx]
+
+    # Join data and assign to the returned SpatialExperiment object's colData
+    colData(x) <-
+        x |>
+        colData() |>
+        tibble::as_tibble() |>
+        tibble::add_column(
+            .cell = rownames(colData(x)),
+            .before = 1
+        ) |>
+        dplyr::left_join(y, by = by, copy = copy, suffix = suffix, ...) |>
+        as_meta_data(x)
+    x
 }
 
 #' @name right_join
@@ -240,39 +282,68 @@ inner_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
 #'
 #' @examples
 #' example(read10xVisium)
-#' 
 #' spe |>
 #'     right_join(
-#'         spe |>
-#'             filter(in_tissue == TRUE) |>
-#'             mutate(new_column = 1)
-#'         )
+#'          tibble(
+#'              .cell = "AAACAACGAATAGTTC-1", 
+#'              new_colum = "test"
+#'          )
+#'      )
 #'
 #' @importFrom SummarizedExperiment colData
+#' @importFrom tibble as_tibble
+#' @importFrom tibble add_column
 #' @importFrom dplyr right_join
+#' @importFrom dplyr left_join
+#' @importFrom dplyr semi_join
 #' @importFrom dplyr pull
 #' @export
 right_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"),
                                          ...) {
-  
+
     # Deprecation of special column names
     if (is_sample_feature_deprecated_used(x, when(by, !is.null(.) ~ by, ~ colnames(y))) ) {
         x <- ping_old_special_column_into_metadata(x)
     }
-    
-    # Join colData and assign to the returned SpatialExperiment object's colData
-    colData(y) <-
-        y |>
+
+    if (! inherits(y, "tbl_df") && ! inherits(y, "SpatialExperiment")) {
+        stop(
+            "tidySpatialExperiment says: `y` must be a tibble or a SpatialExperiment object."
+        )
+    }
+
+    # Extract x colData as tibble
+    x_tibble <-
+        x |>
         colData() |>
-        tibble::as_tibble(rownames = c_(y)$name) |>
-        dplyr::left_join(
-            x |>
-                colData() |>
-                tibble::as_tibble(rownames = c_(x)$name),
-            by = by, copy = copy, suffix = suffix, ...
-        ) |>
-        as_meta_data(y)
-    y
+        tibble::as_tibble() |>
+        tibble::add_column(
+            .cell = rownames(colData(x)),
+            .before = 1
+        )
+
+    # If y is a SpatialExperiment object join x colData into y colData and return y
+    if (inherits(y, "SpatialExperiment")) {
+        y_tibble <-
+            y |>
+            colData() |>
+            tibble::as_tibble() |>
+            tibble::add_column(
+                .cell = rownames(colData(y)),
+                .before = 1
+            )
+
+        colData(y) <-
+            x_tibble |>
+            dplyr::right_join(y_tibble, by = by, copy = copy, suffix = suffix, ...) |>
+            as_meta_data(y)
+
+        return(y)
+    }
+
+    # If y is a tibble join x colData into y and return y
+    x_tibble |>
+        dplyr::right_join(y, by = by, copy = copy, suffix = suffix, ...)
 }
 
 #' @name select

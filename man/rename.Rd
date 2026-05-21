@@ -36,10 +36,10 @@ spe |>
     rename(in_liver = in_tissue)
 }
 \seealso{
-Other single table verbs: 
-\code{\link{arrange}()},
-\code{\link{mutate}()},
-\code{\link{slice}()},
-\code{\link{summarise}()}
+Other single table verbs:
+\code{\link{arrange}},
+\code{\link{mutate}},
+\code{\link{slice}},
+\code{\link{summarise}}
 }
 \concept{single table verbs}
