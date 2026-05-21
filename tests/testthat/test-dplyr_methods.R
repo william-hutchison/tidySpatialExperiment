@@ -124,13 +124,11 @@ test_that("right_join", {
   
     spe |>
         right_join(tribble(~ .cell, ~ new_column, "AAACAACGAATAGTTC-1", "test")) |>
-        colData() |>
         ncol() |>
-        expect_equal(5)
+        expect_equal(6)
 
     spe |>
         right_join(tribble(~ .cell, ~ new_column, "AAACAACGAATAGTTC-1", "test")) |>
-        colData() |>
         nrow() |>
         expect_equal(1)
 })
