@@ -167,7 +167,7 @@ left_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix = 
     }
 
     # Convert y colData to tibble format, return error message or continue with supplied tibble
-    if (inherits(y, "SingleCellExperiment") | inherits(y, "SpatialExperiment")) {
+    if (inherits(y, "SpatialExperiment")) {
         y <-
             y |>
             colData() |>
@@ -180,8 +180,7 @@ left_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix = 
     
     if (! inherits(y, "tbl_df")) {
         stop(
-            "tidySpatialExperiment says: `y` must be a tibble, a SpatialExperiment object or a 
-            SingleCellExperiment object."
+            "tidySpatialExperiment says: `y` must be a tibble or a SpatialExperiment object."
         )
     }
 
@@ -230,7 +229,7 @@ inner_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
     }        
 
     # Convert y colData to tibble format, return error message or continue with supplied tibble
-    if (inherits(y, "SingleCellExperiment") | inherits(y, "SpatialExperiment")) {
+    if (inherits(y, "SpatialExperiment")) {
         y <-
             y |>
             colData() |>
@@ -243,8 +242,7 @@ inner_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
 
     if (! inherits(y, "tbl_df")) {
         stop(
-            "tidySpatialExperiment says: `y` must be a tibble, a SpatialExperiment object or a 
-            SingleCellExperiment object."
+            "tidySpatialExperiment says: `y` must be a tibble or a SpatialExperiment object."
         )
     }
 
@@ -308,10 +306,9 @@ right_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
         x <- ping_old_special_column_into_metadata(x)
     }
 
-    if (!inherits(y, "tbl_df") && !inherits(y, "SingleCellExperiment") && !inherits(y, "SpatialExperiment")) {
+    if (! inherits(y, "tbl_df") && ! inherits(y, "SpatialExperiment")) {
         stop(
-            "tidySpatialExperiment says: `y` must be a tibble, a SpatialExperiment object or a
-            SingleCellExperiment object."
+            "tidySpatialExperiment says: `y` must be a tibble or a SpatialExperiment object."
         )
     }
 
@@ -325,8 +322,8 @@ right_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
             .before = 1
         )
 
-    # If y is SPE or SCE join x colData into y colData and return y
-    if (inherits(y, "SingleCellExperiment") | inherits(y, "SpatialExperiment")) {
+    # If y is a SpatialExperiment object join x colData into y colData and return y
+    if (inherits(y, "SpatialExperiment")) {
         y_tibble <-
             y |>
             colData() |>
@@ -344,7 +341,7 @@ right_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
         return(y)
     }
 
-    # If y is a tibble return tibble with x colData joined
+    # If y is a tibble join x colData into y and return y
     x_tibble |>
         dplyr::right_join(y, by = by, copy = copy, suffix = suffix, ...)
 }
