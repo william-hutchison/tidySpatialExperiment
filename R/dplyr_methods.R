@@ -302,15 +302,32 @@ inner_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
 #' @export
 right_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix = c(".x", ".y"),
                                          ...) {
-  
+
     # Deprecation of special column names
     if (is_sample_feature_deprecated_used(x, when(by, !is.null(.) ~ by, ~ colnames(y))) ) {
         x <- ping_old_special_column_into_metadata(x)
-    }        
+    }
 
-    # Convert y colData to tibble format, return error message or continue with supplied tibble
+    if (!inherits(y, "tbl_df") && !inherits(y, "SingleCellExperiment") && !inherits(y, "SpatialExperiment")) {
+        stop(
+            "tidySpatialExperiment says: `y` must be a tibble, a SpatialExperiment object or a
+            SingleCellExperiment object."
+        )
+    }
+
+    # Extract x colData as tibble
+    x_tibble <-
+        x |>
+        colData() |>
+        tibble::as_tibble() |>
+        tibble::add_column(
+            .cell = rownames(colData(x)),
+            .before = 1
+        )
+
+    # If y is SPE or SCE join x colData into y colData and return y
     if (inherits(y, "SingleCellExperiment") | inherits(y, "SpatialExperiment")) {
-        y <-
+        y_tibble <-
             y |>
             colData() |>
             tibble::as_tibble() |>
@@ -318,43 +335,18 @@ right_join.SpatialExperiment <- function(x, y, by = NULL, copy = FALSE, suffix =
                 .cell = rownames(colData(y)),
                 .before = 1
             )
+
+        colData(y) <-
+            x_tibble |>
+            dplyr::right_join(y_tibble, by = by, copy = copy, suffix = suffix, ...) |>
+            as_meta_data(y)
+
+        return(y)
     }
 
-    if (! inherits(y, "tbl_df")) {
-        stop(
-            "tidySpatialExperiment says: `y` must be a tibble, a SpatialExperiment object or a 
-            SingleCellExperiment object."
-        )
-    }
-
-    # Filter x to overlapping rows with y, using semi_join to handle `by` naturally
-    keep_idx <- 
-        x |>
-        colData() |>
-        tibble::as_tibble() |>
-         tibble::add_column(
-            .cell = rownames(colData(x)),
-            .before = 1
-        ) |>
-        tibble::add_column(.idx = seq_len(ncol(x))) |>
-        dplyr::semi_join(y, by = by) |>
-        dplyr::pull(.idx)
-    
-    x <-
-        x[, keep_idx]
-
-    # Join data and assign to the returned SpatialExperiment object's colData
-    colData(x) <-
-        x |>
-        colData() |>
-        tibble::as_tibble() |>
-        tibble::add_column(
-            .cell = rownames(colData(x)),
-            .before = 1
-        ) |>
-        dplyr::left_join(y, by = by, copy = copy, suffix = suffix, ...) |>
-        as_meta_data(x)
-    x
+    # If y is a tibble return tibble with x colData joined
+    x_tibble |>
+        dplyr::right_join(y, by = by, copy = copy, suffix = suffix, ...)
 }
 
 #' @name select
